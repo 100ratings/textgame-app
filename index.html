@@ -48,6 +48,7 @@
             padding: 20px 0;
             z-index: 1000;
             transition: transform 0.3s ease;
+            -webkit-overflow-scrolling: touch;
         }
 
         .sidebar.mobile-hidden {
@@ -70,69 +71,78 @@
         .sessao-item {
             padding: 0;
             margin: 0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .sessao-toggle {
-            display: block;
-            width: 100%;
+        .sessao-header-wrapper {
+            display: flex;
+            align-items: stretch;
+            background: #f8f9fa;
+        }
+
+        .sessao-title-btn {
+            flex: 1;
             padding: 12px 20px;
             color: #333;
-            background: #f8f9fa;
+            background: transparent;
             border: none;
             border-left: 4px solid transparent;
             text-align: left;
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+        }
+
+        .sessao-title-btn:hover {
+            color: #667eea;
+            background: #e8f0fe;
+        }
+
+        .sessao-arrow-btn {
+            width: 50px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            color: #999;
+            transition: all 0.2s ease;
         }
 
-        .sessao-toggle:hover {
-            background: #e8f0fe;
+        .sessao-arrow-btn:hover {
             color: #667eea;
-            border-left-color: #667eea;
-            padding-left: 25px;
-        }
-
-        .sessao-toggle.active {
             background: #e8f0fe;
-            color: #667eea;
-            border-left-color: #667eea;
         }
 
-        .sessao-toggle .arrow {
+        .sessao-arrow-btn .arrow {
             display: inline-block;
             transition: transform 0.3s ease;
             font-size: 12px;
         }
 
-        .sessao-toggle.active .arrow {
+        .sessao-arrow-btn.active .arrow {
             transform: rotate(90deg);
         }
 
         .cenarios-submenu {
             display: none;
             background: #fafafa;
-            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
         }
 
         .cenarios-submenu.open {
             display: block;
-            max-height: 500px;
         }
 
         .cenario-link {
             display: block;
-            padding: 8px 20px 8px 40px;
+            padding: 10px 20px 10px 40px;
             color: #555;
             text-decoration: none;
             border-left: 4px solid transparent;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-size: 13px;
             cursor: pointer;
         }
@@ -141,7 +151,6 @@
             background: #f0f0f0;
             color: #667eea;
             border-left-color: #667eea;
-            padding-left: 45px;
         }
 
         .cenario-link.active {
@@ -156,6 +165,7 @@
             margin-left: 280px;
             display: flex;
             flex-direction: column;
+            height: 100vh;
             overflow: hidden;
         }
 
@@ -167,6 +177,7 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 10;
         }
 
         .header h1 {
@@ -198,20 +209,12 @@
             background: #f0f0f0;
         }
 
-        .sync-status.syncing {
-            color: #667eea;
-            background: #e8f0fe;
-        }
-
-        .sync-status.error {
-            color: #dc3545;
-            background: #ffe8e8;
-        }
-
         .content-area {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
+            padding-bottom: 100px; /* Garantir que o final não seja cortado */
+            -webkit-overflow-scrolling: touch;
         }
 
         .container {
@@ -220,22 +223,25 @@
         }
 
         .sessao {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            scroll-margin-top: 80px;
         }
 
         .sessao-header {
             font-size: 24px;
             font-weight: bold;
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
         }
 
         .cenario {
             background: white;
             border-radius: 12px;
             padding: 25px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             scroll-margin-top: 100px;
         }
@@ -244,31 +250,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .cenario-titulo {
             font-size: 18px;
             font-weight: bold;
             color: #333;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 2px solid #667eea;
             flex: 1;
         }
 
         .cenario-edit-btn {
-            background: #667eea;
-            color: white;
+            background: #f0f0f0;
+            color: #666;
             border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 6px 10px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 11px;
             margin-left: 10px;
+            transition: all 0.2s;
         }
 
         .cenario-edit-btn:hover {
-            background: #764ba2;
+            background: #667eea;
+            color: white;
         }
 
         /* BLOCOS DE CONTEÚDO */
@@ -277,9 +285,10 @@
             padding: 12px 15px;
             border-radius: 8px;
             border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             line-height: 1.6;
             font-size: 14px;
+            position: relative;
         }
 
         .bloco.mensagem {
@@ -290,7 +299,23 @@
 
         .bloco.mensagem:hover {
             background: #e8f0fe;
-            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .bloco.mensagem::after {
+            content: '📋';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 12px;
+        }
+
+        .bloco.mensagem:hover::after {
+            opacity: 0.5;
         }
 
         .bloco.titulo {
@@ -299,16 +324,16 @@
             font-weight: bold;
             font-size: 15px;
             color: #333;
-            margin-top: 15px;
-            margin-bottom: 8px;
+            margin-top: 20px;
+            margin-bottom: 10px;
             padding: 8px 0;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 1px dashed #667eea;
         }
 
         .bloco.nota {
-            background: #f5f5f5;
-            border-left-color: #999;
-            color: #666;
+            background: #fff9db;
+            border-left-color: #fcc419;
+            color: #856404;
             font-style: italic;
             font-size: 13px;
         }
@@ -318,14 +343,15 @@
             border-left-color: #4caf50;
             color: #2e7d32;
             font-size: 13px;
+            margin-left: 20px;
         }
 
         .bloco.mensagem.copiado {
-            background: #d4edda;
-            border-left-color: #28a745;
+            background: #d4edda !important;
+            border-left-color: #28a745 !important;
         }
 
-        /* MODAL DE EDIÇÃO */
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -334,8 +360,8 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
         }
 
         .modal.active {
@@ -346,186 +372,71 @@
 
         .modal-content {
             background-color: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
             max-width: 700px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
+            width: 95%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 2px solid #667eea;
         }
 
         .modal-header h2 {
-            color: #333;
-            font-size: 22px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #999;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-        }
-
-        .close-btn:hover {
-            color: #333;
+            font-size: 18px;
         }
 
         .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
             margin-bottom: 15px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-            font-size: 14px;
-        }
-
         .form-group textarea {
+            flex: 1;
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            min-height: 300px;
-            resize: vertical;
-        }
-
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-help {
-            background: #f0f0f0;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            font-family: inherit;
+            font-size: 14px;
+            min-height: 250px;
+            resize: none;
         }
 
         .modal-buttons {
             display: flex;
             gap: 10px;
             justify-content: flex-end;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #764ba2;
-        }
-
-        .btn-secondary {
-            background: #999;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #777;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
         }
 
         /* Mobile */
         @media (max-width: 768px) {
             .sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 60vh;
-                border-right: none;
-                border-bottom: 1px solid #ddd;
+                transform: translateX(-100%);
+                width: 85%;
             }
-
-            .sidebar.mobile-hidden {
-                display: none;
+            .sidebar.active {
+                transform: translateX(0);
             }
-
             .main-content {
                 margin-left: 0;
             }
-
-            .app-container {
-                flex-direction: column;
-            }
-
             .menu-toggle {
                 display: block;
             }
-
-            .header {
-                padding: 10px 15px;
-            }
-
             .header h1 {
-                font-size: 16px;
-            }
-
-            .content-area {
-                padding: 15px;
-            }
-
-            .cenario {
-                padding: 15px;
-            }
-
-            .bloco {
-                font-size: 13px;
-            }
-
-            .modal-content {
-                width: 95%;
+                font-size: 18px;
             }
         }
     </style>
@@ -539,10 +450,10 @@
 
         <div class="main-content">
             <div class="header">
+                <button class="menu-toggle" id="menuToggle">☰</button>
                 <h1>🎮 Text Game</h1>
                 <div class="header-buttons">
                     <div class="sync-status" id="syncStatus">Sincronizado</div>
-                    <button class="menu-toggle" id="menuToggle">☰</button>
                 </div>
             </div>
             <div class="content-area" id="contentArea"></div>
@@ -553,22 +464,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Editar Cenário</h2>
-                <button class="close-btn" onclick="fecharModal()">✕</button>
-            </div>
-            <div class="form-help">
-                <strong>Dicas de Formatação:</strong><br>
-                • Texto normal = Mensagem (copiável)<br>
-                • <code>### Título</code> = Título (não copiável)<br>
-                • <code>(nota)</code> ou <code>> nota</code> = Nota (não copiável)<br>
-                • <code>- Resposta</code> = Resposta dela (não copiável)
+                <button style="background:none; border:none; font-size:24px; cursor:pointer;" onclick="fecharModal()">✕</button>
             </div>
             <div class="form-group">
-                <label for="editText">Conteúdo do Cenário:</label>
-                <textarea id="editText" placeholder="Digite o conteúdo..."></textarea>
+                <textarea id="editText"></textarea>
             </div>
             <div class="modal-buttons">
-                <button class="btn-primary" onclick="salvarEdicao()">✓ Salvar</button>
-                <button class="btn-secondary" onclick="fecharModal()">✕ Cancelar</button>
+                <button style="background:#667eea; color:white; padding:10px 20px; border-radius:6px; border:none; font-weight:bold; cursor:pointer;" onclick="salvarEdicao()">✓ Salvar</button>
+                <button style="background:#999; color:white; padding:10px 20px; border-radius:6px; border:none; font-weight:bold; cursor:pointer;" onclick="fecharModal()">✕ Cancelar</button>
             </div>
         </div>
     </div>
@@ -576,51 +479,13 @@
     <script>
         let GITHUB_TOKEN = localStorage.getItem('gh_token');
         const GITHUB_REPO = 'textgame-app';
-        let dados = [
-  {
-    "sessao": "01 OPENER'S",
-    "cenarios": [
-      {
-        "titulo": "OPENER (PÓS-ABORDAGEM)",
-        "conteudo": "Oi senhorita tímida do sorriso encantador rsrs, aqui é o Demian… salva meu número, vai ser importante pra você 😎\nAssim que vi você lá andando em câmera lenta que nem aquelas muié de comercial de shampoo, senti no coração de falar com você rsrs, quase ouvi uma voz dizendo assim: \"ela tem cara de brava, mas é gente boa kkk, vai lá e diz um oi rsrs\", então... oi né? Hahaha\n- Oi\nAi ai caramba, não tinha me preparado pra essa parte kkk, na verdade achei que nem fosse responder rsrs, mas no fundo eu sabia que você não era só mais um rostinho bonito perdido no meio da multidão kkkkkk, e aí beleza?\nFoto de modelo, gostei hehe, duvido adivinhar como anotei seu nome rsrs\n- Obrigada ahaha\nHaha por nada, achei você divertida, tem uma energia boa rsrs\nJá está em casa?\n- Bom saber disso, ainda não\nEu fiquei um pouco sem jeito de falar com você rsrs, confesso! Mas sim, foi divertido\nEu achei de chegar\nEnfim... contei pra minha minha mãe que falei com uma muié no meio da rua kkk, e ela achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai 🙈\nEntão né rsrs, ela quer saber se além de fofa... você também saberia fazer brigadeiro, massagem e principalmente se também é romântica que nem o filho dela hahaha, na verdade eu também estou um pouco curioso... será será será? Não teve nenhuma pergunta minha aí não viu? Kkkk\nMeu deus 😱... não creio nisso... te achei rsrs, onde você tava muié? Haha te procurei em todos os lugares, fui parar lá no Acre e nada de você também kkkk, tava presa é? Rsrs"
-      },
-      {
-        "titulo": "OPENER (REX 1)",
-        "conteudo": "Seu perfil surgiu aqui na tela e senti no coração de falar com você rsrs, quase ouvi uma voz dizendo assim \"ela tem cara de brava, mas é gente boa kkk, vai lá e diz um oi rsrs\", então... Oi hahaha\nAi ai caramba, não tinha me preparado pra essa parte kkk, na verdade achei que nem fosse responder rsrs, mas no fundo eu sabia que você não era só mais um rostinho bonito perdido no meio da multidão kkkkkk, e aí beleza?\nEnfim... estava fuçando seu perfil e minha mãe acabou vendo também e te achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai 🙈\nEntão né rsrs, ela quer saber se além de fofa... você também saberia fazer brigadeiro, massagem e principalmente se também é romântica que nem o filho dela hahaha, na verdade eu também estou um pouco curioso... será será será? Não teve nenhuma pergunta minha aí não viu? Kkkk\nMeu deus 😱... não creio nisso... te achei rsrs, onde você tava muié? Haha te procurei em todos os lugares, fui parar lá em \"nárnia\" e nada de você também kkkk... tava presa é? Rsrs\nHaha ai ai... você parece ser diferente de todas que já conversei por aqui... sei lá, parece pelo menos rsrs, tive uma ideia... posso dizer? Tu vai gostar acho...\nEstava pensando \"cá com meus botões\" haha, acho que whatsapp combina mais com a gente né? But estava meio com receio de pedir e você achar que sou igual os outros caras que te pedem \"nudes e etc\", mais prático no whatsapp não acha? E também tem outro problema, entro pouco aqui 🙊🙈"
-      }
-    ]
-  },
-  {
-    "sessao": "02 ROTINAS",
-    "cenarios": [
-      {
-        "titulo": "MÚLTIPLAS SENSAÇÕES",
-        "conteudo": "Hum, posso te fazer uma pergunta?\nÉééééé... você está solteira mesmo?\nKkkkk, tem algo um pouco estranho nisso 🤔\nAhhh, sei lá, de início achei que era tipo aquelas bonitonas que recebem um monte de mensagem por dia e não responde ninguém sabe?\nMas você parece ser muito simpática, bem-humorada, meio tímida também haha, mas é gente boa\nO que me leva a próxima pergunta… o que tem feito que eles estão correndo de você? E fala verdade kkkk\nHummm... vamos tentar analisar juntos isso aí, estou curioso rsrs, você é ciumenta, tem chulé ou é algum tipo de pervertida? Haha\nHahahaha, você usa aquelas \"melissa\"? 👠\nKkkkkk, sabe que aquele cheirinho de tutti-frutti só tem na loja né? Rsrs\nLiga não, sou brincalhão rsrs, tô numa fase muito boa da minha vida e deixo pra ser sério só quando é preciso mesmo, não quis ofender nem nada, é meu jeito só viu hehe, você também é bem humorada ou é pavio curto?\nHummm, que bom que temos algo em comum rsrs, só falta me dizer que também curte cinema, rolê no parque e comer algodão doce kkkk, será será será?"
-      }
-    ]
-  },
-  {
-    "sessao": "Testando",
-    "cenarios": [
-      {
-        "titulo": "QUANDO ELA RESPONDEU E DEPOIS PAROU",
-        "conteudo": "### Opção 1 (mais leve)\nKkkkk descobri uma coisa sobre você 😒\nVocê começa toda gente boa… depois simplesmente desaparece da conversa como se nada tivesse acontecido\nTô começando a achar isso meio suspeito 😂\n### Opção 2 (mais provocativa)\nDenúncia.\nVocê me deixou falando sozinho e foi viver a própria vida.\nConfesso que esperava mais comprometimento dessa amizade de 24 horas 😂\n### Opção 3 (gera bastante resposta)\nTenho uma dúvida...\nVocê costuma esquecer de responder as pessoas...\n...ou resolveu testar minha paciência especificamente? 😂"
-      },
-      {
-        "titulo": "PEGAR O INSTAGRAM NO FACEBOOK NAMORO",
-        "conteudo": "Kkkkk gostei, respondeu melhor do que eu esperava\nMas vamos fazer uma coisa sensata antes desse app fingir que não existimos mais\nMe passa seu insta, quero ver se vc é simpática assim fora daqui também 💁🏻‍♂️"
-      }
-    ]
-  }
-];
+        let dados = [];
         let editandoItem = null;
 
         async function inicializar() {
             if (!GITHUB_TOKEN) {
-                GITHUB_TOKEN = prompt('Por favor, insira seu GitHub Token para sincronizar (ele ficará salvo apenas neste dispositivo):');
-                if (GITHUB_TOKEN) {
-                    localStorage.setItem('gh_token', GITHUB_TOKEN);
-                }
+                GITHUB_TOKEN = prompt('Por favor, insira seu GitHub Token:');
+                if (GITHUB_TOKEN) localStorage.setItem('gh_token', GITHUB_TOKEN);
             }
             await carregarDados();
             renderizar();
@@ -628,7 +493,7 @@
         }
 
         async function carregarDados() {
-            atualizarStatus('Carregando...', 'syncing');
+            atualizarStatus('Carregando...', '#667eea');
             try {
                 const userResponse = await fetch('https://api.github.com/user', {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
@@ -643,14 +508,19 @@
                 const fileData = await response.json();
                 const content = decodeURIComponent(escape(atob(fileData.content)));
                 dados = JSON.parse(content);
-                
-                atualizarStatus('Sincronizado', 'success');
+                atualizarStatus('Sincronizado', '#28a745');
             } catch (error) {
-                console.error('Erro ao carregar dados:', error);
-                const response = await fetch('dados.json');
-                dados = await response.json();
-                atualizarStatus('Modo Local', 'error');
+                console.error('Erro ao carregar:', error);
+                const localResp = await fetch('dados.json');
+                dados = await localResp.json();
+                atualizarStatus('Modo Local', '#dc3545');
             }
+        }
+
+        function atualizarStatus(texto, cor) {
+            const status = document.getElementById('syncStatus');
+            status.textContent = texto;
+            status.style.color = cor;
         }
 
         function analisarBlocos(texto) {
@@ -683,17 +553,30 @@
             sidebarMenu.innerHTML = '';
 
             dados.forEach((sessao, sessaoIdx) => {
+                // Sidebar
                 const sessaoItem = document.createElement('li');
                 sessaoItem.className = 'sessao-item';
-                const toggle = document.createElement('button');
-                toggle.className = 'sessao-toggle';
-                toggle.innerHTML = `${sessao.sessao} <span class="arrow">▶</span>`;
-                toggle.onclick = () => {
-                    toggle.classList.toggle('active');
+                
+                const wrapper = document.createElement('div');
+                wrapper.className = 'sessao-header-wrapper';
+                
+                const titleBtn = document.createElement('button');
+                titleBtn.className = 'sessao-title-btn';
+                titleBtn.textContent = sessao.sessao;
+                titleBtn.onclick = () => scrollToSessao(sessaoIdx);
+                
+                const arrowBtn = document.createElement('button');
+                arrowBtn.className = 'sessao-arrow-btn';
+                arrowBtn.innerHTML = '<span class="arrow">▶</span>';
+                arrowBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    arrowBtn.classList.toggle('active');
                     submenu.classList.toggle('open');
                 };
+                
                 const submenu = document.createElement('div');
                 submenu.className = 'cenarios-submenu';
+                
                 sessao.cenarios.forEach((cenario, cenarioIdx) => {
                     const link = document.createElement('a');
                     link.className = 'cenario-link';
@@ -701,18 +584,24 @@
                     link.onclick = () => scrollToCenario(sessaoIdx, cenarioIdx);
                     submenu.appendChild(link);
                 });
-                sessaoItem.appendChild(toggle);
+                
+                wrapper.appendChild(titleBtn);
+                wrapper.appendChild(arrowBtn);
+                sessaoItem.appendChild(wrapper);
                 sessaoItem.appendChild(submenu);
                 sidebarMenu.appendChild(sessaoItem);
 
+                // Content
                 const sessaoDiv = document.createElement('div');
                 sessaoDiv.className = 'sessao';
                 sessaoDiv.id = `sessao-${sessaoIdx}`;
                 sessaoDiv.innerHTML = `<div class="sessao-header">${sessao.sessao}</div>`;
+                
                 sessao.cenarios.forEach((cenario, cenarioIdx) => {
                     const cenarioDiv = document.createElement('div');
                     cenarioDiv.className = 'cenario';
                     cenarioDiv.id = `cenario-${sessaoIdx}-${cenarioIdx}`;
+                    
                     const header = document.createElement('div');
                     header.className = 'cenario-header';
                     header.innerHTML = `
@@ -720,15 +609,16 @@
                         <button class="cenario-edit-btn" onclick="abrirEdicao(${sessaoIdx}, ${cenarioIdx})">✏️ Editar</button>
                     `;
                     cenarioDiv.appendChild(header);
+                    
                     const blocos = analisarBlocos(cenario.conteudo);
                     blocos.forEach(bloco => {
-                        const blocoDiv = document.createElement('div');
-                        blocoDiv.className = `bloco ${bloco.tipo}`;
-                        blocoDiv.textContent = bloco.conteudo;
+                        const bDiv = document.createElement('div');
+                        bDiv.className = `bloco ${bloco.tipo}`;
+                        bDiv.textContent = bloco.conteudo;
                         if (bloco.tipo === 'mensagem') {
-                            blocoDiv.onclick = () => copiarMensagem(bloco.conteudo, blocoDiv);
+                            bDiv.onclick = () => copiarMensagem(bloco.conteudo, bDiv);
                         }
-                        cenarioDiv.appendChild(blocoDiv);
+                        cenarioDiv.appendChild(bDiv);
                     });
                     sessaoDiv.appendChild(cenarioDiv);
                 });
@@ -736,31 +626,30 @@
             });
         }
 
-        function copiarMensagem(texto, elemento) {
+        function scrollToSessao(idx) {
+            const el = document.getElementById(`sessao-${idx}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('active');
+        }
+
+        function scrollToCenario(sIdx, cIdx) {
+            const el = document.getElementById(`cenario-${sIdx}-${cIdx}`);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('active');
+        }
+
+        function copiarMensagem(texto, el) {
             navigator.clipboard.writeText(texto).then(() => {
-                elemento.classList.add('copiado');
-                atualizarStatus('Copiado!', 'success');
-                setTimeout(() => {
-                    elemento.classList.remove('copiado');
-                    atualizarStatus('Sincronizado', 'success');
-                }, 2000);
+                el.classList.add('copiado');
+                const originalText = el.textContent;
+                setTimeout(() => el.classList.remove('copiado'), 1500);
             });
         }
 
-        function abrirEdicao(sessaoIdx, cenarioIdx) {
-            editandoItem = { sessaoIdx, cenarioIdx };
-            document.getElementById('editText').value = dados[sessaoIdx].cenarios[cenarioIdx].conteudo;
+        function abrirEdicao(sIdx, cIdx) {
+            editandoItem = { sIdx, cIdx };
+            document.getElementById('editText').value = dados[sIdx].cenarios[cIdx].conteudo;
             document.getElementById('editModal').classList.add('active');
-        }
-
-        async function salvarEdicao() {
-            if (!editandoItem) return;
-            const novoConteudo = document.getElementById('editText').value.trim();
-            if (!novoConteudo) return;
-            dados[editandoItem.sessaoIdx].cenarios[editandoItem.cenarioIdx].conteudo = novoConteudo;
-            fecharModal();
-            renderizar();
-            await sincronizarGitHub();
         }
 
         function fecharModal() {
@@ -768,16 +657,17 @@
             editandoItem = null;
         }
 
-        function scrollToCenario(sessaoIdx, cenarioIdx) {
-            const element = document.getElementById(`cenario-${sessaoIdx}-${cenarioIdx}`);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                if (window.innerWidth <= 768) document.getElementById('sidebar').classList.add('mobile-hidden');
-            }
+        async function salvarEdicao() {
+            if (!editandoItem) return;
+            const novo = document.getElementById('editText').value.trim();
+            dados[editandoItem.sIdx].cenarios[editandoItem.cIdx].conteudo = novo;
+            fecharModal();
+            renderizar();
+            await sincronizarGitHub();
         }
 
         async function sincronizarGitHub() {
-            atualizarStatus('Sincronizando...', 'syncing');
+            atualizarStatus('Sincronizando...', '#667eea');
             try {
                 const userResponse = await fetch('https://api.github.com/user', {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
@@ -785,34 +675,38 @@
                 const userData = await userResponse.json();
                 const username = userData.login;
                 const url = `https://api.github.com/repos/${username}/${GITHUB_REPO}/contents/dados.json`;
-                const fileResponse = await fetch(url, {
+                
+                const getFile = await fetch(url, {
                     headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
                 });
-                const fileData = await fileResponse.json();
+                const fileData = await getFile.json();
                 const sha = fileData.sha;
-                const novoConteudo = btoa(unescape(encodeURIComponent(JSON.stringify(dados, null, 2))));
+                
+                const content = btoa(unescape(encodeURIComponent(JSON.stringify(dados, null, 2))));
+                
                 await fetch(url, {
                     method: 'PUT',
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: 'Update via PWA', content: novoConteudo, sha: sha })
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update dados.json via Web App',
+                        content: content,
+                        sha: sha
+                    })
                 });
-                atualizarStatus('Sincronizado', 'success');
+                atualizarStatus('Sincronizado', '#28a745');
             } catch (error) {
-                console.error(error);
-                atualizarStatus('Erro', 'error');
+                console.error('Erro ao sincronizar:', error);
+                atualizarStatus('Erro ao salvar', '#dc3545');
             }
         }
 
-        function atualizarStatus(texto, classe) {
-            const status = document.getElementById('syncStatus');
-            status.textContent = texto;
-            status.className = 'sync-status ' + classe;
-        }
-
         function configurarEventos() {
-            document.getElementById('menuToggle').addEventListener('click', () => {
-                document.getElementById('sidebar').classList.toggle('mobile-hidden');
-            });
+            document.getElementById('menuToggle').onclick = () => {
+                document.getElementById('sidebar').classList.toggle('active');
+            };
         }
 
         inicializar();
