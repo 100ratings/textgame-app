@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Text Game">
+    <title>Text Game - Painel de Mensagens</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23667eea' width='192' height='192'/><text x='50%' y='50%' font-size='100' fill='white' text-anchor='middle' dy='.3em'>🎮</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+            overflow-y: auto;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-title {
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sessao-item {
+            padding: 0;
+            margin: 0;
+        }
+
+        .sessao-titulo {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            background: #f8f9fa;
+        }
+
+        .sessao-titulo:hover {
+            background: #e8f0fe;
+            color: #667eea;
+            border-left-color: #667eea;
+            padding-left: 25px;
+        }
+
+        .sessao-titulo.active {
+            background: #e8f0fe;
+            color: #667eea;
+            border-left-color: #667eea;
+        }
+
+        .cenario-link {
+            display: block;
+            padding: 8px 20px 8px 40px;
+            color: #555;
+            text-decoration: none;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .cenario-link:hover {
+            background: #f0f0f0;
+            color: #667eea;
+            border-left-color: #667eea;
+            padding-left: 45px;
+        }
+
+        .cenario-link.active {
+            background: #e8f0fe;
+            color: #667eea;
+            border-left-color: #667eea;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .sync-status {
+            font-size: 12px;
+            color: #999;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: #f0f0f0;
+        }
+
+        .sync-status.syncing {
+            color: #667eea;
+            background: #e8f0fe;
+        }
+
+        .sync-status.error {
+            color: #dc3545;
+            background: #ffe8e8;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .sessao {
+            margin-bottom: 40px;
+        }
+
+        .sessao-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .cenario {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            scroll-margin-top: 100px;
+        }
+
+        .cenario-titulo {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .mensagem {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mensagem:hover {
+            background: #e8f0fe;
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .mensagem-texto {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            word-break: break-word;
+        }
+
+        .mensagem-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background: #764ba2;
+        }
+
+        .btn-edit {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #218838;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .modal-header h2 {
+            color: #333;
+            font-size: 22px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                max-height: 60vh;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .sidebar.mobile-hidden {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            .app-container {
+                flex-direction: column;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header {
+                padding: 10px 15px;
+            }
+
+            .header h1 {
+                font-size: 16px;
+            }
+
+            .content-area {
+                padding: 15px;
+            }
+
+            .cenario {
+                padding: 15px;
+            }
+
+            .mensagem {
+                flex-direction: column;
+            }
+
+            .mensagem-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            button {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 14px;
+            }
+
+            .sessao-header {
+                font-size: 18px;
+            }
+
+            .cenario-titulo {
+                font-size: 16px;
+            }
+
+            .mensagem-texto {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-title">📑 Índice</div>
+            <ul class="sidebar-menu" id="sidebarMenu">
+                <!-- Preenchido dinamicamente -->
+            </ul>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="header">
+                <h1>🎮 Text Game</h1>
+                <div class="header-buttons">
+                    <div class="sync-status" id="syncStatus">Sincronizando...</div>
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                </div>
+            </div>
+
+            <div class="content-area" id="contentArea">
+                <!-- Preenchido dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE EDIÇÃO -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Mensagem</h2>
+                <button class="close-btn" onclick="fecharModal()">✕</button>
+            </div>
+
+            <div class="form-group">
+                <label for="editText">Conteúdo:</label>
+                <textarea id="editText" placeholder="Digite o conteúdo da mensagem"></textarea>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn-primary" onclick="salvarEdicao()">✓ Salvar</button>
+                <button class="btn-primary" style="background: #999;" onclick="fecharModal()">✕ Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GITHUB_TOKEN = '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';
+        const GITHUB_REPO = 'textgame-app'; // Nome do repositório a ser criado
+        let dados = [];
+        let editandoItem = null;
+
+        // Inicializar
+        async function inicializar() {
+            await carregarDados();
+            renderizar();
+            configurarEventos();
+        }
+
+        // Carregar dados
+        async function carregarDados() {
+            try {
+                const response = await fetch('dados.json');
+                dados = await response.json();
+                atualizarStatus('Sincronizado', 'success');
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                atualizarStatus('Erro ao sincronizar', 'error');
+            }
+        }
+
+        // Renderizar conteúdo
+        function renderizar() {
+            const contentArea = document.getElementById('contentArea');
+            const sidebarMenu = document.getElementById('sidebarMenu');
+
+            contentArea.innerHTML = '';
+            sidebarMenu.innerHTML = '';
+
+            dados.forEach((sessao, sessaoIdx) => {
+                // Adicionar ao sidebar
+                const sessaoItem = document.createElement('li');
+                sessaoItem.className = 'sessao-item';
+                sessaoItem.innerHTML = `
+                    <a class="sessao-titulo" onclick="scrollToSessao(${sessaoIdx})">${sessao.sessao}</a>
+                    <div id="cenarios-${sessaoIdx}"></div>
+                `;
+                sidebarMenu.appendChild(sessaoItem);
+
+                // Renderizar cenários no sidebar
+                const cenariosList = sessaoItem.querySelector(`#cenarios-${sessaoIdx}`);
+                sessao.cenarios.forEach((cenario, cenarioIdx) => {
+                    const link = document.createElement('a');
+                    link.className = 'cenario-link';
+                    link.textContent = cenario.titulo;
+                    link.onclick = () => scrollToCenario(sessaoIdx, cenarioIdx);
+                    cenariosList.appendChild(link);
+                });
+
+                // Adicionar ao conteúdo principal
+                const sessaoDiv = document.createElement('div');
+                sessaoDiv.className = 'sessao';
+                sessaoDiv.id = `sessao-${sessaoIdx}`;
+                sessaoDiv.innerHTML = `<div class="sessao-header">${sessao.sessao}</div>`;
+
+                sessao.cenarios.forEach((cenario, cenarioIdx) => {
+                    const cenarioDiv = document.createElement('div');
+                    cenarioDiv.className = 'cenario';
+                    cenarioDiv.id = `cenario-${sessaoIdx}-${cenarioIdx}`;
+                    cenarioDiv.innerHTML = `<div class="cenario-titulo">${cenario.titulo}</div>`;
+
+                    cenario.mensagens.forEach((msg, msgIdx) => {
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'mensagem';
+                        msgDiv.innerHTML = `
+                            <div class="mensagem-texto">${msg}</div>
+                            <div class="mensagem-actions">
+                                <button class="btn-copy" onclick="copiarMensagem('${msg.replace(/'/g, "\\'")}')">📋 Copiar</button>
+                                <button class="btn-edit" onclick="abrirEdicao(${sessaoIdx}, ${cenarioIdx}, ${msgIdx})">✏️ Editar</button>
+                                <button class="btn-delete" onclick="deletarMensagem(${sessaoIdx}, ${cenarioIdx}, ${msgIdx})">🗑️</button>
+                            </div>
+                        `;
+                        cenarioDiv.appendChild(msgDiv);
+                    });
+
+                    sessaoDiv.appendChild(cenarioDiv);
+                });
+
+                contentArea.appendChild(sessaoDiv);
+            });
+        }
+
+        // Copiar mensagem
+        function copiarMensagem(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                atualizarStatus('Copiado!', 'success');
+                setTimeout(() => atualizarStatus('Sincronizado', 'success'), 2000);
+            });
+        }
+
+        // Abrir edição
+        function abrirEdicao(sessaoIdx, cenarioIdx, msgIdx) {
+            editandoItem = { sessaoIdx, cenarioIdx, msgIdx };
+            const texto = dados[sessaoIdx].cenarios[cenarioIdx].mensagens[msgIdx];
+            document.getElementById('editText').value = texto;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        // Salvar edição
+        async function salvarEdicao() {
+            if (!editandoItem) return;
+
+            const novoTexto = document.getElementById('editText').value.trim();
+            if (!novoTexto) {
+                alert('Mensagem não pode estar vazia!');
+                return;
+            }
+
+            const { sessaoIdx, cenarioIdx, msgIdx } = editandoItem;
+            dados[sessaoIdx].cenarios[cenarioIdx].mensagens[msgIdx] = novoTexto;
+
+            fecharModal();
+            renderizar();
+            await sincronizarGitHub();
+        }
+
+        // Deletar mensagem
+        async function deletarMensagem(sessaoIdx, cenarioIdx, msgIdx) {
+            if (confirm('Tem certeza que quer deletar esta mensagem?')) {
+                dados[sessaoIdx].cenarios[cenarioIdx].mensagens.splice(msgIdx, 1);
+                renderizar();
+                await sincronizarGitHub();
+            }
+        }
+
+        // Fechar modal
+        function fecharModal() {
+            document.getElementById('editModal').classList.remove('active');
+            editandoItem = null;
+        }
+
+        // Scroll para seção
+        function scrollToSessao(idx) {
+            const element = document.getElementById(`sessao-${idx}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                fecharSidebarMobile();
+            }
+        }
+
+        // Scroll para cenário
+        function scrollToCenario(sessaoIdx, cenarioIdx) {
+            const element = document.getElementById(`cenario-${sessaoIdx}-${cenarioIdx}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                fecharSidebarMobile();
+            }
+        }
+
+        // Sincronizar com GitHub
+        async function sincronizarGitHub() {
+            atualizarStatus('Sincronizando...', 'syncing');
+            try {
+                const userResponse = await fetch('https://api.github.com/user', {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const userData = await userResponse.json();
+                const username = userData.login;
+                const path = 'dados.json';
+                const url = `https://api.github.com/repos/${username}/${GITHUB_REPO}/contents/${path}`;
+
+                // 1. Obter o SHA do arquivo atual
+                const fileResponse = await fetch(url, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const fileData = await fileResponse.json();
+                const sha = fileData.sha;
+
+                // 2. Preparar o novo conteúdo
+                const novoConteudo = b64EncodeUnicode(JSON.stringify(dados, null, 2));
+
+                // 3. Fazer o Update
+                const updateResponse = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update dados.json via PWA',
+                        content: novoConteudo,
+                        sha: sha
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    atualizarStatus('Sincronizado', 'success');
+                } else {
+                    throw new Error('Falha no upload');
+                }
+            } catch (error) {
+                console.error('Erro ao sincronizar:', error);
+                atualizarStatus('Erro ao sincronizar', 'error');
+            }
+        }
+
+        // Função auxiliar para Base64 com suporte a UTF-8
+        function b64EncodeUnicode(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+                function(match, p1) {
+                    return String.fromCharCode('0x' + p1);
+                }));
+        }
+
+        // Atualizar status
+        function atualizarStatus(texto, classe) {
+            const status = document.getElementById('syncStatus');
+            status.textContent = texto;
+            status.className = 'sync-status';
+            if (classe) status.classList.add(classe);
+        }
+
+        // Configurar eventos
+        function configurarEventos() {
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('mobile-hidden');
+            });
+
+            document.getElementById('editModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('editModal')) {
+                    fecharModal();
+                }
+            });
+        }
+
+        // Fechar sidebar no mobile
+        function fecharSidebarMobile() {
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.add('mobile-hidden');
+            }
+        }
+
+        // Iniciar
+        inicializar();
+    </script>
+</body>
+</html>
