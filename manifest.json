@@ -1,0 +1,21 @@
+{
+  "name": "Painel Mestre Text Game",
+  "short_name": "Painel Mestre",
+  "description": "Painel de mensagens rápidas para text game",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f0f2f5",
+  "theme_color": "#667eea",
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

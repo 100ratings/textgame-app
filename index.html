@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Painel Text Game - PWA</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Painel Mestre">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-muted: #666;
+            --warning-bg: #fff3cd;
+            --warning-text: #856404;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background: var(--bg-color); 
+            margin: 0;
+            padding: env(safe-area-inset-top) 15px 40px 15px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* Otimização específica para 1284x2778 (iPhone 12/13/14 Pro Max) */
+        @media screen and (max-width: 1284px) {
+            .container { width: 100%; max-width: 100%; }
+            h1 { font-size: 24px; margin: 20px 0; }
+            .msg { padding: 16px; font-size: 16px; } /* Texto maior para mobile */
+            .sessao-header { padding: 18px; font-size: 18px; }
+            .cenario-header { padding: 15px; font-size: 16px; }
+        }
+
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .controls { 
+            display: flex; 
+            justify-content: flex-end; 
+            margin-bottom: 15px; 
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .btn-collapse { 
+            background: var(--card-bg); 
+            border: 1px solid #ccc; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-size: 14px; 
+            color: var(--text-muted); 
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sessao { margin-bottom: 15px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); background: var(--card-bg); }
+        .sessao-header { background: var(--primary-color); color: white; padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .sessao-content { display: none; padding: 12px; }
+        
+        .cenario { margin-bottom: 12px; border: 1px solid #eee; border-radius: 10px; overflow: hidden; }
+        .cenario-header { background: #f8f9fa; padding: 12px; cursor: pointer; font-weight: bold; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .cenario-content { display: none; padding: 12px; }
+        
+        .msg { 
+            background: #e8f0fe; 
+            padding: 14px; 
+            border-radius: 12px; 
+            margin-bottom: 10px; 
+            border-left: 5px solid var(--primary-color); 
+            cursor: pointer; 
+            font-size: 15px;
+            transition: transform 0.1s, background 0.2s;
+            word-wrap: break-word;
+        }
+        .msg:active { transform: scale(0.98); background: #d0e3fc; }
+        .msg.copiado { background: #d4edda !important; border-left-color: #28a745 !important; color: #155724; font-weight: bold; text-align: center; }
+        
+        .aviso { background: var(--warning-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--warning-text); border: 1px solid #ffeeba; }
+        .sub { font-weight: bold; margin: 20px 0 10px 0; color: #444; border-bottom: 2px solid #eee; padding-bottom: 5px; font-size: 15px; }
+        .active { display: block !important; }
+        #raw-data { display: none; }
+
+        /* Feedback visual de cópia */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align:center; color:#333;">🎮 Painel Mestre</h1>
+        
+        <div class="controls">
+            <button class="btn-collapse" onclick="recolherTudo()">📂 Recolher Tudo</button>
+        </div>
+
+        <div id="app"></div>
+        
+        <div style="text-align:center; color:#999; font-size:11px; margin-top:40px; padding: 20px; border-top: 1px solid #ddd;">
+            Versão PWA Mobile - Otimizado para 1284x2778<br>
+            Edite o conteúdo no final do arquivo HTML.
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Copiado com sucesso!</div>
+
+    <script>
+        function processar() {
+            const rawElement = document.getElementById('raw-data');
+            if (!rawElement) return;
+            const raw = rawElement.textContent;
+            const app = document.getElementById('app');
+            const linhas = raw.split('\n');
+            
+            let html = '';
+            let emSessao = false;
+            let emCenario = false;
+
+            linhas.forEach(linha => {
+                linha = linha.trim();
+                if (!linha) return;
+
+                if (linha.startsWith('# ')) {
+                    if (emCenario) { html += '</div></div>'; emCenario = false; }
+                    if (emSessao) { html += '</div></div>'; }
+                    const titulo = linha.replace('# ', '');
+                    html += `<div class="sessao"><div class="sessao-header" onclick="t(this)">${titulo} <span>▼</span></div><div class="sessao-content">`;
+                    emSessao = true;
+                } else if (linha.startsWith('## ')) {
+                    if (emCenario) { html += '</div></div>'; }
+                    const titulo = linha.replace('## ', '');
+                    html += `<div class="cenario"><div class="cenario-header" onclick="t(this)">${titulo} <span>▼</span></div><div class="cenario-content">`;
+                    emCenario = true;
+                } else if (linha.startsWith('### ')) {
+                    html += `<div class="sub">${linha.replace('### ', '')}</div>`;
+                } else if (linha.startsWith('> ')) {
+                    html += `<div class="aviso">${linha.replace('> ', '')}</div>`;
+                } else if (linha.startsWith('---')) {
+                    html += '<hr style="border:0; border-top:1px solid #eee; margin:15px 0;">';
+                } else {
+                    html += `<div class="msg" onclick="c(this)">${linha}</div>`;
+                }
+            });
+
+            if (emCenario) html += '</div></div>';
+            if (emSessao) html += '</div></div>';
+            app.innerHTML = html;
+        }
+
+        function t(el) {
+            const content = el.nextElementSibling;
+            content.classList.toggle('active');
+            const span = el.querySelector('span');
+            span.textContent = content.classList.contains('active') ? '▲' : '▼';
+        }
+
+        function recolherTudo() {
+            document.querySelectorAll('.sessao-content, .cenario-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.sessao-header span, .cenario-header span').forEach(el => {
+                el.textContent = '▼';
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 1500);
+        }
+
+        function c(el) {
+            const txt = el.textContent;
+            if (el.classList.contains('copiado')) return;
+
+            navigator.clipboard.writeText(txt).then(() => {
+                el.classList.add('copiado');
+                const originalText = el.innerHTML;
+                el.textContent = '✅ Copiado!';
+                showToast();
+                setTimeout(() => {
+                    el.classList.remove('copiado');
+                    el.innerHTML = originalText;
+                }, 800);
+            }).catch(err => {
+                console.error('Erro ao copiar: ', err);
+            });
+        }
+
+        // Registrar Service Worker para PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    console.log('SW registrado!', reg);
+                }).catch(err => {
+                    console.log('SW falhou!', err);
+                });
+            });
+        }
+
+        window.onload = processar;
+    </script>
+
+<pre id="raw-data">
+
+# QUANDO ELA...
+## Respondeu algumas mensagens e depois parou:
+> Opção 1 (mais leve)
+Kkkkk descobri uma coisa sobre você 😒
+Você começa toda gente boa… depois simplesmente desaparece da conversa como se nada tivesse acontecido
+Tô começando a achar isso meio suspeito 😂
+> Opção 2 (mais provocativa)
+Denúncia
+Você me deixou falando sozinho e foi viver a própria vida
+Confesso que esperava mais comprometimento dessa amizade de 24 horas 😂
+> Opção 3 (gera bastante resposta)
+Tenho uma dúvida...
+Você costuma esquecer de responder as pessoas...
+...ou resolveu testar minha paciência especificamente? 😂
+
+## Pergunta, por que tem cara de brava:
+> Opção 1 (mais leve)
+Kkkkkk pior que sim
+But você respondeu simpática demais, aí bagunçou minha teoria
+Agora preciso entender: você é brava só de fachada ou tem dias perigosos mesmo?
+> Opção 2 (mais provocativa)
+Sei não kkkkk
+Tô começando a achar que você tem essa cara de brava justamente pra enganar os desavisados
+Aí a pessoa descobre tarde demais que você é gente boa e já ficou com vontade de continuar conversando 😂
+
+</pre>
+</body>
+</html>
