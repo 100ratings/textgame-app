@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Painel Text Game - PWA</title>
+    <title>Painel Mestre - PWA</title>
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
@@ -18,12 +18,15 @@
     <style>
         :root {
             --primary-color: #667eea;
+            --secondary-color: #ff85a2;
             --bg-color: #f0f2f5;
             --card-bg: #ffffff;
             --text-main: #333;
             --text-muted: #666;
             --warning-bg: #fff3cd;
             --warning-text: #856404;
+            --pink-bg: #ffe4e9;
+            --pink-text: #d63384;
         }
 
         * {
@@ -40,11 +43,10 @@
             line-height: 1.5;
         }
 
-        /* Otimização específica para 1284x2778 (iPhone 12/13/14 Pro Max) */
         @media screen and (max-width: 1284px) {
             .container { width: 100%; max-width: 100%; }
             h1 { font-size: 24px; margin: 20px 0; }
-            .msg { padding: 16px; font-size: 16px; } /* Texto maior para mobile */
+            .msg { padding: 16px; font-size: 16px; }
             .sessao-header { padding: 18px; font-size: 18px; }
             .cenario-header { padding: 15px; font-size: 16px; }
         }
@@ -95,11 +97,14 @@
         .msg.copiado { background: #d4edda !important; border-left-color: #28a745 !important; color: #155724; font-weight: bold; text-align: center; }
         
         .aviso { background: var(--warning-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--warning-text); border: 1px solid #ffeeba; }
+        
+        /* Estilo Rosa para falas dela */
+        .fala-dela { background: var(--pink-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--pink-text); border: 1px solid #ffccd5; }
+
         .sub { font-weight: bold; margin: 20px 0 10px 0; color: #444; border-bottom: 2px solid #eee; padding-bottom: 5px; font-size: 15px; }
         .active { display: block !important; }
         #raw-data { display: none; }
 
-        /* Feedback visual de cópia */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -164,6 +169,9 @@
                     html += `<div class="sub">${linha.replace('### ', '')}</div>`;
                 } else if (linha.startsWith('> ')) {
                     html += `<div class="aviso">${linha.replace('> ', '')}</div>`;
+                } else if (linha.startsWith('< ')) {
+                    // Novo marcador para fala dela em Rosa
+                    html += `<div class="fala-dela">${linha.replace('< ', '')}</div>`;
                 } else if (linha.startsWith('---')) {
                     html += '<hr style="border:0; border-top:1px solid #eee; margin:15px 0;">';
                 } else {
@@ -216,7 +224,6 @@
             });
         }
 
-        // Registrar Service Worker para PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').then(reg => {
@@ -231,6 +238,110 @@
     </script>
 
 <pre id="raw-data">
+
+# OPENERS
+## Pós-Abordagem
+
+Oi senhorita tímida do sorriso encantador rsrs, aqui é o Demian… salva meu número, vai ser importante pra você 😎
+Assim que vi você lá andando em câmera lenta que nem aquelas muié de comercial de shampoo, senti no coração de falar com você rsrs, quase ouvi uma voz dizendo assim: "ela tem cara de brava, mas é gente boa kkk, vai lá e diz um oi rsrs", então... oi né? Hahaha
+< Oi
+
+Ai ai caramba, não tinha me preparado pra essa parte kkk, na verdade achei que nem fosse responder rsrs, mas no fundo eu sabia que você não era só mais um rostinho bonito perdido no meio da multidão kkkkkk, e aí beleza?
+
+Foto de modelo, gostei hehe, duvido adivinhar como anotei seu nome rsrs
+< Obrigada ahaha
+
+Haha por nada, achei você divertida, tem uma energia boa rsrs
+Já está em casa?
+< Bom saber disso, ainda não
+
+Eu fiquei um pouco sem jeito de falar com você rsrs, confesso! Mas sim, foi divertido
+Eu achei de chegar
+
+Enfim... contei pra minha minha mãe que falei com uma muié no meio da rua kkk, e ela achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai 🙈
+
+Então né rsrs, ela quer saber se além de fofa... você também saberia fazer brigadeiro, massagem e principalmente se também é romântica que nem o filho dela hahaha, na verdade eu também estou um pouco curioso... será será será? Não teve nenhuma pergunta minha aí não viu? Kkkk
+
+Meu deus 😱... não creio nisso... te achei rsrs, onde você tava muié? Haha te procurei em todos os lugares, fui parar lá no Acre e nada de você também kkkk, tava presa é? Rsrs
+
+## Facebook Namoro
+
+Vou falar uma coisa meio do nada: seu perfil tem cara de pessoa que não responde qualquer ‘oi’ preguiçoso. Então vou tentar não decepcionar: oi 😄
+
+## Instagram
+
+Você tem aquele olhar meio “não se aproxime”… E foi justamente isso que me fez clicar. Então… oi 😅
+
+## Instagram do Facebook Namoro
+
+> Opção 1
+Vi seu @ lá naquele tinder do Facebook e senti no coração de falar com você rsrs, quase ouvi uma voz dizendo assim “ela tem cara de brava, mas é gente boa kkk, vai lá e diz um oi rsrs”, então... Oi hahaha
+
+> Opção 2
+Vi seu @ lá no Facebook Namoro e pensei “essa menina provavelmente nem responde”. Achei injusto tirar conclusão sem testar. Então... Oi 😄
+
+> Opção 3
+Vi seu Instagram lá no app de namoro e vim ver se o seu santo batia com o meu rs. Pela foto de perfil, você parece ser do tipo bravinha, acertei?
+
+> Opção 4
+Vi teu @ naquele Tinder do Facebook e tive uma impressão estranha: você parece do tipo que assusta no começo, mas depois deve ser gente boa kkk acertei ou viajei?
+
+> Opção 5
+Isso vai soar meio do nada, mas vc deixou seu @ lá no tinder do Facebook e eu pensei: ‘ela tem uma carinha de brava interessante’ kkk tive que vir dizer oi 😄
+
+> Opção 6
+Vi teu @ naquele tinder do Facebook e alguma coisa em mim falou: ‘ela parece meio brava, mas deve ser legal’. Agora preciso descobrir se minha intuição presta kkk oi 😄
+
+> Opção 7
+Vai parecer estranho, mas vc deixou seu @ lá naquele tinder do Facebook e eu pensei: ‘ela não deve responder qualquer um… mas vou arriscar’. Oi kkk
+
+## Rex 1
+
+Seu perfil surgiu aqui na tela e senti no coração de falar com você rsrs, quase ouvi uma voz dizendo assim "ela tem cara de brava, mas é gente boa kkk, vai lá e diz um oi rsrs", então... Oi hahaha
+
+Ai ai caramba, não tinha me preparado pra essa parte kkk, na verdade achei que nem fosse responder rsrs, mas no fundo eu sabia que você não era só mais um rostinho bonito perdido no meio da multidão kkkkkk, e aí beleza?
+
+Enfim... estava fuçando seu perfil e minha mãe acabou vendo também e te achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai 🙈
+ 
+Então né rsrs, ela quer saber se além de fofa... você também saberia fazer brigadeiro, massagem e principalmente se também é romântica que nem o filho dela hahaha, na verdade eu também estou um pouco curioso... será será será? Não teve nenhuma pergunta minha aí não viu? Kkkk
+ 
+Meu deus 😱... não creio nisso... te achei rsrs, onde você tava muié? Haha te procurei em todos os lugares, fui parar lá no Acre e nada de você também kkkk, tava presa é? Rsrs
+
+Minha mãe aqui causando hehe "deixa de papo menino, vocês vão ficar nesse troço que trava toda hora ou vão se falar no whatsapp? Tão novo e não sabem o que é mais prático" hahahaha
+
+Falei pra ela que a culpa é sua, que não pediu meu whats "mãe se ela quisesse já tinha pedido, ela não tem cara de quem faz doce não" rsrs
+
+> Opção 2
+Poxa, gostei de você, mas tenho uma péssima notícia...
+ 
+É que assim FULANA, vou te jogar a real... eu só passei aqui nesse aplicativo pra me despedir mesmo. A verdade é que estou indo morar num planeta bem distante, chamado "whatsapp do Demian", e ele fica há 11 97573-8099 km daqui, aí você deve tá se perguntando: "por que ele tá me contando isso? (Pra você saber como chegar lá uai, dãããh)
+
+Ah... e traga pão, acabei de me mudar e não tenho nada pra te oferecer 😂😂😂
+
+## Rex 2
+
+Não tá fácil pra ninguém viu haha... difícil achar alguém que me chame atenção nesse aplicativo doido, e quando acho... ou mora no Acre ou nunca está o rs, me diz... como vou arrumar uma vítima pro meu “strogonoff” e uma companhia pra conhecer praias do Nordeste comigo? Haha... enfim, tudo belezura? Rsrs
+ 
+Desculpa a demora mocinha, estava viajando a trabalho, mas deixei um bilhete na porta da geladeira com seu nome antes de ir, pra lembrar de você quando voltasse: "falar com FULANA, parece ser do bem", hahaha... E aí tudo bem? 😂
+ 
+Enfim rsrs, estava fuçando seu perfil e minha mãe acabou também vendo e te achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai 🙈
+ 
+Então... seguinte, ela quer saber se além de fofa... Você também saberia fazer brigadeiro, massagem e principalmente se também é romântica que nem o filho dela hahaha, na verdade eu também estou um pouco curioso... será será será? Kkkk
+ 
+Meu deus 😱... não creio nisso... te achei rsrs, onde você tava muié? Haha... te procurei em todos os lugares, fui parar lá em “nárnia” e nada de você também kkkk... tava presa é? Rsrs
+ 
+Haha ai ai... você parece ser diferente de todas que já conversei por aqui... sei lá, parece pelo menos rsrs, tive uma ideia... posso dizer? Tu vai gostar acho...
+ 
+Estava pensando "cá com meus botões" haha, acho que whatsapp combina mais com a gente né? Mas estava meio com receio de pedir e você achar que sou igual os outros caras que te pedem "nudes e etc", mais prático no whatsapp não acha? E também tem outro problema, entro pouco aqui 🙊🙈
+ 
+(Caso queira fazer ela te add, basta você aparecer no outro dia e falar que tentou add ela, mas não conseguiu. E então pedir pra ela tentar mandar um oi pra você. Pois sua mãe quer te mandar um áudio pra ela hahaha)
+
+Oiiiii, tentei de add, mandei mensagem, gritei... gritei kkk, mas não tive resposta, nem foto sua pareceu, por que será hein? E agora?
+ 
+> Opção 2
+Olha, acho que tem algum ex-namorado seu fazendo algum tipo de macumba pra você kkkkk, pra você não ser feliz comigo hahaha, sabe por quê?
+ 
+Ahhh, tentei de adicionar no whatsapp, mas lá diz que você não tem whats, doideira né? Haha... Talvez o problema seja meu whatsapp mesmo, e agora? O que fazemos? 🙈
 
 # QUANDO ELA...
 ## Respondeu algumas mensagens e depois parou:
