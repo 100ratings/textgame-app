@@ -652,6 +652,23 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').then(reg => {
                     console.log('SW registrado!', reg);
+                    // Detectar quando uma nova versão do SW é instalada
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+                                // Nova versão detectada e ativada — recarregar automaticamente
+                                console.log('Nova versão detectada, recarregando...');
+                                window.location.reload();
+                            }
+                        });
+                    });
+                    // Verificar atualizações a cada 5 minutos
+                    setInterval(() => {
+                        reg.update();
+                    }, 5 * 60 * 1000);
+                    // Verificar imediatamente ao carregar
+                    reg.update();
                 }).catch(err => {
                     console.log('SW falhou!', err);
                 });
