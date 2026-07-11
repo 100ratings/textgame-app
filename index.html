@@ -105,6 +105,181 @@
         .active { display: block !important; }
         #raw-data { display: none; }
 
+        /* ===== BARRA DE BUSCA ===== */
+        .search-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 6px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-bottom: 15px;
+            gap: 6px;
+            border: 2px solid #ddd;
+            transition: border-color 0.3s;
+        }
+        .search-bar.focused {
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 12px rgba(102,126,234,0.3);
+        }
+        .search-icon {
+            font-size: 18px;
+            color: var(--text-muted);
+            padding: 0 4px;
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            padding: 6px 0;
+            background: transparent;
+            color: var(--text-main);
+        }
+        .search-input::placeholder {
+            color: #aaa;
+        }
+        .search-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px 8px;
+            border-radius: 50%;
+            color: var(--text-muted);
+            transition: background 0.2s, color 0.2s;
+        }
+        .search-btn:hover {
+            background: rgba(102,126,234,0.1);
+            color: var(--primary-color);
+        }
+        .search-btn:disabled {
+            opacity: 0.3;
+            cursor: default;
+        }
+        .search-btn:disabled:hover {
+            background: none;
+            color: var(--text-muted);
+        }
+        .search-count {
+            font-size: 13px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            min-width: 60px;
+            text-align: center;
+        }
+        .search-results {
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+        .search-results.visible {
+            display: flex;
+        }
+
+        /* ===== DROPDOWN DE RESULTADOS ===== */
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 10px;
+            right: 10px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            border: 1px solid #eee;
+            margin-top: 4px;
+        }
+        .search-dropdown.visible {
+            display: block;
+        }
+        .search-dropdown-item {
+            padding: 10px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-main);
+            transition: background 0.15s;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .search-dropdown-item:last-child {
+            border-bottom: none;
+        }
+        .search-dropdown-item:hover {
+            background: rgba(102,126,234,0.08);
+        }
+        .search-dropdown-item.active-result {
+            background: #fff9e0;
+            border-left: 3px solid #f5c518;
+        }
+        .search-dropdown-number {
+            font-size: 12px;
+            color: var(--primary-color);
+            font-weight: bold;
+            min-width: 24px;
+            text-align: center;
+            background: rgba(102,126,234,0.1);
+            border-radius: 10px;
+            padding: 2px 6px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .search-dropdown-text {
+            flex: 1;
+            line-height: 1.4;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .search-dropdown-header {
+            padding: 8px 14px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            font-size: 12px;
+            color: var(--text-muted);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .search-dropdown-header span {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .search-bar {
+            position: relative;
+        }
+
+        /* ===== DESTAQUE DE RESULTADO ===== */
+        .msg.search-highlight,
+        .aviso.search-highlight,
+        .fala-dela.search-highlight,
+        .sub.search-highlight {
+            border-left-color: #f5c518 !important;
+            background: #fff9e0 !important;
+            box-shadow: 0 0 0 2px #f5c518, 0 4px 16px rgba(245,197,24,0.3) !important;
+            animation: highlightPulse 0.5s ease;
+        }
+        .cenario-header.search-highlight,
+        .sessao-header.search-highlight {
+            background: #f5c518 !important;
+            color: #333 !important;
+            box-shadow: 0 0 0 2px #f5c518;
+            animation: highlightPulse 0.5s ease;
+        }
+        @keyframes highlightPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -123,6 +298,27 @@
 <body>
     <div class="container">
         <h1 style="text-align:center; color:#333;">🎮 Text Game</h1>
+        
+        <!-- BARRA DE BUSCA -->
+        <div class="search-bar" id="searchBar">
+            <!-- DROPDOWN DE RESULTADOS -->
+            <div class="search-dropdown" id="searchDropdown"></div>
+            <span class="search-icon">🔍</span>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="Buscar mensagem..." 
+                oninput="busca()" 
+                onkeydown="if(event.key==='Enter'){event.preventDefault();próximoRes();}"
+            >
+            <div class="search-results" id="searchResults">
+                <span class="search-count" id="searchCount"></span>
+                <button class="search-btn" id="btnPrev" onclick="anteriorRes()" title="Anterior" aria-label="Resultado anterior">◀</button>
+                <button class="search-btn" id="btnNext" onclick="próximoRes()" title="Próximo" aria-label="Próximo resultado">▶</button>
+            </div>
+            <button class="search-btn" id="btnClear" onclick="limparBusca()" title="Limpar" aria-label="Limpar busca" style="display:none;font-size:14px;">✕</button>
+        </div>
         
         <div class="controls">
             <button class="btn-collapse" onclick="recolherTudo()">📂 Recolher Tudo</button>
@@ -223,6 +419,234 @@
                 console.error('Erro ao copiar: ', err);
             });
         }
+
+        // ===== SISTEMA DE BUSCA =====
+        let resultadosBusca = [];
+        let indiceAtual = -1;
+        let todosElementosBusca = [];
+
+        function busca() {
+            const termo = document.getElementById('searchInput').value.trim().toLowerCase();
+            const btnClear = document.getElementById('btnClear');
+            const resultadosDiv = document.getElementById('searchResults');
+            const dropdown = document.getElementById('searchDropdown');
+
+            // Limpar destaques anteriores
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                el.classList.remove('search-highlight');
+            });
+
+            // Mostrar/ocultar botão limpar
+            btnClear.style.display = termo.length > 0 ? 'block' : 'none';
+
+            // Ocultar dropdown se termo curto
+            if (termo.length < 2) {
+                resultadosDiv.classList.remove('visible');
+                dropdown.classList.remove('visible');
+                indiceAtual = -1;
+                return;
+            }
+
+            // Coletar todos os elementos buscáveis
+            const msgs = document.querySelectorAll('.msg');
+            const avisos = document.querySelectorAll('.aviso');
+            const falas = document.querySelectorAll('.fala-dela');
+            const subs = document.querySelectorAll('.sub');
+            const cenariosHeaders = document.querySelectorAll('.cenario-header');
+            const sessaoHeaders = document.querySelectorAll('.sessao-header');
+
+            todosElementosBusca = [];
+
+            [...sessaoHeaders, ...cenariosHeaders, ...subs, ...avisos, ...falas, ...msgs].forEach(el => {
+                if (el.textContent.toLowerCase().includes(termo)) {
+                    todosElementosBusca.push(el);
+                }
+            });
+
+            resultadosBusca = todosElementosBusca;
+
+            if (resultadosBusca.length > 0) {
+                resultadosDiv.classList.add('visible');
+                dropdown.classList.add('visible');
+                indiceAtual = 0;
+                atualizarBusca();
+                gerarDropdown();
+            } else {
+                resultadosDiv.classList.remove('visible');
+                dropdown.classList.remove('visible');
+                indiceAtual = -1;
+                document.getElementById('searchCount').textContent = 'Nenhum';
+            }
+        }
+
+        function gerarDropdown() {
+            const dropdown = document.getElementById('searchDropdown');
+            const termo = document.getElementById('searchInput').value.trim();
+
+            if (resultadosBusca.length === 0) {
+                dropdown.classList.remove('visible');
+                return;
+            }
+
+            let html = `<div class="search-dropdown-header"><span>${resultadosBusca.length}</span> resultado${resultadosBusca.length > 1 ? 's' : ''} para "<strong>${escaparHTML(termo)}</strong>"</div>`;
+
+            resultadosBusca.forEach((el, idx) => {
+                const texto = el.textContent.trim();
+                // Pegar contexto do pai (sessao ou cenario)
+                let contexto = '';
+                let parent = el.parentElement;
+                while (parent && parent !== document.body) {
+                    if (parent.classList.contains('sessao-content')) {
+                        const sessaoHeader = parent.previousElementSibling;
+                        if (sessaoHeader) contexto = sessaoHeader.textContent.replace(' ▲','').replace(' ▼','').trim();
+                        break;
+                    }
+                    if (parent.classList.contains('cenario-content')) {
+                        const cenarioHeader = parent.previousElementSibling;
+                        if (cenarioHeader) contexto = cenarioHeader.textContent.replace(' ▲','').replace(' ▼','').trim();
+                        break;
+                    }
+                    parent = parent.parentElement;
+                }
+
+                const isActive = idx === indiceAtual ? ' active-result' : '';
+                const tipoLabel = getTipoLabel(el);
+
+                html += `<div class="search-dropdown-item${isActive}" data-index="${idx}" onclick="irParaRes(${idx})">`;
+                html += `<span class="search-dropdown-number">${idx + 1}</span>`;
+                html += `<div class="search-dropdown-text">`;
+                if (contexto) html += `<small style="color:#999;font-size:11px;">${escaparHTML(contexto)}</small><br>`;
+                if (tipoLabel) html += `<small style="color:#667eea;font-size:10px;font-weight:bold;">${tipoLabel}</small> 
+`;
+                html += escaparHTML(texto.substring(0, 120)) + (texto.length > 120 ? '...' : '') ;
+                html += `</div>`;
+                html += `</div>`;
+            });
+
+            dropdown.innerHTML = html;
+        }
+
+        function escaparHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function getTipoLabel(el) {
+            if (el.classList.contains('msg')) return '💬';
+            if (el.classList.contains('aviso')) return '⚠️';
+            if (el.classList.contains('fala-dela')) return '🌸';
+            if (el.classList.contains('sub')) return '📌';
+            if (el.classList.contains('cenario-header')) return '📂';
+            if (el.classList.contains('sessao-header')) return '📁';
+            return '';
+        }
+
+        function atualizarBusca() {
+            const count = resultadosBusca.length;
+            const atual = indiceAtual + 1;
+            document.getElementById('searchCount').textContent = atual + ' / ' + count;
+            document.getElementById('btnPrev').disabled = count <= 1;
+            document.getElementById('btnNext').disabled = count <= 1;
+        }
+
+        function irParaRes(idx) {
+            // Limpar todos os destaques
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                el.classList.remove('search-highlight');
+            });
+
+            if (idx < 0 || idx >= resultadosBusca.length) return;
+
+            const el = resultadosBusca[idx];
+            el.classList.add('search-highlight');
+            indiceAtual = idx;
+
+            // Expandir sessões e cenários se necessário
+            expandirPais(el);
+
+            // Scroll suave até o elemento
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Remover destaque após 3 segundos
+            setTimeout(() => {
+                el.classList.remove('search-highlight');
+            }, 3000);
+
+            // Atualizar dropdown com item ativo
+            atualizarDropdownAtivo();
+            atualizarBusca();
+        }
+
+        function atualizarDropdownAtivo() {
+            // Atualizar classes active no dropdown sem regenerar tudo
+            document.querySelectorAll('.search-dropdown-item').forEach(item => {
+                item.classList.remove('active-result');
+            });
+            const activeItem = document.querySelector(`.search-dropdown-item[data-index="${indiceAtual}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active-result');
+                // Scroll o dropdown para mostrar o item ativo
+                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function expandirPais(el) {
+            // Percorrer pais até encontrar sessao-content ou cenario-content
+            let parent = el.parentElement;
+            while (parent && parent !== document.body) {
+                if (parent.classList.contains('sessao-content') && !parent.classList.contains('active')) {
+                    parent.classList.add('active');
+                    const header = parent.previousElementSibling;
+                    if (header) {
+                        const span = header.querySelector('span');
+                        if (span) span.textContent = '▲';
+                    }
+                }
+                if (parent.classList.contains('cenario-content') && !parent.classList.contains('active')) {
+                    parent.classList.add('active');
+                    const header = parent.previousElementSibling;
+                    if (header) {
+                        const span = header.querySelector('span');
+                        if (span) span.textContent = '▲';
+                    }
+                }
+                parent = parent.parentElement;
+            }
+        }
+
+        function próximoRes() {
+            if (resultadosBusca.length === 0) return;
+            const proximo = (indiceAtual + 1) % resultadosBusca.length;
+            irParaRes(proximo);
+        }
+
+        function anteriorRes() {
+            if (resultadosBusca.length === 0) return;
+            const anterior = (indiceAtual - 1 + resultadosBusca.length) % resultadosBusca.length;
+            irParaRes(anterior);
+        }
+
+        function limparBusca() {
+            document.getElementById('searchInput').value = '';
+            document.querySelectorAll('.search-highlight').forEach(el => {
+                el.classList.remove('search-highlight');
+            });
+            document.getElementById('searchResults').classList.remove('visible');
+            document.getElementById('searchDropdown').classList.remove('visible');
+            document.getElementById('searchDropdown').innerHTML = '';
+            document.getElementById('btnClear').style.display = 'none';
+            indiceAtual = -1;
+            resultadosBusca = [];
+        }
+
+        // Foco visual na barra de busca
+        document.getElementById('searchInput').addEventListener('focus', () => {
+            document.getElementById('searchBar').classList.add('focused');
+        });
+        document.getElementById('searchInput').addEventListener('blur', () => {
+            document.getElementById('searchBar').classList.remove('focused');
+        });
 
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
