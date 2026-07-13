@@ -293,6 +293,110 @@
             display: none;
             z-index: 1000;
         }
+
+        /* ===== PAINEL DE EDIÇÃO ===== */
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        .btn-admin {
+            background: #4a5568;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-save { background: #2f855a; }
+        .btn-config { background: #718096; }
+        
+        #editor-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 2000;
+            padding: 20px;
+            flex-direction: column;
+        }
+        #editor-textarea {
+            flex: 1;
+            width: 100%;
+            margin-top: 10px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+        }
+        .editor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        #config-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 3000;
+            width: 90%;
+            max-width: 400px;
+        }
+        .config-field { margin-bottom: 15px; }
+        .config-field label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; }
+        .config-field input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2500;
+        }
+        
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -320,6 +424,12 @@
             <button class="search-btn" id="btnClear" onclick="limparBusca()" title="Limpar" aria-label="Limpar busca" style="display:none;font-size:14px;">✕</button>
         </div>
         
+        
+        <!-- CONTROLES DE ADMIN -->
+        <div class="admin-controls">
+            <button class="btn-admin" onclick="abrirEditor()">📝 Editar Conteúdo</button>
+            <button class="btn-admin btn-config" onclick="abrirConfig()">⚙️ Configurar GitHub</button>
+        </div>
         <div class="controls">
             <button class="btn-collapse" onclick="recolherTudo()">📂 Recolher Tudo</button>
         </div>
@@ -334,6 +444,47 @@
     </div>
 
     <div id="toast" class="toast">Copiado com sucesso!</div>
+    <!-- EDITOR FULLSCREEN -->
+    <div id="editor-container">
+        <div class="editor-header">
+            <h3>Editor de Conteúdo</h3>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-admin" onclick="fecharEditor()" style="background:#e53e3e;">Cancelar</button>
+                <button class="btn-admin btn-save" onclick="salvarNoGithub()">🚀 Salvar e Publicar</button>
+            </div>
+        </div>
+        <small style="color:#666;">Use os marcadores: # Sessão, ## Cenário, * Fala dela, etc.</small>
+        <textarea id="editor-textarea"></textarea>
+    </div>
+
+    <!-- MODAL DE CONFIGURAÇÃO -->
+    <div id="overlay" class="overlay" onclick="fecharConfig()"></div>
+    <div id="config-modal">
+        <h3>Configuração GitHub</h3>
+        <div class="config-field">
+            <label>GitHub Token (PAT)</label>
+            <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
+        </div>
+        <div class="config-field">
+            <label>Usuário GitHub</label>
+            <input type="text" id="gh-user" placeholder="seu-usuario">
+        </div>
+        <div class="config-field">
+            <label>Nome do Repositório</label>
+            <input type="text" id="gh-repo" placeholder="textgame-app">
+        </div>
+        <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn-admin" onclick="fecharConfig()" style="background:#ccc; color:#333; flex:1; justify-content:center;">Cancelar</button>
+            <button class="btn-admin btn-save" onclick="salvarConfig()" style="flex:1; justify-content:center;">Salvar</button>
+        </div>
+    </div>
+
+    <!-- OVERLAY DE CARREGAMENTO -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text" style="margin-top:15px; font-weight:bold; color:#4a5568;">Publicando no GitHub...</p>
+    </div>
+
 
     <script>
         function processar() {
@@ -690,6 +841,110 @@
         }
 
         window.onload = processar;
+
+        // ===== LÓGICA DE ADMIN E GITHUB API =====
+        
+        function abrirEditor() {
+            const raw = document.getElementById('raw-data').textContent;
+            document.getElementById('editor-textarea').value = raw.trim();
+            document.getElementById('editor-container').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharEditor() {
+            document.getElementById('editor-container').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function abrirConfig() {
+            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('gh-user').value = localStorage.getItem('gh_user') || '';
+            document.getElementById('gh-repo').value = localStorage.getItem('gh_repo') || '';
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('config-modal').style.display = 'block';
+        }
+
+        function fecharConfig() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('config-modal').style.display = 'none';
+        }
+
+        function salvarConfig() {
+            localStorage.setItem('gh_token', document.getElementById('gh-token').value.trim());
+            localStorage.setItem('gh_user', document.getElementById('gh-user').value.trim());
+            localStorage.setItem('gh_repo', document.getElementById('gh-repo').value.trim());
+            fecharConfig();
+            mostrarToast("Configurações salvas!");
+        }
+
+        async function salvarNoGithub() {
+            const token = localStorage.getItem('gh_token');
+            const user = localStorage.getItem('gh_user');
+            const repo = localStorage.getItem('gh_repo');
+            const novoConteudo = document.getElementById('editor-textarea').value;
+
+            if (!token || !user || !repo) {
+                alert("Por favor, configure os dados do GitHub primeiro!");
+                abrirConfig();
+                return;
+            }
+
+            if (!confirm("Deseja realmente publicar as alterações? O site levará cerca de 1-2 minutos para atualizar.")) return;
+
+            const loading = document.getElementById('loading-overlay');
+            const loadingText = document.getElementById('loading-text');
+            loading.style.display = 'flex';
+
+            try {
+                // 1. Pegar o SHA do arquivo atual (necessário para atualizar no GitHub)
+                loadingText.innerText = "Conectando ao GitHub...";
+                const url = `https://api.github.com/repos/${user}/${repo}/contents/index.html`;
+                
+                const resGet = await fetch(url, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+
+                if (!resGet.ok) throw new Error("Não foi possível encontrar o arquivo no GitHub. Verifique as configurações.");
+                
+                const fileData = await resGet.json();
+                const sha = fileData.sha;
+                const oldFullContent = atob(fileData.content); // Decodifica o conteúdo atual do index.html
+
+                // 2. Substituir apenas o bloco raw-data no arquivo completo
+                loadingText.innerText = "Preparando novo arquivo...";
+                const regex = /<div id="raw-data" style="display:none;">([\s\S]*?)<\/div>/;
+                const novoArquivoCompleto = oldFullContent.replace(regex, `<div id="raw-data" style="display:none;">\n${novoConteudo}\n</div>`);
+
+                // 3. Enviar o novo arquivo para o GitHub
+                loadingText.innerText = "Enviando alterações...";
+                const resPut = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: "Update content via Web Editor",
+                        content: btoa(unescape(encodeURIComponent(novoArquivoCompleto))),
+                        sha: sha
+                    })
+                });
+
+                if (resPut.ok) {
+                    loading.style.display = 'none';
+                    alert("✅ Sucesso! O GitHub está processando a atualização. Aguarde 1 minuto e recarregue o site.");
+                    fecharEditor();
+                    location.reload();
+                } else {
+                    const error = await resPut.json();
+                    throw new Error(error.message || "Erro ao salvar no GitHub.");
+                }
+
+            } catch (err) {
+                loading.style.display = 'none';
+                alert("❌ Erro: " + err.message);
+            }
+        }
     </script>
 
 <pre id="raw-data">
