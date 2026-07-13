@@ -294,7 +294,7 @@
             z-index: 1000;
         }
 
-        /* ===== PAINEL DE EDIÇÃO ===== */
+        /* ===== PAINEL DE EDIÃÃO ===== */
         .admin-controls {
             display: flex;
             gap: 10px;
@@ -401,45 +401,45 @@
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align:center; color:#333;">📲 Text Game</h1>
+        <h1 style="text-align:center; color:#333;">ð² Text Game</h1>
         
         <!-- BARRA DE BUSCA -->
         <div class="search-bar" id="searchBar">
             <!-- DROPDOWN DE RESULTADOS -->
             <div class="search-dropdown" id="searchDropdown"></div>
-            <span class="search-icon">🔍</span>
+            <span class="search-icon">ð</span>
             <input 
                 type="text" 
                 class="search-input" 
                 id="searchInput" 
                 placeholder="Buscar mensagem..." 
                 oninput="busca()" 
-                onkeydown="if(event.key==='Enter'){event.preventDefault();próximoRes();}"
+                onkeydown="if(event.key==='Enter'){event.preventDefault();prÃ³ximoRes();}"
             >
             <div class="search-results" id="searchResults">
                 <span class="search-count" id="searchCount"></span>
-                <button class="search-btn" id="btnPrev" onclick="anteriorRes()" title="Anterior" aria-label="Resultado anterior">◀</button>
-                <button class="search-btn" id="btnNext" onclick="próximoRes()" title="Próximo" aria-label="Próximo resultado">▶</button>
+                <button class="search-btn" id="btnPrev" onclick="anteriorRes()" title="Anterior" aria-label="Resultado anterior">â</button>
+                <button class="search-btn" id="btnNext" onclick="prÃ³ximoRes()" title="PrÃ³ximo" aria-label="PrÃ³ximo resultado">â¶</button>
             </div>
-            <button class="search-btn" id="btnClear" onclick="limparBusca()" title="Limpar" aria-label="Limpar busca" style="display:none;font-size:14px;">✕</button>
+            <button class="search-btn" id="btnClear" onclick="limparBusca()" title="Limpar" aria-label="Limpar busca" style="display:none;font-size:14px;">â</button>
         </div>
         
         
         <!-- CONTROLES DE ADMIN -->
         <div class="admin-controls">
-            <button class="btn-admin" onclick="abrirEditor()">📝 Editar Conteúdo</button>
-            <button class="btn-admin btn-config" onclick="abrirConfig()">⚙️ Configurar GitHub</button>
+            <button class="btn-admin" onclick="abrirEditor()">ð Editar ConteÃºdo</button>
+            <button class="btn-admin btn-config" onclick="abrirConfig()">âï¸ Configurar GitHub</button>
         </div>
         <div class="controls">
-            <button class="btn-collapse" onclick="recolherTudo()">📂 Recolher Tudo</button>
+            <button class="btn-collapse" onclick="recolherTudo()">ð Recolher Tudo</button>
         </div>
 
         <div id="app"></div>
         
         <div style="text-align:center; color:#999; font-size:11px; margin-top:40px; padding: 20px; border-top: 1px solid #ddd;">
-            Versão PWA Mobile - Otimizado para 1284x2778<br>
-            Edite o conteúdo no final do arquivo HTML.
-            Marcadores: # Sessão | ## Cenário | + Subtópico | > Aviso/Opção | * Fala dela (rosa) | --- Separador
+            VersÃ£o PWA Mobile - Otimizado para 1284x2778<br>
+            Edite o conteÃºdo no final do arquivo HTML.
+            Marcadores: # SessÃ£o | ## CenÃ¡rio | + SubtÃ³pico | > Aviso/OpÃ§Ã£o | * Fala dela (rosa) | --- Separador
         </div>
     </div>
 
@@ -447,30 +447,30 @@
     <!-- EDITOR FULLSCREEN -->
     <div id="editor-container">
         <div class="editor-header">
-            <h3>Editor de Conteúdo</h3>
+            <h3>Editor de ConteÃºdo</h3>
             <div style="display:flex; gap:10px;">
                 <button class="btn-admin" onclick="fecharEditor()" style="background:#e53e3e;">Cancelar</button>
-                <button class="btn-admin btn-save" onclick="salvarNoGithub()">🚀 Salvar e Publicar</button>
+                <button class="btn-admin btn-save" onclick="salvarNoGithub()">ð Salvar e Publicar</button>
             </div>
         </div>
-        <small style="color:#666;">Use os marcadores: # Sessão, ## Cenário, * Fala dela, etc.</small>
+        <small style="color:#666;">Use os marcadores: # SessÃ£o, ## CenÃ¡rio, * Fala dela, etc.</small>
         <textarea id="editor-textarea"></textarea>
     </div>
 
-    <!-- MODAL DE CONFIGURAÇÃO -->
+    <!-- MODAL DE CONFIGURAÃÃO -->
     <div id="overlay" class="overlay" onclick="fecharConfig()"></div>
     <div id="config-modal">
-        <h3>Configuração GitHub</h3>
+        <h3>ConfiguraÃ§Ã£o GitHub</h3>
         <div class="config-field">
             <label>GitHub Token (PAT)</label>
             <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
         </div>
         <div class="config-field">
-            <label>Usuário GitHub</label>
+            <label>UsuÃ¡rio GitHub</label>
             <input type="text" id="gh-user" placeholder="seu-usuario">
         </div>
         <div class="config-field">
-            <label>Nome do Repositório</label>
+            <label>Nome do RepositÃ³rio</label>
             <input type="text" id="gh-repo" placeholder="textgame-app">
         </div>
         <div style="display:flex; gap:10px; margin-top:20px;">
@@ -516,17 +516,17 @@
                     if (emCenario) { html += '</div></div>'; emCenario = false; }
                     if (emSessao) { html += '</div></div>'; }
                     const titulo = linha.replace('# ', '');
-                    html += `<div class="sessao"><div class="sessao-header" onclick="t(this)">${titulo} <span>▼</span></div><div class="sessao-content">`;
+                    html += `<div class="sessao"><div class="sessao-header" onclick="t(this)">${titulo} <span>â¼</span></div><div class="sessao-content">`;
                     emSessao = true;
                 } else if (linha.startsWith('## ')) {
                     if (emCenario) { html += '</div></div>'; }
                     const titulo = linha.replace('## ', '');
-                    html += `<div class="cenario"><div class="cenario-header" onclick="t(this)">${titulo} <span>▼</span></div><div class="cenario-content">`;
+                    html += `<div class="cenario"><div class="cenario-header" onclick="t(this)">${titulo} <span>â¼</span></div><div class="cenario-content">`;
                     emCenario = true;
                 } else if (linha.startsWith('### ')) {
                     html += `<div class="sub">${linha.replace('### ', '')}</div>`;
                 } else if (linha.startsWith('+ ')) {
-                    // Subtópicos (como sessões mas menores, dentro de cenários)
+                    // SubtÃ³picos (como sessÃµes mas menores, dentro de cenÃ¡rios)
                     html += `<div class="sub">${linha.replace('+ ', '')}</div>`;
                 } else if (linha.startsWith('> ')) {
                     html += `<div class="aviso">${linha.replace('> ', '')}</div>`;
@@ -549,7 +549,7 @@
             const content = el.nextElementSibling;
             content.classList.toggle('active');
             const span = el.querySelector('span');
-            span.textContent = content.classList.contains('active') ? '▲' : '▼';
+            span.textContent = content.classList.contains('active') ? 'â²' : 'â¼';
         }
 
         function recolherTudo() {
@@ -557,7 +557,7 @@
                 el.classList.remove('active');
             });
             document.querySelectorAll('.sessao-header span, .cenario-header span').forEach(el => {
-                el.textContent = '▼';
+                el.textContent = 'â¼';
             });
         }
 
@@ -574,7 +574,7 @@
             navigator.clipboard.writeText(txt).then(() => {
                 el.classList.add('copiado');
                 const originalText = el.innerHTML;
-                el.textContent = '✅ Copiado!';
+                el.textContent = 'â Copiado!';
                 showToast();
                 setTimeout(() => {
                     el.classList.remove('copiado');
@@ -601,7 +601,7 @@
                 el.classList.remove('search-highlight');
             });
 
-            // Mostrar/ocultar botão limpar
+            // Mostrar/ocultar botÃ£o limpar
             btnClear.style.display = termo.length > 0 ? 'block' : 'none';
 
             // Ocultar dropdown se termo curto
@@ -612,7 +612,7 @@
                 return;
             }
 
-            // Coletar todos os elementos buscáveis
+            // Coletar todos os elementos buscÃ¡veis
             const msgs = document.querySelectorAll('.msg');
             const avisos = document.querySelectorAll('.aviso');
             const falas = document.querySelectorAll('.fala-dela');
@@ -663,12 +663,12 @@
                 while (parent && parent !== document.body) {
                     if (parent.classList.contains('sessao-content')) {
                         const sessaoHeader = parent.previousElementSibling;
-                        if (sessaoHeader) contexto = sessaoHeader.textContent.replace(' ▲','').replace(' ▼','').trim();
+                        if (sessaoHeader) contexto = sessaoHeader.textContent.replace(' â²','').replace(' â¼','').trim();
                         break;
                     }
                     if (parent.classList.contains('cenario-content')) {
                         const cenarioHeader = parent.previousElementSibling;
-                        if (cenarioHeader) contexto = cenarioHeader.textContent.replace(' ▲','').replace(' ▼','').trim();
+                        if (cenarioHeader) contexto = cenarioHeader.textContent.replace(' â²','').replace(' â¼','').trim();
                         break;
                     }
                     parent = parent.parentElement;
@@ -698,12 +698,12 @@
         }
 
         function getTipoLabel(el) {
-            if (el.classList.contains('msg')) return '💬';
-            if (el.classList.contains('aviso')) return '⚠️';
-            if (el.classList.contains('fala-dela')) return '🌸';
-            if (el.classList.contains('sub')) return '📌';
-            if (el.classList.contains('cenario-header')) return '📂';
-            if (el.classList.contains('sessao-header')) return '📁';
+            if (el.classList.contains('msg')) return 'ð¬';
+            if (el.classList.contains('aviso')) return 'â ï¸';
+            if (el.classList.contains('fala-dela')) return 'ð¸';
+            if (el.classList.contains('sub')) return 'ð';
+            if (el.classList.contains('cenario-header')) return 'ð';
+            if (el.classList.contains('sessao-header')) return 'ð';
             return '';
         }
 
@@ -727,13 +727,13 @@
             el.classList.add('search-highlight');
             indiceAtual = idx;
 
-            // Expandir sessões e cenários se necessário
+            // Expandir sessÃµes e cenÃ¡rios se necessÃ¡rio
             expandirPais(el);
 
-            // Scroll suave até o elemento
+            // Scroll suave atÃ© o elemento
             el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-            // Remover destaque após 3 segundos
+            // Remover destaque apÃ³s 3 segundos
             setTimeout(() => {
                 el.classList.remove('search-highlight');
             }, 3000);
@@ -757,7 +757,7 @@
         }
 
         function expandirPais(el) {
-            // Percorrer pais até encontrar sessao-content ou cenario-content
+            // Percorrer pais atÃ© encontrar sessao-content ou cenario-content
             let parent = el.parentElement;
             while (parent && parent !== document.body) {
                 if (parent.classList.contains('sessao-content') && !parent.classList.contains('active')) {
@@ -765,7 +765,7 @@
                     const header = parent.previousElementSibling;
                     if (header) {
                         const span = header.querySelector('span');
-                        if (span) span.textContent = '▲';
+                        if (span) span.textContent = 'â²';
                     }
                 }
                 if (parent.classList.contains('cenario-content') && !parent.classList.contains('active')) {
@@ -773,14 +773,14 @@
                     const header = parent.previousElementSibling;
                     if (header) {
                         const span = header.querySelector('span');
-                        if (span) span.textContent = '▲';
+                        if (span) span.textContent = 'â²';
                     }
                 }
                 parent = parent.parentElement;
             }
         }
 
-        function próximoRes() {
+        function prÃ³ximoRes() {
             if (resultadosBusca.length === 0) return;
             const proximo = (indiceAtual + 1) % resultadosBusca.length;
             irParaRes(proximo);
@@ -817,18 +817,18 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').then(reg => {
                     console.log('SW registrado!', reg);
-                    // Detectar quando uma nova versão do SW é instalada
+                    // Detectar quando uma nova versÃ£o do SW Ã© instalada
                     reg.addEventListener('updatefound', () => {
                         const newWorker = reg.installing;
                         newWorker.addEventListener('statechange', () => {
                             if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
-                                // Nova versão detectada e ativada — recarregar automaticamente
-                                console.log('Nova versão detectada, recarregando...');
+                                // Nova versÃ£o detectada e ativada â recarregar automaticamente
+                                console.log('Nova versÃ£o detectada, recarregando...');
                                 window.location.reload();
                             }
                         });
                     });
-                    // Verificar atualizações a cada 5 minutos
+                    // Verificar atualizaÃ§Ãµes a cada 5 minutos
                     setInterval(() => {
                         reg.update();
                     }, 5 * 60 * 1000);
@@ -842,7 +842,7 @@
 
         window.onload = processar;
 
-        // ===== LÓGICA DE ADMIN E GITHUB API =====
+        // ===== LÃGICA DE ADMIN E GITHUB API =====
         
         function abrirEditor() {
             const raw = document.getElementById('raw-data').textContent;
@@ -874,7 +874,7 @@
             localStorage.setItem('gh_user', document.getElementById('gh-user').value.trim());
             localStorage.setItem('gh_repo', document.getElementById('gh-repo').value.trim());
             fecharConfig();
-            mostrarToast("Configurações salvas!");
+            mostrarToast("ConfiguraÃ§Ãµes salvas!");
         }
 
         async function salvarNoGithub() {
@@ -889,14 +889,14 @@
                 return;
             }
 
-            if (!confirm("Deseja realmente publicar as alterações? O site levará cerca de 1-2 minutos para atualizar.")) return;
+            if (!confirm("Deseja realmente publicar as alteraÃ§Ãµes? O site levarÃ¡ cerca de 1-2 minutos para atualizar.")) return;
 
             const loading = document.getElementById('loading-overlay');
             const loadingText = document.getElementById('loading-text');
             loading.style.display = 'flex';
 
             try {
-                // 1. Pegar o SHA do arquivo atual (necessário para atualizar no GitHub)
+                // 1. Pegar o SHA do arquivo atual (necessÃ¡rio para atualizar no GitHub)
                 loadingText.innerText = "Conectando ao GitHub...";
                 const url = `https://api.github.com/repos/${user}/${repo}/contents/index.html`;
                 
@@ -904,51 +904,15 @@
                     headers: { 'Authorization': `token ${token}` }
                 });
 
-                if (!resGet.ok) throw new Error("Não foi possível encontrar o arquivo no GitHub. Verifique as configurações.");
+                if (!resGet.ok) throw new Error("NÃ£o foi possÃ­vel encontrar o arquivo no GitHub. Verifique as configuraÃ§Ãµes.");
                 
                 const fileData = await resGet.json();
                 const sha = fileData.sha;
-                const oldFullContent = atob(fileData.content); // Decodifica o conteúdo atual do index.html
+                const oldFullContent = atob(fileData.content); // Decodifica o conteÃºdo atual do index.html
 
                 // 2. Substituir apenas o bloco raw-data no arquivo completo
                 loadingText.innerText = "Preparando novo arquivo...";
-                const regex = /<div id="raw-data" style="display:none;">([\s\S]*?)<\/div>/;
-                const novoArquivoCompleto = oldFullContent.replace(regex, `<div id="raw-data" style="display:none;">\n${novoConteudo}\n</div>`);
-
-                // 3. Enviar o novo arquivo para o GitHub
-                loadingText.innerText = "Enviando alterações...";
-                const resPut = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: "Update content via Web Editor",
-                        content: btoa(unescape(encodeURIComponent(novoArquivoCompleto))),
-                        sha: sha
-                    })
-                });
-
-                if (resPut.ok) {
-                    loading.style.display = 'none';
-                    alert("✅ Sucesso! O GitHub está processando a atualização. Aguarde 1 minuto e recarregue o site.");
-                    fecharEditor();
-                    location.reload();
-                } else {
-                    const error = await resPut.json();
-                    throw new Error(error.message || "Erro ao salvar no GitHub.");
-                }
-
-            } catch (err) {
-                loading.style.display = 'none';
-                alert("❌ Erro: " + err.message);
-            }
-        }
-    </script>
-
-<pre id="raw-data">
-
+                const regex = /<div id="raw-data" style="display:none;">
 # OPENERS
 ## ABORDAGEM (DAY GAME)
 Estava indo pro outro lado mas tive que voltar pra te falar pelo menos um oi rsrs, prazer... como é seu nome?
@@ -1030,6 +994,14 @@ Kkkkk gostei, respondeu melhor do que eu esperava
 Só acho arriscado deixar uma conversa promissora nas mãos de um aplicativo que mal avisa quando chega mensagem rsrs
 
 Me passa seu insta, quero ver se vc é simpática assim fora daqui também 💁🏻‍♂️
+
+——-
+
+Pronto, agora a conversa tá em terreno confiável 😂
+
+Só tem uma coisa que ainda preciso descobrir...
+
+Você parece calma, mas alguma coisa me diz que isso não dura muito kkkkk
 
 ## INSTAGRAM
 
@@ -3894,6 +3866,2987 @@ Chewbacca é um Wookiee do planeta Kashyyyk. Mas Chewbacca vive no planeta Endor
 Nada. Senhoras e senhores, isso não tem nada a ver com este caso! ISSO NÃO FAZ SENTIDO! Agora me ouçam. Sou um advogado defendendo uma mega gravadora de discos e estou falando sobre Chewbacca! Isso faz algum sentido? Senhoras e senhores, eu não estou fazendo sentido algum! Nada disso faz sentido.
 
 Vocês devem apenas lembrar, quando estiverem na Sala do Júri deliberando e conjeturando sobre a Proclamação da Emancipação, se isso faz sentido? Não! Senhoras e senhores deste suposto júri, ISSO NÃO FAZ SENTIDO! Se Chewbacca vive em Endor, vocês devem absolver. A Defesa termina."
+</div>`);
+
+                // 3. Enviar o novo arquivo para o GitHub
+                loadingText.innerText = "Enviando alteraÃ§Ãµes...";
+                const resPut = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: "Update content via Web Editor",
+                        content: btoa(unescape(encodeURIComponent(novoArquivoCompleto))),
+                        sha: sha
+                    })
+                });
+
+                if (resPut.ok) {
+                    loading.style.display = 'none';
+                    alert("â Sucesso! O GitHub estÃ¡ processando a atualizaÃ§Ã£o. Aguarde 1 minuto e recarregue o site.");
+                    fecharEditor();
+                    location.reload();
+                } else {
+                    const error = await resPut.json();
+                    throw new Error(error.message || "Erro ao salvar no GitHub.");
+                }
+
+            } catch (err) {
+                loading.style.display = 'none';
+                alert("â Erro: " + err.message);
+            }
+        }
+    </script>
+
+<pre id="raw-data">
+
+# OPENERS
+## ABORDAGEM (DAY GAME)
+Estava indo pro outro lado mas tive que voltar pra te falar pelo menos um oi rsrs, prazer... como Ã© seu nome?
+
+Estava indo tomar cafÃ©, mas eu vi andando toda confiante, parecendo aquelas moÃ§as de comercial de shampoo xampu e pensei... o pior que pode acontecer Ã© ela estar com aqueles spray de pimenta haha
+
+Eu preciso ir, mas realmente gostaria de falar com vocÃª novamente, entÃ£o vou pegar seu nÃºmero, porque quero te convidar pra um cafÃ© qualquer dia hehe
+
+PÃ´, eu fiz tudo isso, vim atÃ© aqui, lutei com dragÃµes, e monstros hehe
+
+
+## PÃS-ABORDAGEM
+
+> OpÃ§Ã£o 1
+Eu percebi uma coisa depois que vc foi embora
+
+E agora nÃ£o sei se foi impressÃ£o minha ou se vc fez de propÃ³sito kkkkk
+
+* o quÃª?
+
+Vc parecia bem mais tÃ­mida no final do que quando eu cheguei. Ainda tÃ´ decidindo se ficou sem graÃ§a ou se tava tentando disfarÃ§ar que gostou da abordagem ðð»ââï¸
+
+Tenho quase certeza de que vc ficou surpresa por eu realmente ter voltado pra falar com vc. Mas ainda nÃ£o sei se foi uma surpresa boa ou âmeu Deus, quem Ã© esse doido?â ðð»ââï¸
+
+Na hora de ir embora vc deu aquele sorriso de quem queria falar mais uma coisa, mas desistiu. Acertei ou viajei completamente ðð»ââï¸
+
+Vc comeÃ§ou com aquela pose de sÃ©ria, mas no final jÃ¡ tava bem mais soltinha. Quero saber qual das duas versÃµes Ã© a verdadeira ðð»ââï¸
+
+Vc ficou me olhando por um segundo como se estivesse tentando decidir alguma coisa. Fiquei curioso pra saber o que passou na sua cabeÃ§a ðð»ââï¸
+
+Vc tentou manter a postura de moÃ§a misteriosa, mas aquele sorriso no final te entregou um pouco kkkkk. Vc Ã© sempre assim ou foi sÃ³ comigo? ðð»ââï¸
+
+> OpÃ§Ã£o 2
+Ainda bem que eu voltei pra falar com vc
+
+SenÃ£o eu nÃ£o ia descobrir uma coisa ð¤
+
+* o quÃª?
+
+Que minha intuiÃ§Ã£o nÃ£o tava tÃ£o ruim. Vc realmente parecia ser gente boa. Agora quero saber qual foi a sua primeira impressÃ£o de mim ðð»ââï¸
+Que vc tem uma mistura meio perigosa: parece sÃ©ria de longe, mas quando comeÃ§a a conversar fica fÃ¡cil gostar do seu jeito ðð»ââï¸
+Que vc nÃ£o era sÃ³ mais uma garota bonita passando apressada. Tinha alguma coisa no seu jeito que me fez querer voltar. O problema Ã© que ainda nÃ£o descobri exatamente o quÃª ðð»ââï¸
+Que por trÃ¡s desse rostinho de brava tinha alguÃ©m bem mais simpÃ¡tica do que eu imaginava. Agora falta descobrir se vc Ã© interessante tambÃ©m ou se gastou tudo na primeira impressÃ£o kkkkk
+Que vc fica bem mais bonita quando sorri. Mas calma, isso ainda nÃ£o Ã© um elogio completo. Preciso descobrir o que faz vc sorrir de verdade ðð»ââï¸
+Que vc Ã© mais tranquila do que sua expressÃ£o fazia parecer. Mas ainda nÃ£o decidi se isso Ã© real ou se vc sabe causar uma Ã³tima primeira impressÃ£o.
+Que eu provavelmente teria me arrependido mesmo. A conversa foi curta, mas vc me deixou curioso. Agora quero saber o que eu ainda entendi errado sobre vc.
+
+> OpÃ§Ã£o 3
+Oi senhorita tÃ­mida do sorriso encantador rsrs, aqui Ã© o Demianâ¦ salva meu nÃºmero, vai ser importante pra vocÃª ð
+Assim que vi vocÃª lÃ¡ andando em cÃ¢mera lenta que nem aquelas muiÃ© de comercial de shampoo, senti no coraÃ§Ã£o de falar com vocÃª rsrs, quase ouvi uma voz dizendo assim: "ela tem cara de brava, mas Ã© gente boa kkk, vai lÃ¡ e diz um oi rsrs", entÃ£o... oi nÃ©? Hahaha
+* Oi
+
+Ai ai caramba, nÃ£o tinha me preparado pra essa parte kkk, na verdade achei que nem fosse responder rsrs, mas no fundo eu sabia que vocÃª nÃ£o era sÃ³ mais um rostinho bonito perdido no meio da multidÃ£o kkkkkk, e aÃ­ beleza?
+
+Foto de modelo, gostei hehe, duvido adivinhar como anotei seu nome rsrs
+* Obrigada ahaha
+
+Haha por nada, achei vocÃª divertida, tem uma energia boa rsrs
+JÃ¡ estÃ¡ em casa?
+* Bom saber disso, ainda nÃ£o
+
+Eu fiquei um pouco sem jeito de falar com vocÃª rsrs, confesso! Mas sim, foi divertido
+Eu achei de chegar
+
+Enfim... contei pra minha minha mÃ£e que falei com uma muiÃ© no meio da rua kkk, e ela achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai ð
+
+EntÃ£o nÃ© rsrs, ela quer saber se alÃ©m de fofa... vocÃª tambÃ©m saberia fazer brigadeiro, massagem e principalmente se tambÃ©m Ã© romÃ¢ntica que nem o filho dela hahaha, na verdade eu tambÃ©m estou um pouco curioso... serÃ¡ serÃ¡ serÃ¡? NÃ£o teve nenhuma pergunta minha aÃ­ nÃ£o viu? Kkkk
+
+Meu deus ð±... nÃ£o creio nisso... te achei rsrs, onde vocÃª tava muiÃ©? Haha te procurei em todos os lugares, fui parar lÃ¡ no Acre e nada de vocÃª tambÃ©m kkkk, tava presa Ã©? Rsrs
+
+## FACEBOOK NAMORO
+
+Vou falar uma coisa meio do nada: seu perfil tem cara de pessoa que nÃ£o responde qualquer âoiâ preguiÃ§oso. EntÃ£o vou tentar nÃ£o decepcionar: oi ð
+
+## PEGAR O INSTAGRAM NO FACEBOOK NAMORO
+
+Kkkkk gostei, respondeu melhor do que eu esperava
+
+SÃ³ acho arriscado deixar uma conversa promissora nas mÃ£os de um aplicativo que mal avisa quando chega mensagem rsrs
+
+Me passa seu insta, quero ver se vc Ã© simpÃ¡tica assim fora daqui tambÃ©m ðð»ââï¸
+
+## INSTAGRAM
+
+VocÃª tem aquele olhar meio ânÃ£o se aproximeââ¦ E foi justamente isso que me fez clicar. EntÃ£oâ¦ oi ð
+
+## INSTAGRAM DO FACEBOOK NAMORO
+
+> OpÃ§Ã£o 1
+Vi seu @ lÃ¡ naquele tinder do Facebook e senti no coraÃ§Ã£o de falar com vocÃª rsrs, quase ouvi uma voz dizendo assim âela tem cara de brava, mas Ã© gente boa kkk, vai lÃ¡ e diz um oi rsrsâ, entÃ£o... Oi hahaha
+
+> OpÃ§Ã£o 2
+Vi seu @ lÃ¡ no Facebook Namoro e pensei âessa menina provavelmente nem respondeâ. Achei injusto tirar conclusÃ£o sem testar. EntÃ£o... Oi ð
+
+> OpÃ§Ã£o 3
+Vi seu Instagram lÃ¡ no app de namoro e vim ver se o seu santo batia com o meu rs. Pela foto de perfil, vocÃª parece ser do tipo bravinha, acertei?
+
+> OpÃ§Ã£o 4
+Vi teu @ naquele Tinder do Facebook e tive uma impressÃ£o estranha: vocÃª parece do tipo que assusta no comeÃ§o, mas depois deve ser gente boa kkk acertei ou viajei?
+
+> OpÃ§Ã£o 5
+Isso vai soar meio do nada, mas vc deixou seu @ lÃ¡ no tinder do Facebook e eu pensei: âela tem uma carinha de brava interessanteâ kkk tive que vir dizer oi ð
+
+> OpÃ§Ã£o 6
+Vi teu @ naquele tinder do Facebook e alguma coisa em mim falou: âela parece meio brava, mas deve ser legalâ. Agora preciso descobrir se minha intuiÃ§Ã£o presta kkk oi ð
+
+> OpÃ§Ã£o 7
+Vai parecer estranho, mas vc deixou seu @ lÃ¡ naquele tinder do Facebook e eu pensei: âela nÃ£o deve responder qualquer umâ¦ mas vou arriscarâ. Oi kkk
+
+## REX 1
+
+Seu perfil surgiu aqui na tela e senti no coraÃ§Ã£o de falar com vocÃª rsrs, quase ouvi uma voz dizendo assim "ela tem cara de brava, mas Ã© gente boa kkk, vai lÃ¡ e diz um oi rsrs", entÃ£o... Oi hahaha
+
+Ai ai caramba, nÃ£o tinha me preparado pra essa parte kkk, na verdade achei que nem fosse responder rsrs, mas no fundo eu sabia que vocÃª nÃ£o era sÃ³ mais um rostinho bonito perdido no meio da multidÃ£o kkkkkk, e aÃ­ beleza?
+
+Enfim... estava fuÃ§ando seu perfil e minha mÃ£e acabou vendo tambÃ©m e te achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai ð
+ 
+EntÃ£o nÃ© rsrs, ela quer saber se alÃ©m de fofa... vocÃª tambÃ©m saberia fazer brigadeiro, massagem e principalmente se tambÃ©m Ã© romÃ¢ntica que nem o filho dela hahaha, na verdade eu tambÃ©m estou um pouco curioso... serÃ¡ serÃ¡ serÃ¡? NÃ£o teve nenhuma pergunta minha aÃ­ nÃ£o viu? Kkkk
+ 
+Meu deus ð±... nÃ£o creio nisso... te achei rsrs, onde vocÃª tava muiÃ©? Haha te procurei em todos os lugares, fui parar lÃ¡ no Acre e nada de vocÃª tambÃ©m kkkk, tava presa Ã©? Rsrs
+
+Minha mÃ£e aqui causando hehe "deixa de papo menino, vocÃªs vÃ£o ficar nesse troÃ§o que trava toda hora ou vÃ£o se falar no whatsapp? TÃ£o novo e nÃ£o sabem o que Ã© mais prÃ¡tico" hahahaha
+
+Falei pra ela que a culpa Ã© sua, que nÃ£o pediu meu whats "mÃ£e se ela quisesse jÃ¡ tinha pedido, ela nÃ£o tem cara de quem faz doce nÃ£o" rsrs
+
+> OpÃ§Ã£o 2
+Poxa, gostei de vocÃª, mas tenho uma pÃ©ssima notÃ­cia...
+ 
+Ã que assim FULANA, vou te jogar a real... eu sÃ³ passei aqui nesse aplicativo pra me despedir mesmo. A verdade Ã© que estou indo morar num planeta bem distante, chamado "whatsapp do Demian", e ele fica hÃ¡ 11 97573-8099 km daqui, aÃ­ vocÃª deve tÃ¡ se perguntando: "por que ele tÃ¡ me contando isso? (Pra vocÃª saber como chegar lÃ¡ uai, dÃ£Ã£Ã£h)
+
+Ah... e traga pÃ£o, acabei de me mudar e nÃ£o tenho nada pra te oferecer ððð
+
+## REX 2
+
+NÃ£o tÃ¡ fÃ¡cil pra ninguÃ©m viu haha... difÃ­cil achar alguÃ©m que me chame atenÃ§Ã£o nesse aplicativo doido, e quando acho... ou mora no Acre ou nunca estÃ¡ o rs, me diz... como vou arrumar uma vÃ­tima pro meu âstrogonoffâ e uma companhia pra conhecer praias do Nordeste comigo? Haha... enfim, tudo belezura? Rsrs
+ 
+Desculpa a demora mocinha, estava viajando a trabalho, mas deixei um bilhete na porta da geladeira com seu nome antes de ir, pra lembrar de vocÃª quando voltasse: "falar com FULANA, parece ser do bem", hahaha... E aÃ­ tudo bem? ð
+ 
+Enfim rsrs, estava fuÃ§ando seu perfil e minha mÃ£e acabou tambÃ©m vendo e te achou uma fofa sabia? Hahaha, mas ela pediu pra te perguntar uma coisa ai ai ð
+ 
+EntÃ£o... seguinte, ela quer saber se alÃ©m de fofa... VocÃª tambÃ©m saberia fazer brigadeiro, massagem e principalmente se tambÃ©m Ã© romÃ¢ntica que nem o filho dela hahaha, na verdade eu tambÃ©m estou um pouco curioso... serÃ¡ serÃ¡ serÃ¡? Kkkk
+ 
+Meu deus ð±... nÃ£o creio nisso... te achei rsrs, onde vocÃª tava muiÃ©? Haha... te procurei em todos os lugares, fui parar lÃ¡ em ânÃ¡rniaâ e nada de vocÃª tambÃ©m kkkk... tava presa Ã©? Rsrs
+ 
+Haha ai ai... vocÃª parece ser diferente de todas que jÃ¡ conversei por aqui... sei lÃ¡, parece pelo menos rsrs, tive uma ideia... posso dizer? Tu vai gostar acho...
+ 
+Estava pensando "cÃ¡ com meus botÃµes" haha, acho que whatsapp combina mais com a gente nÃ©? Mas estava meio com receio de pedir e vocÃª achar que sou igual os outros caras que te pedem "nudes e etc", mais prÃ¡tico no whatsapp nÃ£o acha? E tambÃ©m tem outro problema, entro pouco aqui ðð
+ 
+(Caso queira fazer ela te add, basta vocÃª aparecer no outro dia e falar que tentou add ela, mas nÃ£o conseguiu. E entÃ£o pedir pra ela tentar mandar um oi pra vocÃª. Pois sua mÃ£e quer te mandar um Ã¡udio pra ela hahaha)
+
+Oiiiii, tentei de add, mandei mensagem, gritei... gritei kkk, mas nÃ£o tive resposta, nem foto sua pareceu, por que serÃ¡ hein? E agora?
+ 
+> OpÃ§Ã£o 2
+Olha, acho que tem algum ex-namorado seu fazendo algum tipo de macumba pra vocÃª kkkkk, pra vocÃª nÃ£o ser feliz comigo hahaha, sabe por quÃª?
+ 
+Ahhh, tentei de adicionar no whatsapp, mas lÃ¡ diz que vocÃª nÃ£o tem whats, doideira nÃ©? Haha... Talvez o problema seja meu whatsapp mesmo, e agora? O que fazemos? ð
+
+# ESQUENTAR CONTATOS
+
+Quer casar comigo?
+* Que?
+
+Puts, era pra ter mandando isso pra outra pessoa, desculpa!
+
+---
+
+Ã azul
+* O que?
+
+Minha cor preferida, e a sua?
+
+---
+
+Nossa achei estranho o que aconteceu hoje
+Acabei beijando uma amiga minha, nunca tinha feito isso, agora estou incomodado
+
+---
+
+SÃ³ passei aqui pra saber como vocÃª estÃ¡ rsrs
+
+Lembrei de vocÃª hoje e vim falar contigo, estÃ¡ tudo bem?
+
+Sabe... estava fuÃ§ando suas fotos, vocÃª me aparenta ser uma pessoa feliz, sÃ³ que sei lÃ¡, posso estar errado, mas tem algo que falta em vocÃª, que dÃ¡ uma sensaÃ§Ã£o de vazio sabe? Rsrs, tipo algo lÃ¡ no fundo que poucas pessoas sabem, ou Ã© impressÃ£o minha?
+
+Deixa eu te perguntar, hoje eu vou sair com uma amiga e queria um conselho seu, qual presente eu poderia dar pra ela, Ã© aniversÃ¡rio dela hoje, me ajuda?
+
+Por acaso vocÃª nÃ£o Ã© mais uma dessas mulheres que conversam no Whats enquanto estÃ£o no banheiro, nÃ©?
+
+Eu jÃ¡ te disse que eu leio mÃ£os?
+Tira uma foto da palma da sua mÃ£o e me manda pra eu ver o que vai acontecer com vocÃªâ¦
+
+Eu acabei de ganhar 6.2 milhÃµes na loteria... entÃ£o, eu estou apenas enviando essa mensagem para dizer adeusâ¦
+
+Eu aposto que consigo adivinhar a cor da sua calcinha hoje
+
+O que a minha terceira (loira, morena, professora, etc) favorita estÃ¡ fazendo hoje?
+
+Se vocÃª fosse presa por 20 anos, vocÃª tatuaria meu nome no seu bumbum?
+
+Pronto, estou aqui! Quais sÃ£o seus outros 2 desejos?
+
+Oi, como foi seu dia hoje?
+Nossa, eu quis ver como eu me sentia enviando o mesmo tipo de mensagens que os caras chatos enviam, e foi pÃ©ssimo aff
+
+Vamos jogar um jogo hojeâ¦nada de enviar mensagem comuns para o outro. VocÃª sabe, mensagens tipo âcomo foi seu diaâ... vocÃª  comeÃ§a
+
+Preto ou vermelho? RÃ¡pido!
+
+Eu sei que vocÃª nÃ£o consegue parar de pensar em mim... entÃ£o achei que deveria dizer um oi rsrs
+
+SBT RODA RODA JEQUITI= INF. SUA LINHA MOVEL FOI CONTEMPLADA COM UMA CASA NO VALOR DE R$ 120.000,00 P/ + INF LIGUE DE UM FIXO GRÃTIS P/18-541-015129. SENHA 196. Mentira, sou eu, como vai vocÃª cabeÃ§uda? Haha
+
+Eu saÃ­ hoje, se vocÃª tivesse ido comigo teria sido bem melhor rsrs
+
+Eu acabei de fazer vocÃª abrir o seu whatsapp sem motivoâ¦ me parece que estou no controle ð
+
+Estou seduzindo garotas pra minha casa com doces... qual vocÃª gosta mais, M&M's ou PaÃ§oca? ð
+
+De todas as (primeiro nome dela) (sobrenome dela) que eu conheÃ§o... acho que vocÃª Ã© a minha favorita ð
+
+Eu almocei em um restaurante hoje e vi um peixe muito fofinho, pensei em vocÃª...
+
+Que rosto lindo, que belos olhos, que corpo sedutor, que sorriso sexy, bem... vou parar de falar de mim, como vai vocÃª? Rsrs ð
+
+VocÃª Ã© a pessoa que mais amo nesse mundo, nunca vou te esquecer! Enfim, te amo muito! O que acha dessa mensagem pra minha mÃ£e? Haha ð
+
+Saudades dessa sua boca, da sua lÃ­ngua, da sua mÃ£o me pegando forte, te espero no banheiro. Ass: sua escova de dente ð
+
+Oi, estou entrando em contato pra saber se vocÃª jÃ¡ ficou rica... nÃ£o aguento mais trabalhar, preciso dar o golpe do baÃº em alguÃ©mâ¦ ð
+
+AlÃ©m de admirar o meu perfil, o que mais vocÃª estÃ¡ fazendo por aÃ­?
+
+# ELOGIOS SUSPEITOS
+
+TÃ£o linda que parece um coraÃ§Ã£o desenhado no vidro do Ã´nibus com o dedo sujo de salgadinho
+TÃ£o linda que parece um fiapo de algodÃ£o doce preso no cabelo depois da festa
+TÃ£o linda que parece um pote de margarina com bolo de chocolate dentro
+TÃ£o linda que parece um brigadeiro maior que a forminha, grudado sÃ³ de um lado no prato
+TÃ£o linda que parece a luz do sol atravessando um copinho de gelatina vermelha
+TÃ£o linda que parece a Ãºltima batata frita no fundo da sacola, ainda com ketchup na ponta
+TÃ£o linda que parece um âvolto jÃ¡â escrito num guardanapo de padaria com um coraÃ§Ã£o torto
+TÃ£o linda que parece um adesivo de estrelinha colado num caderno velho e sobrevivendo a todos os anos
+TÃ£o linda que parece uma gota de chuva pendurada no varal sem decidir se cai
+TÃ£o linda que parece uma paÃ§oca quebrada perfeitamente ao meio dentro da bolsa
+TÃ£o linda que parece uma florzinha nascendo na rachadura da calÃ§ada ao lado do ponto de Ã´nibus
+TÃ£o linda que parece a cereja encontrada no fundo do sundae jÃ¡ quase derretido
+TÃ£o linda que parece uma marca de batom num copo de papel depois de uma conversa longa
+TÃ£o linda que parece um recibo amassado com o nÃºmero da sorte circulado de caneta
+TÃ£o linda que parece um marshmallow tostado sÃ³ de um lado na fogueira de festa junina
+TÃ£o linda que parece um confete minÃºsculo descoberto no cabelo na manhÃ£ seguinte
+TÃ£o linda que parece uma bolacha que quebrou por acaso no formato de coraÃ§Ã£o
+TÃ£o linda que parece uma colherzinha deixada em pÃ© no pote de brigadeiro
+TÃ£o linda que parece a lua refletida numa poÃ§a com aquele arco-Ã­ris de Ã³leo por cima
+TÃ£o linda que parece um saco de pÃ£o quente embaÃ§ando o vidro do carro
+TÃ£o linda que parece um morango escondido bem no meio da fatia de bolo
+TÃ£o linda que parece um guarda-chuvinha de drink esquecido dentro de um copo de plÃ¡stico
+TÃ£o linda que parece uma fita de presente usada para prender o cabelo porque nÃ£o tinha elÃ¡stico
+TÃ£o linda que parece uma espuma de cappuccino formando um coraÃ§Ã£o sem ninguÃ©m ter tentado
+TÃ£o linda que parece o barulhinho de uma coleira de gato vindo de um quarto escuro
+TÃ£o linda que parece um pregador de roupa segurando uma fotografia num varal improvisado
+TÃ£o linda que parece uma bala cor-de-rosa grudada num guardanapo branco
+TÃ£o linda que parece giz de cera derretido formando uma flor sem querer
+TÃ£o linda que parece uma pipoca perfeitamente redonda no meio de uma panela quase queimada
+TÃ£o linda que parece um bilhete de Ã´nibus guardado na capinha do celular por causa de um dia bom
+TÃ£o linda que parece o sol laranja entrando pela janelinha do banheiro no fim da tarde
+TÃ£o linda que parece um pote de sorvete que, pela primeira vez, tem sorvete dentro
+TÃ£o linda que parece uma bolha de sabÃ£o refletindo o telhado da casa antes de estourar
+TÃ£o linda que parece uma fatia de bolo inclinada, mas ainda segurando toda a cobertura
+TÃ£o linda que parece uma pedrinha de gelo que saiu da forma parecendo um coraÃ§Ã£o
+TÃ£o linda que parece um pontinho de glitter no rosto depois que a festa jÃ¡ acabou
+TÃ£o linda que parece uma gema intacta no meio de um ovo frito todo torto
+TÃ£o linda que parece catupiry escapando pela lateral da coxinha na primeira mordida
+TÃ£o linda que parece uma nuvenzinha presa entre dois prÃ©dios altos
+TÃ£o linda que parece um papel de bala brilhando no chÃ£o escuro do cinema
+TÃ£o linda que parece um barquinho de papel sobrevivendo Ã  Ã¡gua da sarjeta
+TÃ£o linda que parece um pÃ£o de queijo ainda morno encontrado no fundo da sacola
+TÃ£o linda que parece uma flor desenhada com ketchup no canto do prato
+TÃ£o linda que parece aquele adesivo de banana colado na geladeira hÃ¡ tanto tempo que virou decoraÃ§Ã£o
+TÃ£o linda que parece o Ãºltimo quadradinho de chocolate escondido atrÃ¡s do pacote de feijÃ£o
+TÃ£o linda que parece uma fotografia antiga que ganhou um halo porque ficou no sol
+TÃ£o linda que parece um botÃ£o costurado com linha de outra cor, mas segurando tudo perfeitamente
+TÃ£o linda que parece uma fatia de melancia com uma Ãºnica semente bem no centro
+TÃ£o linda que parece cheiro de perfume ficando no elevador depois que a porta fecha
+TÃ£o linda que parece um pudim inteiro esperando na geladeira Ã s duas da manhÃ£
+TÃ£o linda que parece uma estrelinha feita de aÃ§Ãºcar esquecida no fundo do pacote de confeitos
+TÃ£o linda que parece um pedaÃ§o de fita adesiva segurando um desenho na parede hÃ¡ anos
+TÃ£o linda que parece uma luzinha de Natal que continuou acesa mesmo depois de guardar o pisca-pisca
+meu pÃ£ozinho de carne louca
+meu pÃ£o de queijo esquecido no porta-luvas
+minha paÃ§oca aberta dentro da mochila
+meu brigadeiro que grudou na forminha
+minha coxinha achatada no guardanapo
+meu bombom derretido no bolso
+minha Ãºltima batatinha no fundo do pacote
+meu pudim balanÃ§ando no banco de trÃ¡s
+minha bolacha quebrada dentro do cafÃ©
+meu pastel murcho da volta da feira
+minha pipoca que ficou presa no sofÃ¡
+meu sonho esmagado dentro do saquinho
+minha jujuba esquecida no painel do carro
+meu pedaÃ§o de bolo embrulhado em papel-alumÃ­nio
+minha bala de caramelo grudada no dente
+meu churro vazando doce de leite pela lateral
+minha pizza dobrada dentro de um prato pequeno
+meu biscoito de polvilho que sobreviveu inteiro no pacote
+minha empadinha esfarelando na primeira mordida
+meu cafÃ© requentado pela terceira vez
+minha panqueca que saiu parecendo o mapa do brasil
+meu picolÃ© escorrendo pelo braÃ§o
+minha fatia de queijo grudada no plÃ¡stico
+meu pÃ£o francÃªs que chegou achatado da padaria
+minha tortinha transportada de moto
+meu ovo de pÃ¡scoa quebrado antes da hora
+minha esfiha esquecida dentro do micro-ondas
+meu milho que ficou preso no aparelho
+minha gelatina tentando escapar do prato
+meu miojo com Ã¡gua calculada no instinto
+minha lasanha com o meio ainda congelado
+meu refrigerante aberto desde ontem
+minha manga comida em cima da pia
+meu salgadinho laranja que mancha todos os dedos
+minha bolinha de queijo com o recheio concentrado num canto
+meu yakult virado atÃ© a Ãºltima gota
+minha marmita vazando dentro da sacola
+meu pacote de bolacha aberto do lado errado
+minha colher que caiu dentro da panela
+meu guardanapo fino de lanchonete
+minha sacola de mercado com uma alÃ§a sÃ³
+meu chinelo virado no meio da sala
+minha meia que perdeu o par na mÃ¡quina
+meu controle remoto escondido debaixo da coberta
+minha caneta falhando na hora de assinar
+meu carregador que sÃ³ funciona inclinado
+minha porta de armÃ¡rio que nunca fecha direito
+meu adesivo antigo na tampa do notebook
+minha garrafinha de Ã¡gua toda amassada
+meu travesseiro gelado do lado certo
+minha luz da geladeira acesa de madrugada
+meu pÃ£o de alho esquecido no canto da churrasqueira
+minha paÃ§oca que abriu sozinha no bolso
+meu brigadeiro com uma mordida misteriosa
+minha coxinha que tombou dentro do molho
+meu bombom amassado no fundo da bolsa
+minha batata frita caÃ­da dentro do refrigerante
+meu pudim transportado numa rua esburacada
+minha bolacha que partiu antes de chegar ao cafÃ©
+meu pastel dobrado dentro de uma sacola pequena
+minha pipoca escondida dentro do capuz
+meu sonho com o aÃ§Ãºcar todo grudado no saquinho
+minha jujuba abandonada debaixo do banco do carro
+meu bolo de pote com a tampa colocada torta
+minha bala grudada no papel hÃ¡ tempo demais
+meu churro com o recheio escapando pela ponta
+minha pizza espremida dentro da geladeira
+meu biscoito de polvilho preso no fundo do copo
+minha empadinha que perdeu a tampa no caminho
+meu cafÃ© esquecido em cima da impressora
+minha panqueca com formato de estado brasileiro
+meu picolÃ© que derreteu antes da primeira mordida
+minha fatia de presunto dobrada quatro vezes
+meu pÃ£o francÃªs esmagado pela garrafa de refrigerante
+minha tortinha que chegou inclinada na embalagem
+meu ovo de pÃ¡scoa escondido no armÃ¡rio errado
+minha esfiha esquecida dentro da air fryer
+meu grÃ£o de milho perdido entre os dentes
+minha gelatina tentando sobreviver fora da geladeira
+meu miojo quebrado antes de entrar na panela
+minha lasanha escorregando para um lado do prato
+meu refrigerante esquecido aberto durante a festa
+minha manga cortada com uma faca completamente inadequada
+meu salgadinho esmagado antes de abrir o pacote
+minha bolinha de queijo que perdeu todo o recheio na primeira mordida
+meu yakult sacudido antes de abrir
+minha marmita virada de lado dentro da mochila
+meu pacote de bolacha rasgado no meio
+minha colher esquecida dentro da xÃ­cara
+meu guardanapo grudado no fundo do copo
+minha sacola de mercado prestes a perder o fundo
+meu chinelo molhado esquecido no banheiro
+minha meia encontrada dentro da fronha
+meu controle remoto preso entre o colchÃ£o e a parede
+minha caneta mordida atÃ© perder o formato
+meu carregador enrolado com uma precisÃ£o impossÃ­vel
+minha porta de armÃ¡rio aberta apenas o suficiente para incomodar
+meu adesivo desbotado que ninguÃ©m tem coragem de tirar
+minha garrafinha esquecida no congelador
+meu travesseiro com a fronha colocada do avesso
+minha luz do corredor acesa sem ninguÃ©m por perto
+meu pÃ£o de mel esquecido perto da janela
+minha cocada quebrada no fundo da lata
+meu quindim tremendo dentro do potinho
+minha rosquinha presa no dedo
+meu bolinho de chuva molhado de sereno
+minha tapioca dobrada em formato de envelope
+meu suspiro esmagado entre dois pratos
+minha bala de coco suando dentro do papel
+meu pÃ© de moleque partido exatamente no meio
+minha fatia de goiabada grudada na faca
+meu queijo coalho torto no espetinho
+minha pamonha amarrada com um nÃ³ impossÃ­vel
+meu curau formando uma pelÃ­cula misteriosa
+minha maria-mole inclinada no prato
+meu biscoito amanteigado cheio de migalhas no colo
+minha castanha perdida dentro do pacote de amendoim
+meu pÃ£o de batata apertado dentro da lancheira
+minha fatia de melancia com uma semente na ponta do nariz
+meu morango esquecido dentro do chantilly
+minha cereja afundada no fundo do copo
+meu algodÃ£o-doce encolhido pela umidade
+minha maÃ§Ã£ do amor grudada no saquinho
+meu doce de leite raspado atÃ© o fundo do pote
+minha rapadura embrulhada num papel barulhento
+meu rocambole com o recheio escapando em espiral
+minha fatia de abacaxi esquecida no canto da travessa
+meu bolinho de bacalhau que rolou para debaixo da mesa
+minha mandioca que se desfez antes de chegar ao prato
+meu pÃ£o na chapa cortado completamente torto
+minha torrada quebrada tentando segurar manteiga demais
+meu queijo quente com uma ponta fria
+minha mini pizza grudada no guardanapo
+meu enroladinho de salsicha com a massa abrindo na lateral
+minha cebola empanada que perdeu metade da casquinha
+meu nuggets com um formato impossÃ­vel de identificar
+minha batata smile com a boca meio apagada
+meu hambÃºrguer desmontado depois da primeira mordida
+minha alface escapando pela lateral do sanduÃ­che
+meu tomate cereja rolando pela bancada
+minha azeitona esquecida no canto do prato
+meu sachÃª de ketchup rasgado do lado errado
+minha maionese espirrada longe do lanche
+meu canudinho de papel amolecendo dentro do suco
+minha pedrinha de gelo presa no fundo do copo
+meu chÃ¡ gelado com uma folha boiando sem explicaÃ§Ã£o
+minha Ã¡gua com gÃ¡s aberta com coragem excessiva
+meu capuccino com o desenho da espuma jÃ¡ desmanchado
+minha xÃ­cara com uma gotinha escorrendo pela alÃ§a
+meu potinho de requeijÃ£o raspado nas laterais
+minha tampa de pote que nunca pertence ao pote certo
+
+# ROTINAS
+## MÃLTIPLAS SENSAÃÃES 
+
+Hum, posso te fazer uma pergunta?  
+ 
+ÃÃ©Ã©Ã©Ã©Ã©... vocÃª estÃ¡ solteira mesmo?
+
+Kkkkk, tem algo um pouco estranho nisso ð¤  
+ ã¤  
+Ahhh, sei lÃ¡, de inÃ­cio achei que era tipo aquelas bonitonas que recebem um monte de mensagem por dia e nÃ£o responde ninguÃ©m sabe?   
+ã¤  
+Mas vocÃª parece ser muito simpÃ¡tica, bem-humorada, meio tÃ­mida tambÃ©m haha, mas Ã© gente boa  
+ã¤  
+O que me leva a prÃ³xima perguntaâ¦ o que tem feito que eles estÃ£o correndo de vocÃª? E fala verdade kkkk  
+ ã¤  
+Hummm... vamos tentar analisar juntos isso aÃ­, estou curioso rsrs, vocÃª Ã© ciumenta, tem chulÃ© ou Ã© algum tipo de pervertida? Haha  
+ 
+Hahahaha, vocÃª usa aquelas "melissa"? ð 
+
+Kkkkkk, sabe que aquele cheirinho de tutti-frutti sÃ³ tem na loja nÃ©? Rsrs  
+ 
+Liga nÃ£o, sou brincalhÃ£o rsrs, tÃ´ numa fase muito boa da minha vida e deixo pra ser sÃ©rio sÃ³ quando Ã© preciso mesmo, nÃ£o quis ofender nem nada, Ã© meu jeito sÃ³ viu hehe, vocÃª tambÃ©m Ã© bem humorada ou Ã© pavio curto?  
+ 
+Hummm, que bom que temos algo em comum rsrs, sÃ³ falta me dizer que tambÃ©m curte cinema, rolÃª no parque e comer algodÃ£o doce kkkk, serÃ¡ serÃ¡ serÃ¡? 
+
+Rsrs, isso foi um convite? Ã isso mesmo produÃ§Ã£o? Kkk cuidado viu moÃ§a, prÃ³ximo dia dos namorados posso aparecer na porta da sua casa com uma caixa de bombons, sou romÃ¢ntico Hehe  
+ 
+SÃ³ nÃ£o vai me culpar de te tirar da dieta depois hein? Hahaha, nÃ£o vai dizer pras suas amigas que engordou por minha culpa viu?   
+ 
+
+## AÃAÃ OU SORVETE?
+
+ 
+VocÃª prefere sorvete ou aÃ§aÃ­?   
+ 
+Haha que droga, a mesma coisa que eu... do jeito que vocÃª deve ser gulosa, vai tomar o seu e depois correr atrÃ¡s de mim pra serrar o meu aff, odeio isso rsrs  
+ 
+Haha jÃ¡ sei, quando formos tomar aÃ§aÃ­, vou colocar alguma coisa por cima que vocÃª nÃ£o goste kkk, tipo... leite em pÃ³, paÃ§oca ou amendoim e se tentar algo, sujo sua cara haha... faÃ§o isso mesmo, sou ruim... E aiii de vocÃª se fizer o mesmo, te mordo viu... nhac ð  
+ 
+Haha jÃ¡ sei, quando formos tomar sorvete, vou pegar algum sabor que vocÃª nÃ£o goste kkk, e se tentar algo, sujo sua cara haha, faÃ§o isso mesmo, sou ruim... E aiii de vocÃª se fizer o mesmo, te mordo viu... nhac ð  
+ 
+AtÃ© imaginei agora vocÃª com a cara toda suja parecendo uma crianÃ§a haha
+
+(Se ela disser que nÃ£o gosta de aÃ§aÃ­)
+
+NÃ£o... sÃ©rio que vocÃª nÃ£o gosta de aÃ§aÃ­? Kkk nossa te amo jÃ¡ entÃ£o haha, isso vai ser muito melhor do que eu imaginava rsrs,  porque eu vou comer tudo sozinho hahaha... Odeio quando estou tomando aÃ§aÃ­ e as pessoas ficam tentando serrar, vai ser tudo meu entÃ£o rsrs "agora o aÃ§aÃ­ vai ser tudo meu haha tudo meu meu meu huahuauh" - risada de bruxa 
+
+## FINGINDO SER GAROTO DE PROGRAMA
+
+ITAÃ  
+AG 7910  
+CC 11406-0  
+Foi 400,00 ok? JÃ¡ que nÃ£o precisei andar de mÃ£os dadas com vocÃª e tal, sÃ³ pela noite mesmo, dÃ¡ prÃ³xima te dou um desconto linda  
+* Kkkkk oi? Perdi alguma coisa?
+
+Putz, tela errada kkkk, que gafe ð
+
+---
+
+(Manda a foto do Motel)  
+Pronto, cheguei no trampo kkkk, mais uma cliente e jÃ¡ era, aÃ­ vou dormir, boa noite pra vocÃª
+
+## FOTO MENININHA BEIJANDO O MENININHO
+
+Se falando no seu ouvido eu jÃ¡ causo essa sensaÃ§Ã£o boa, imagina do que meu beijo Ã© capaz ð
+
+## SOU PRA NAMORAR
+
+Gostei de vocÃª rsrs, vocÃª parece ser divertida, Ã© muito diferente das mulheres que eu falo por aqui, masss tem uma coisa que tenho muito medo ðª
+
+Ah, Ã© que geralmente no comeÃ§o a mulher Ã© muito comunicativa comigo, mas depois acaba descobrindo que eu quero coisa sÃ©ria... aliÃ¡s eu jÃ¡ aviso que sou pra namorar viu kkkk, eu sou de famÃ­lia rsrs e nÃ£o estou mais nessa de "oba-oba"...
+
+Ah, entÃ£o eu posso pensar que vocÃª Ã© diferente? 
+
+Hum, entÃ£o quer dizer que vocÃª Ã© pra namorar? VocÃª se acha uma menina pra namorar? ð
+
+Ah tÃ¡ bom rsrs, jÃ¡ que vocÃª falou que Ã© pra namorar, fiquei com uma dÃºvida enorme na minha cabeÃ§a...
+
+Me responde essas perguntas: vocÃª tem chulÃ©, Ã© ciumenta ou algum tipo de pervertida? Hahaha tÃ´ curioso rsrs
+
+Kkk nossa meu, depois de tudo isso que li agora vou ter que fazer uma coisa com vocÃª que faz tempo que nÃ£o faÃ§o com ninguÃ©m... ð
+
+Brincadeira kkkk, vou ter que pagar uma casquinha do McDonald's pra vocÃª rsrs pode ser? Kkk o que vale Ã© a intenÃ§Ã£o... vai ser de coraÃ§Ã£o viu rsrs
+
+Hahaha, mas vem cÃ¡ rsrs, se eu te levar pro cinema, eu posso confiar em vocÃª? Tipo... vocÃª nÃ£o vai ficar me bolinando nÃ£o nÃ© rsrs?
+
+VocÃª nÃ£o vai se aproveitar de mim nÃ£o nÃ©? VocÃª vai deixar eu assistir o filme ok? Kkk Ã© que esses dias atrÃ¡s eu fui com uma amiga, chegou lÃ¡ ela veio com historinha de saber de perfume rsrs, aÃ­ quando eu fui ver ela tava parecendo o conde drÃ¡cula em mim hahaha   
+
+Mas olha, eu vou levar vocÃª sim, porque percebi que dÃ¡ pra confiar mesmo, vocÃª tem cara de ser uma menina tranquila, de boa entÃ£o... posso atÃ© dormir sÃ³ de cueca boxer com vocÃª, que vocÃª vai sÃ³ me cobrir com o edredom e nÃ£o vai fazer nada... amÃ©m irmÃ£?
+
+Ah tÃ¡ bom rs, entÃ£o vai ser perfeito...
+
+## SOU ENGRAÃADO?
+
+Ã, mas se vocÃª me achar engraÃ§ado vai chegar uma hora que eu vou te chamar pra sair, aÃ­ a gente vai rolar na grama, desenhar coraÃ§Ãµes em Ã¡rvores, e aÃ­ vocÃª vai ficar pensando que sou um cara bobo kkk, que gosta de viver esses momentos de crianÃ§a, e vocÃª vai enjoar nÃ©? Rsrs
+
+TÃ¡ beleza, entÃ£o faz assim rsrs, vocÃª vai ter que comer meu brigadeiro, eu faÃ§o um brigadeiro gostoso pra caramba, mas se eu fizer pra vocÃª, vocÃª nÃ£o vai me acusar que te engordei, que quebrei sua dieta nÃ©? Olha lÃ¡, hein? Hahaha nÃ£o quero ficar com isso na cabeÃ§a rs
+
+Mas antes disso, me fala onde vocÃª mora, Ã© que vocÃª me parece tanto com uma pessoa, vocÃª mora em SÃ£o Paulo mesmo?  
+ 
+Meu, tÃ´ curioso kkk, serÃ¡ que vocÃª Ã© simpÃ¡tica assim como eu? Vamos ver, sabe fazer brigadeiro, massagem e beija bem como eu? SerÃ¡, serÃ¡, serÃ¡? Kkk
+
+VocÃª Ã© luz / Ã raio estrela e luar / ManhÃ£ de sol / Meu iaiÃ¡, meu ioiÃ´ ð¶ð§
+
+ÃÃ³ tÃ´ romÃ¢ntico hoje, liga nÃ£o rsrs
+
+Geralmente mulher nÃ£o gosta de cara romÃ¢ntico e tals, mas Ã³ "tÃ´ nem aÃ­", eu nÃ£o consegui me assimilar nessa modinha de que o homem tem que ser barbudo ou ser vida loka, eu nÃ£o consegui, eu sei que as mulheres gostam desse tipo de cara mas eu nÃ£o sou assim e foda-se rsrs  
+ 
+Olha rsrs, tem uma coisa dentro de vocÃª que parece que Ã© muito diferente das demais que jÃ¡ conversou comigo, eu nÃ£o sei bem o que Ã© ainda, tÃ´ em dÃºvida mas eu estou a ponto de descobrir... Quando descobrir eu te falo rsrs
+
+NÃ£o, calma... eu nÃ£o sei ainda rsrs, mas duas coisas eu notei que vocÃª Ã© diferente rs, essa outra eu estou em duvida ainda...
+
+Nossa, vocÃª Ã© curiosa, hein? rsrs... vocÃª Ã© sempre curiosa assim ou sÃ³ com caras bonitos? Hahaha
+
+Ah... eu sempre sou
+
+Nossa, me chamou de feio Ã©?  
+* NÃ£o, mentira... nÃ£o te chamei de feio...
+
+Ah entÃ£o eu sou bonito? ð  
+* Ã bonito, vocÃª Ã© um cara bonito...
+
+Ah, obrigado rsrs... VocÃª tambÃ©m Ã© muito simpÃ¡tica ðð
+
+SÃ³ por causa disso vocÃª vou te pagar uma casquinha do McDonald's qualquer dia kkk
+
+## CALIFORNICATION
+
+ 
+Querida Karen,
+
+Se estÃ¡ lendo isso significa que finalmente tive coragem de enviar.
+
+EntÃ£o... ponto pra mim rsrs  
+ã¤  
+Olha, eu sei que nÃ£o nos conhecemos direito; porÃ©m, quando conhecer, perceberÃ¡ o quÃ£o Ã© difÃ­cil pra mim escrever algo desse tipo, na verdade, essa Ã© a coisa mais difÃ­cil que jÃ¡ tive que escrever, mas... ao mesmo tempo relaxante, como uma sensaÃ§Ã£o de "dever cumprido"...  
+ã¤  
+NÃ£o tem um jeito fÃ¡cil de falar isso, entÃ£o vou sÃ³ falar, conheci alguÃ©m...  
+ã¤  
+Foi acidental, eu nÃ£o estava procurando, juro... sÃ³ que ela estava andando, "toda toda" e deslumbrante quando eu fui atÃ© ela... em seguida eu soube que queria passar o resto da minha vida naquela conversa, naquela "armadilha" do destino...  
+ã¤  
+Agora tenho essa sensaÃ§Ã£o, parecido com borboletas no estÃ´mago, pode ser ela? SerÃ¡ que Ã© dessa vez? Ela Ã© totalmente doida, de um jeito que me faz sorrir; ela Ã© neurÃ³tica, precisa de muita atenÃ§Ã£o, ela Ã© perfeita nas suas imperfeiÃ§Ãµes sedutoras e mÃ¡gicas, e ela Ã© vocÃª FULANA, uma menina tÃ£o mulher, ou mulher tÃ£o menina - vocÃª embaralhou a minha mente, bomâ¦ essa Ã© a boa notÃ­cia...  
+ã¤  
+A mÃ¡ Ã© que eu nÃ£o sei ao certo como ficar com vocÃª agora, e isso me apavora, porque se eu nÃ£o ficar com vocÃª agora, eu tenho a sensaÃ§Ã£o de que nÃ³s vamos nos perder, esse mundo Ã© muito louco e malvado, alÃ©m de grande e cheio de surpresas, sei que o mundo estÃ¡ repleto de lobos em pele de cordeiro, fazendo com que fiquemos com medo; e acabamos perdendo o momento. Aquele "momento" que tudo podia ter mudado...  
+ã¤  
+Eu nÃ£o sei o que estÃ¡ acontecendo com a gente, e eu nÃ£o sei porque vocÃª deveria acreditar em mim. Mas vocÃª Ã© tÃ£o incrÃ­vel e deslumbrante, isso deve contar alguma coisa nÃ©?  
+ã¤  
+Me ligue, de alguÃ©m infielmente seu,  
+ã¤  
+Demian.
+
+## ÃRVORE
+
+Posso te contar uma historinha rÃ¡pida? Kkk  
+* Pode
+
+Muito antes de eu nascer, meu vÃ´ conheceu uma mulher, ele na Ã©poca sÃ³ queria saber de farra (um verdadeiro mulherengo, atÃ© naquele tempo), atÃ© que a encontrou... foi na fila do pÃ£o, kkkk!! Eles conversaram e decidiram se encontrar
+
+SÃ³ que nÃ£o ficou apenas no primeiro encontro, ele me disse que havia algo a mais nessa mulher... Bem, depois de uns 4 ou 5 encontros, eles se encontraram num parque - aquele tempo, jÃ¡ era quase um namoro isso - e foram passear
+
+Eles sentaram debaixo de uma jovem Ã¡rvore, da qual tinha as mais belas folhas do parque, e comeÃ§aram a conversar coisas simples, sobre o que achavam um do outro e atÃ© do futuro. E ali mesmo decidiram iniciar o namoro. JÃ¡ sabe o resto nÃ©? Ela se tornou minha vÃ³, se casaram, tiveram filhos e... "voilÃ¡", aqui estou kkkk. Contei isso tudo, sÃ³ para dizer o que ele fez naquele dia especial
+
+Ele escreveu o nome deles na Ã¡rvore... Tipo assim oh:  
+* Ai MDS!
+
+Sei que Ã© meio apressado, mas acho que devia fazer a mesma coisa que meu vÃ´ fez, jÃ¡ que deu certo daquela vez ð
+
+## ROSA
+
+Hahaha, deixa eu te contar! ð Hoje, tava andando na rua e me deparei com uma flor incrÃ­vel, toda radiante que me chamou atenÃ§Ã£o. Adivinha quem veio na minha mente na mesma hora? Claro, vocÃª! SÃ©rio, pensei: "Essa lindeza toda combina demais com a pessoa encantadora que Ã©". Quase arranquei a flor de tanta empolgaÃ§Ã£o pra te dar, mas aÃ­ veio um pensamento: seria tipo roubar a essÃªncia da natureza, tirar a vida desse belezinha sÃ³ pra te dar e ela morrer depois. AÃ­, tive uma ideia brilhante! Porque eu realmente queria te dar algo, decidi criar algo Ãºnico, que durasse pra sempre. EntÃ£o fiz um origami especial pra vocÃª, uma tulipa de papel, cada dobra feita com todo o carinho e encanto que vocÃª me inspira. Quer ver? ðð
+
+---
+
+- manda a foto do origami -- pra vocÃª  
+* Nossa que lindo
+
+Essa rosa tem uma histÃ³ria, mas pra te contar vou precisar da sua atenÃ§Ã£o...  
+* BlÃ¡-blÃ¡-blÃ¡
+
+Uma vez, eu conheci alguÃ©m que me ensinou a fazer essa rosa, mas teve um preÃ§o rsrs  
+* E qual foi?
+
+EntÃ£o... essa pessoa me falou que se eu fizesse uma rosa dessas, eu perderia energia sabe? EntÃ£o... nÃ£o poderia sair distribuindo, pois poderia atÃ© desmaiar...  
+* Nossa
+
+Sabe, tudo que a gente faz pensando em alguÃ©m, transmite alguma energia, mas jÃ¡ caso dessa rosa tem algo a mais do que isso...  
+* Hum
+
+A pessoa me ensinou a "dar vida a rosa". Ela passa a ter um cheiro peculiar que tem a ver com o sentimento trabalhado nela. Nesse caso, essa ficou com um cheiro leve, doce, que realÃ§ou atÃ© as cores rsrs  
+* BlÃ¡-blÃ¡-blÃ¡
+
+Ã como o toque quente de um casal apaixonado sabe? Ardente e angustiante de tÃ£o perfeito, vocÃª jÃ¡ deve ter vistos cores mais radiantes sem saber o motivo nÃ©?  
+* Ai que lindo
+
+Pois Ã©... eu pensei com amor e carinho na hora de fazer essa rosa, pensei tanto em vocÃª que vai sentir a conexÃ£o dela, o perfume, e como transmitirÃ¡ prazeres inimaginÃ¡veis 
+* BlÃ¡-blÃ¡-blÃ¡ 
+
+Mas como disse, ela me desgastou muito, talvez eu nÃ£o consiga te entregar ð  
+* Ah, por que nÃ£o consegue me entregar?
+
+Depois que ela responder, vocÃª vai para um Ã¡udio (asmr):
+
+Respira... eu... tÃ´ tentando atÃ© nÃ£o dormir... pra te explicar... como, foi importante... terminar essa rosa... pra vocÃª ter ideia, minhas mÃ£os... agora... tÃ¡ parecendo fogo... tÃ¡ pegando fogo, eu nunca tinha feito uma rosa... eu nunca tinha me doado... TANTO pra fazer uma rosa dessa, TANTA energia...
+
+Detalhe, sua voz deve parecer fraca.
+
+Pronto... instalado uma emoÃ§Ã£o forte sobre a rosa.
+
+O resto do jogo com ela presencial vocÃª sabe como Ã©... sÃ³ realÃ§ar que nÃ£o pode jogar fora, pois ela tem uma parte de sua vida com ela.
+
+---
+
+Alguma vez vocÃª jÃ¡ teve aquela sensaÃ§Ã£o em que estamos fazendo algo no dia e do nada acabamos lembrando muito alguÃ©m!?  
+* BlÃ¡-blÃ¡
+
+Aconteceu comigo hj, acho que vocÃª vai conseguir dimensionar o quanto isso foi intenso... foi algo muito diferente sabe?  
+* BlÃ¡-blÃ¡
+
+EntÃ£o, estava fazendo algo, nÃ£o com algum propÃ³sito especÃ­fico, mas enquanto fazia, ia ganhando cada vez mais forma... quanto mais forma dava a esse objeto, mas vocÃª preenchia meus pensamentosâ¦
+
+Sei lÃ¡, seu jeito carinhoso, seu olhar, podia olhar pra forma que isso estava se concretizando... e enquanto olhava pra esse objeto, via o quanto era sensÃ­vel em essÃªncia... uma rosa delicada... ao olhar pra essa rosa, pude sentir vocÃª aqui comigo como se fÃ´ssemos um sÃ³â¦
+
+- [Print da rosa]
+
+## ROTINA DA FELICIDADE
+
+VocÃª estÃ¡ meio pra baixo? Como vocÃª gostaria de se sentir agora?
+
+Ah, isso Ã© fÃ¡cil. Eu conheÃ§o um exercÃ­cio que te faz ficar super feliz em 2 minutos, quer tentar?
+
+Ãtimo, tudo que vocÃª precisa fazer Ã© seguir as minhas instruÃ§Ãµes e se concentrar. VocÃª consegue fazer isso?
+
+Levante
+
+Olhe para cima
+
+Mesmo que vocÃª nÃ£o queira, force um sorriso
+
+Isso, um sorriso de verdade, mostre todos esses dentes lindos que vocÃª tem ð
+
+Agora tire uma foto e me manda pra eu ver se vocÃª estÃ¡ fazendo certo
+
+Agora comece a respirar lenta e profundamente
+
+E imagine a situaÃ§Ã£o mais engraÃ§ada que aconteceu com vocÃª nos Ãºltimos tempos
+
+Imagine que vocÃª estÃ¡ novamente naquela situaÃ§Ã£o
+
+Veja o que vocÃª viu
+
+Escute o que vocÃª escutou
+
+Sinta o que vocÃª sentiu
+
+E perceba como aquela felicidade volta para o seu corpo agora
+
+Respire fundo novamente e sinta a felicidade se espalhando por cada cÃ©lula do seu corpo
+
+E aÃ­, de 0 a 10, o quÃ£o melhor vocÃª se sente agora?
+
+O que vocÃª acha que falta para chegar no 10?
+
+(Obs: Use a curiosidade dela como pretexto para marcar o encontro)
+
+## TÃCNICA MINESWEEPER (CAMPO MINADO)
+
+ 
+PÃ´xa, hoje tive um dia difÃ­cil viu... ð  
+ 
+Sabe aqueles dias que do nada aparece 644 problemas de uma vez sÃ³, tipo... em menos de 1 segundo?  
+ 
+Pois Ã©, queria alguÃ©m pra me ajudar, talvez alguÃ©m pra ser um divisor de Ã¡guas na minha vida  
+ 
+Acontece que atÃ© que consegui eliminar alguns problemas e falta alguns que na minha opiniÃ£o Ã© tÃ£o difÃ­cil que tenho medo de errar e por tudo a perder sabe?  
+ 
+Vou te mandar, peraÃ­...  
+ 
+E entÃ£o? BombÃ¡stico nÃ©? Hahaha  
+ 
+
+## MÃRIO 1
+
+ 
+Estou passando por uma fase difÃ­cil viu... ð  
+ 
+JÃ¡ atÃ© pensei em pedir ajuda para amigos ou familiares, mas sei que devo passar sozinho sabe?  
+ 
+Ã algo que estou dias tentando resolver, mas sempre volto pro inÃ­cio, estÃ¡ me deixando nervoso jÃ¡...  
+ 
+Posso atÃ© tentar te explicar, mas vocÃª nÃ£o iria entender...  
+ 
+Espera sÃ³ mais um pouco... acho que vou conseguir dessa vezâ¦
+
+## MÃRIO 2
+
+Super MÃ¡rio para elevar o lado positivo (auto-qualificaÃ§Ã£o de humor):
+
+- Como vai seu dia?  
+* Blah  
+- Nossa, te falar. Hoje eu realizei mais uma conquista que demorei anos. Quando era pequeno nÃ£o tinha essa capacidade. SÃ³ que agora eu CONSEGUI! hahaha  
+* Que bom blah blah blah  
+- VocÃª foi a primeira pessoa que contei depois da minha famÃ­lia, pena que acharam uma besteira.  
+* blah blah blah pq?  
+- Acharam algo tÃ£o simples... mesmo eu demorando anos. Mas a felicidade supera as crÃ­ticas nÃ£o Ã©? rsrs  
+* blah blah blah  
+- VocÃª merece ver tambÃ©m... vou lhe mostrar... (hiato de 10 minutos)  
+* CadÃª?  
+- Ah, esqueci rsrs.... Ã© tanta emoÃ§Ã£o que esqueÃ§o
+
+(FOTO COM FINAL DE SUPER MARIO BROS)
+
+- MUITA EMOÃÃO! haha
+
+## ROTINA DO CANDY CRUSH
+
+Estou com um dia difÃ­cil viu... parece que morri diversas vezes sÃ³ tentando resolver ð  
+* BlÃ¡-blÃ¡
+
+Sabe aqueles dias que do nada aparece milhares de problemas caindo do cÃ©u? 
+* Poxa, sei sim... blah blah blah 
+
+Pois Ã©, queria alguÃ©m pra me ajudar, principalmente que parece ser um divisor de fases na minha vida...  
+* Nossa, o que eh blah blah blah
+
+Ã porque toda vez quando eu penso em como resolver esses problemas que caem, aparecem outros que bloqueiam o meu sucesso, e tenho medo de errar e perder...  
+* Blah blah, me conta, como posso ajudar? (Ou algo do gÃªnero)
+
+Vou te mandar  
+* Ok
+
+E entÃ£o? Ã muito difÃ­cil nÃ©, hahaha  
+* Kkk
+
+Nota 1: se ela nÃ£o perguntar como ajudar,  vocÃª deve adicionar mais uma frase que gere a curiosidade.
+
+Pois Ã©, queria alguÃ©m pra me ajudar, Ã s vezes a pessoa jÃ¡ passou por isso e tem a soluÃ§Ã£o, sabe? Se nÃ£o...
+
+## ROTINA DA SUICÃDIO
+
+Carrie, se estÃ¡ lendo isso significa que estou morto, e nunca ficamos juntos... vocÃª sabe que nÃ£o sou bom com as palavras, mas elas estÃ£o surgindo agora, nÃ£o acredito em acaso, destino ou horÃ³scopo, mas nÃ£o estou surpreso que as coisas tenham acabado assim
+
+Sempre senti como se algo me puxasse pra escuridÃ£o, isso faz sentido agora nÃ©? NÃ£o pude ter uma vida de verdade, um amor de verdade, isso eram coisas pra pessoas normais, com vocÃª pensei: "Talvez, quem sabe? SerÃ¡ que Ã© ela?" Mas agora sei que foi um falso vislumbre, estou acostumado com isso, acontece sempre, mas dessa vez mexeu comigoâ¦
+
+E a questÃ£o Ã© que essa morte, esse meu fim, Ã© exatamente o que deveria ter acontecido, eu queria a escuridÃ£o, pedi por isso, agora pertenÃ§o a ela. EntÃ£o, nÃ£o acenda uma vela por mim, nem faÃ§a um discurso idiota rsrs... pense em mim como uma luz, um farol, afastando vocÃª da escuridÃ£o, eu amei vocÃª
+
+Seu, agora para sempre
+
+Demian
+
+---
+
+OlÃ¡ Fulana, creio que quando tiver lido essa mensagem, nÃ£o estarei mais perto de ti. Me senti sufocado demais por tudo o que aconteceu e nÃ£o tive mais energias para lutar. Agora, preciso te dizer o quanto foi difÃ­cil sobreviver Ã  pressÃ£o que fizeram - acho que vocÃª foi o motivo de ter aguentado tanto
+
+NÃ£o me importo mais se o que tivemos foi passageiro, o erro foi meu ter esperado que me respondesse. AtÃ© agora, nesse momento de tristeza, me sinto quente pensando em vocÃª - feliz, esperanÃ§oso e vÃ­vido. Nossos Ãºltimos momentos estÃ£o sempre vindo em minha memÃ³ria
+
+O seu cheiro, sua pele quente e firme, seu sorriso... nÃ£o aguento mais. SÃ³ queria dizer o quanto pensei em vocÃª. Adeus
+
+---
+
+OlÃ¡, X. 
+
+Esse texto foi feito com MUITO receio de tudo dar errado, sÃ³ que preciso lhe explicar algo.
+
+Talvez vocÃª nÃ£o entenda no fim, mas preciso "libertar" essa emoÃ§Ã£o. NÃ£o vou mais enrolar, eis a verdade: "tenho medo de vocÃª neste momento".
+
+HÃ¡ um tempo atrÃ¡s eu conheci uma mulher, bela e formidÃ¡vel. Ela mudou a minha realidade - nossa primeira conversa me fez pensar do futuro, o modo que ajo hoje... ELA ME ENFEITIÃOU, sinto muito.
+
+O feitiÃ§o dela estava nas palavras, no modo de agir, suas emoÃ§Ãµes tambÃ©m... seu jeito doido era seduzente demais.  
+Foi tÃ£o forte o feitiÃ§o que eu sÃ³ "enxergo" ela, as outras mulheres estÃ£o em preto e branco e a comida perdeu o sabor. Desconfio que foi de propÃ³sito (risos).
+
+Sem enrolar... o nome desta mulher Ã© X. Estou sempre sorrindo e querendo lhe ajudar, em tudo o que posso. Levando-me ao "delÃ­rio". E este Ã© o meu medo. AlguÃ©m neste nÃ­vel de poder pode me levar a ruÃ­na.
+
+Contudo, eu enxergo a luz no fim dessa sua manobra: afastar-me de ti Ã© igual a perder a chance de evoluir e alcanÃ§ar a "virtude". Neste admirÃ¡vel mundo louco, repleto de veneno, perdemos oportunidades Ãºnicas de se viver. SÃ³ que pressinto no meu Ã­ntimo que vocÃª Ã© a pessoa que lutarÃ¡ comigo, mesmo nÃ£o sabendo o motivo. Sei que parece desperdÃ­cio de tempo ler algo assim, de alguÃ©m abrindo e se diminuindo, mas a coragem de escrever eu nÃ£o deixo passar. Ora, alguÃ©m tÃ£o incrÃ­vel e radiante pode contar como algo positivo, certo?
+
+Me ligue, de alguÃ©m infielmente seu, Demian.
+
+## FAZENDO ELA TE LIGAR
+
+Me ligou?  
+* ?
+
+VocÃª que me ligou?  
+* NÃ£o
+
+Por que nÃ£o? Rsrs, seria divertido, mais humanos... tipo a moda antiga, dar um descanso pros dedos, o que acha? Hehe  
+* TÃ¡ bom, eu vou chegar tomar banho e te ligo
+
+Ok  
+ 
+
+## ROTINA DA LIGAÃÃO
+
+ 
+(Liguem pra menina, por whatsapp ou celular mesmo, deixa tocar 2x e desliga kkk. Assim ela vai ver sua intenÃ§Ã£o... mas sem saber o motivo de vocÃª ter desligado, e vai te procurar no whatsapp pra saber (investimento), aÃ­ vocÃª diz:)  
+ 
+EntÃ£o haha, foi uma hora que pensei em vocÃª... depois que ouvi uma mÃºsica e pensei em falar com vocÃª, te contar qual era essa mÃºsica, mas aÃ­ na hora achei que vocÃª nÃ£o iria atender, mas deixa pra lÃ¡ kkk  
+ 
+(Assim ela vai ficar curiosa sobre a mÃºsica, tambÃ©m vai perceber que vocÃª tem um sentimento, que ela estÃ¡ "gerando" isso em vocÃª, e assim se sente no poder, e tambÃ©m vai dizer pra vocÃª se atenderia ou nÃ£o, em outras palavras (vai investir mais). Bruxaria hahaha, quer ver ela fica doida? VocÃª fala isso e aÃ­ diz:)  
+ 
+Meu, vocÃª deve ser algum tipo de bruxinha sei lÃ¡ haha, vocÃª faz coisas comigo que nenhuma conseguiu fazer rsrs  
+ 
+(Ela vai se sentir com (significado especial). Vai ver nisso a oportunidade de se sentir especial com vocÃª, aÃ­ vocÃª pega e diz:)  
+ 
+Kkkk eita curioooosa hein rs. Espera aÃ­ rapidÃ£o rs nÃ£o sei quem tÃ¡ me  
+chamando no portÃ£o, jÃ¡ volto e te falo ok, a nÃ£o ser que vocÃª vÃ¡ estar ocupada, aÃ­ te falo amanhÃ£  
+* AmanhÃ£ nada kkkk ta doido rs vai lÃ¡ ..voltando tu me avisa  
+ 
+VocÃª demora e depois volta sem tocar no assunto (oie... tÃ¡ sabendo dos filmes que estÃ£o passando no cinema? TÃ´ a fim de ver algum esse final de semana)  
+ 
+(Assim vocÃª gera (espaÃ§o de escassez) e ainda gera sentimento de desafio haha. Ela vai querer te afastar da ex e ainda sair ganhando dela kkk, ela percebe a possibilidade de ter o sentimento de (competÃªncia) sobre outra mulher, elas adoram isso kkk)  
+ 
+
+## ÃUDIO EM BRANCO
+
+ 
+(Mandar Ã¡udio de 10 segundos, mas sem falar nadaâ¦)  
+* UÃ©, nÃ£o veio nada
+
+Nossa, sÃ©rio? VÃ¡rias coisas, abri meu coraÃ§Ã£o e tal, atÃ© fiz um convite
+
+E o Ã¡udio vai sem nada
+
+ð«
+
+Meu whats estÃ¡ zoado
+
+Deixa pra lÃ¡ nÃ©, se nÃ£o foi Ã© porque nÃ£o era pra vocÃª ouvir rsrs  
+* Escreve
+
+Pessoalmente seria mais romÃ¢ntico, pode ser?
+
+---  
+ 
+Vou ali me jogar do prÃ©dio e jÃ¡ volto hahaha  
+ 
+ââââââ ï¼¼ï¼¼ 
+ââââââ 
+ââââââ ã½ð«ã 
+ââââââ / 
+ââââââ ã)  
+ââââââ 
+ââââââ 
+ââââââ 
+ââââââ 
+ââââââ 
+ââââââââââââââ  
+ 
+* Ahhh, manda outro uÃ©  
+ 
+Ahhh, nÃ£o tÃ¡ indo essa porcaria, isso que dÃ¡ comprar celular "xing ling" rs... Bom, faz assim... Se um dia tomarmos uma casquinha do McDonald's, eu te falo rsrs  
+* Escreve aÃ­ uai  
+ 
+Eu ia te ligar, mas... tu nÃ£o iria atender, ainda mais nessas horas rsrs  
+* Atendo, liga...  
+ 
+Ligaria se tivesse crÃ©dito, sou legal e brincalhÃ£o, mas a crise tÃ¡ me atingindo, seu celular Ã© qual operadora?  
+* Ã da xxxx  
+ 
+Ahhh o meu Ã© dessa operadora, vocÃª me ligaria? NÃ£o Ã© nada romÃ¢ntico mas... a senhorita ficaria com crÃ©ditos na casa hahaha
+
+---
+
+Nossa sÃ©rio? Kkk, falei vÃ¡rias coisas, abri meu coraÃ§Ã£o e tals, fiz atÃ© um convite, e o Ã¡udio vai sem nada ð©
+
+Meu whats estÃ¡ zoado aff
+
+Deixa pra lÃ¡ nÃ©, se nÃ£o foi Ã© porque nÃ£o era pra vocÃª ouvir ð  
+* Escreve!
+
+Pessoalmente seria mais romÃ¢ntico, pode ser?
+
+## ROTINA ERÃTICA
+
+ 
+Ei, queria uma opiniÃ£o sua, fiz esse teste com uma amiga aqui e queria fazer com vocÃª tambÃ©m pra ver se dÃ¡ diferente rsrs  
+ 
+EntÃ£o... isso se chama "voz do inconsciente", estudei isso em algum livro de psicologia, seguinte: eu vou te mostrar uma imagem e vocÃª tem que criar uma legenda pra ela, mas tem que ser a 1Âª coisa que vier na sua mente, preparada?  
+(bebÃª)  
+ 
+Hummmmm, interessante, nÃ£o esperava por essa, vamos pra prÃ³xima, pronta?  
+(cachorro)  
+ 
+EstÃ¡ se saindo bem rsrs, vamos pra prÃ³xima ok?  
+(oral)  
+ 
+Tem que fazer a legenda rsrs, qual legenda vocÃª colocaria nessa foto, atÃ© minha amiga fez, diz aÃ­ haha 
+ 
+(Bom, dÃ¡ pra comeÃ§ar assuntos mais quentes, se ela falar algo mais na putaria digo:)  
+ 
+Nossa, vocÃª tambÃ©m Ã© de Libra? Toda caliente rsrs  
+ 
+Agora vou mandar a Ãºltima, crie uma legenda pra ela... a primeira coisa que vier na sua cabeÃ§a ok?  
+(demian)  
+
+## ROTINA DO MARIDO 0
+
+Eu sei que Ã© cedo ainda, amanhÃ£ eu vou fazer um pedido que tomara que vocÃª aceite rsrs, mas Ã© um pedido que eu vou te fazer pela vida inteira, jÃ¡ tÃ´ decidido  
+* Qual?
+
+Posso te pedir uma coisa?  
+* Sim
+
+Posso pedir pra se vocÃª puder amanhÃ£ colocar uma roupa branca? Tem alguma roupa branca aÃ­?  
+* Sim
+
+Tem calcinha branca? Eu queria que vocÃª tivesse com uma calcinha branca que o pedido que eu vou te fazer da sorte se vocÃª tiver com calcinha branca rsrs
+
+(NO OUTRO DIA)
+
+Cheguei numa conclusÃ£o ð¤
+
+ð eu caso com vocÃª haha, pronto... agora estamos casados, por enquanto virtualmente, por enquanto...  
+* Hahaha
+
+VocÃª nÃ£o vai dizer nÃ£o pra tudo isso nÃ©? Hahaha  
+* BlÃ¡-blÃ¡
+
+Bom... claro que nÃ£o rsrs, agora vocÃª Ã© esposa e eu marido...  
+* BlÃ¡-blÃ¡
+
+Repete comigo = MARIDO rsrs  
+* Marido
+
+Ebaaaa rsrs, testemunhas estÃ£o atÃ© de pÃ© 
+ð«ð«ð«ð«ð«ð«ð«ð«ð«  
+ðð¼ðð¼ðð¼ðð¼ðð¼ðð¼ðð¼ðð¼ðð¼  
+* Kkkkk
+
+Agora o beijo a gente deixa pro mundo real, se nÃ£o... Deus nÃ£o abenÃ§oa kkk, ah e a lua de mel tambÃ©m nÃ©? Rsrs  
+
+## ROTINA DO MARIDO 1
+
+ 
+Ei, voltei pra te pedir em casamento, percebi que as mulheres que falo por aqui nÃ£o sabem dar valor pra um homem de verdade haha, elas sÃ³ querem saber de sexo e aÃ­ pensei em alguÃ©m que possa ser diferente de todas elas, e vocÃª me veio a mente, pensei na pessoa certa serÃ¡? ð
+
+Ok... estamos noivos entÃ£o?  
+ 
+EntÃ£o, mas nÃ£o Ã© bem assim tambÃ©m ersrs, vamos ser marido e mulher no virtual primeiro, serÃ¡ como um "test-drive" da vida real, mas tÃªm regras, e elas tem que ser seguidas!!! 
+ 
+VocÃª nÃ£o vai querer seguir rsrs, entÃ£o nem vou falarâ¦
+
+SÃ³ algumas, porque sei que vocÃª vai perguntar quais sÃ£o de qualquer jeito mesmo kkkk  
+* Fala, pode falar  
+ 
+1Âª Eu marido, vocÃª esposa, entÃ£o um chama o outro assim...  
+ã¤  
+2Âª Bom dia e boa noite sÃ³ por Ã¡udio "bom dia amor, bom dia marido, etc..."  
+ã¤  
+3Âª Dia sim, dia nÃ£o, tem que ter uma ligaÃ§Ã£o ou pelo menos um Ã¡udio de whatsapp...  
+ã¤  
+4Âª Se ver depois de 7 dias...  
+ã¤  
+5Âª Fidelidade na vida real!!  
+ã¤  
+6Âª Depois de 7 dias, podemos renovar o contrato pra mais 7 dias, depois oficializa ou entÃ£o adeus ðð¼
+
+## ROTINA DO MARIDO 2
+
+ 
+(Mandar a foto 'quer casar comigo')
+
+EntÃ£o tÃ¡ nÃ©, nunca ninguÃ©m me disse sim dessa maneira haha, jeito estranho de dizer sim rsrs, mas... mas... mas... antes de irmos pra "las vegas" pra lua de mel, tenho que te dizer algo...  
+ 
+VocÃª lava a louÃ§a tÃ¡? Kkkk ð´  
+  Ah... e se precisar de incentivo eu tenho uma massagem tÃ¢ntrica rsrs... sÃ³ que nÃ£o vou dar de graÃ§a ok? VocÃª lava a louÃ§a primeiro rsrs
+
+Hahaha, mas nÃ£o posso ficar muito tempo de joelhos tÃ¡? Cansa rsrs, e certeza que vocÃª nÃ£o iria se concentrar na louÃ§a kkkk  
+ 
+Haha, pode falar o que quiser... besta, bobo, safadinho, cachorro kkkk, na hora vale de tudo, o que importa Ã© a louÃ§a ficar limpa e sabe por quÃª?  
+ 
+Pra que tenhamos mais tempo, aÃ­ eu conseguirei fazer minha massagem tÃ¢ntrica em vocÃª rsrs... Ownnn que romÃ¢ntico que eu sou haha  
+ 
+UÃ©, somos jovens, bonitos, saudÃ¡veis, nÃ£o acha que nossa amizade merece isso?  
+ 
+AÃ­ combinamos uma outra coisa pra depois, pode ser?  
+ 
+Haha, combinamos que casamento a gente deixa como algo pra amadurecer, mas atÃ© lÃ¡ a louÃ§a, o tantra, vocÃª me chamando de bobo e algodÃ£o doce no parque, tudo isso ainda pode existir haha...  
+ 
+Tudo Ã© vÃ¡lido pra esquecermos os problemas e viver bons momentos, estreitar a amizade, se divertir, seremos uma equipe hahaha  
+ 
+Vai dar tudo certo, confia em mim. Afinal, nÃ£o estÃ¡ ocorrendo o que eu temia que acontecesse rsrs  
+ 
+Achei que fosse chata no comeÃ§o haha, tipo que nÃ£o era de conversa, muitas hoje sÃ³ paga de gatinha e sÃ£o muito azedas e medrosas, mas vocÃª nÃ£o, vocÃª Ã© diferente delas, pode se dizer que estou me sentindo seduzido, ai ai... Agora estou meio tÃ­mido haha ð  
+ 
+Bom achar alguÃ©m que tambÃ©m Ã© parecido com a gente nÃ©? Que te faz rir, que nÃ£o fica de mimimi, que se arrisca e curte os bons momentos que a vida permite, nÃ£o acha?  
+ 
+Aceita o casamento entÃ£o? Toma ð  
+ 
+EntÃ£o "fechÃ´", a gente casa, faÃ§o o que prometi, "las vegas", guloseimas, vocÃª lava a louÃ§a e depois nos amamos haha  
+ 
+Hahahaha tÃ´ rindo aqui kkk, tu Ã© mesmo uma figura, dois bobos acho que nÃ£o vai dar muito certo, mas vocÃª Ã© mais boba que eu haha  
+ 
+Hahaha para hein, tÃ¡ parecendo aquelas "comÃ©dias romÃ¢nticas" rs, suas amigas vÃ£o ficar atÃ© com ciÃºmes de vocÃª quando tu contar isso haha  
+ 
+Ok, vou mudar o status do facebook, afinal quando eu gosto e Ã© difÃ­cil eu gostar, mas quando curto, levo a sÃ©rio rs  
+ 
+Antes disso... VocÃª tem que saber de uma coisa... ð  
+ 
+Tem que saber que sou de libra, caliente, intenso, temos que nos amar todos os dias, no chuveiro, na cama, no sofÃ¡, na pia hahaha, aceita os termos? ðâï¸  
+ 
+Falei que ia dar certo, vocÃª devia confiar mais em mim haha  
+ 
+Pronto, agora pra que o universo colaborou sÃ³ falta uma coisa...  
+ 
+Pra gente selar isso, vocÃª me chama de marido e eu te chamo de esposa kkk, vamos seguir os passos pro papai do cÃ©u abenÃ§oar haha ðð¼  
+ 
+Repete comigo: marido  
+ 
+UÃ©, tem que ser mÃºtuo, a maioria das pessoas hoje em dia sÃ£o muito mal-humoradas, mas nÃ³s nÃ£o, vamos lÃ¡ com alegria: marido rsrs  
+ 
+Aiiiiiiii pronto rs, tÃ¡ vendo... Nem doeu pÃ´xa, agora sÃ³ falta vocÃª me chamar pra sair, ahhh e ainda tenho uma dÃºvida... ð  
+ 
+UÃ©, quando se casam o padre nÃ£o diz pra dar aquele selinho? Haha agora me pergunto que gosto tem o seu selinho, tambÃ©m sou curioso pÃ´xa... e aÃ­?  
+ 
+O que sugere pra esse grande momento? Parque ou um jantar? Luz de velas quem sabe kkk? E entÃ£o?  
+ 
+Fechou, vou ver um dia da semana que vem que estarei de boa e te pergunto se estarÃ¡ de boa tambÃ©m ok?  
+ 
+Esposa, enquanto vocÃª pensa nas loucuras que falamos vou ali pegar algo pra comer, morrendo de fome aqui haha  
+ 
+Daqui a pouco volto, quero te mandar um Ã¡udio, falar uma coisa e mostrar uma mÃºsica que sempre que ouÃ§o me lembro de vocÃª tÃ¡?  
+
+## ROTINA DO MARIDO 3
+
+Pensei bem e cheguei numa conclusÃ£o rsrs  
+* qual?
+
+EntÃ£o kkk, acho que a bateria do meu celular estÃ¡ acabando, que Ã³dio rsrs... era algo super importante  
+* aff
+
+Pronto kkk, conectei no carregador ebaaaaaa rsrs, repete comigo: EBAAAAAAAA kkk  
+* ebaaaaa
+
+Pensei direito amor rsrs, eu aceito kkk  
+* aceita o que?
+
+Eu aceito, agora vamos ser um casal foto virtual por enquanto kkkk, eu marido e vocÃª esposa kkkk  
+* sÃ³ vocÃª mesmo viu 
+
+AÃ­ depois oficializamos com beijos e lua de mel, estÃ£o tÃ£o emocionado rsrs  
+* haha
+
+Momento de tensÃ£o no auditÃ³rio, tan tan tan tan kkkk  
+* sim sim
+
+Fale: SIM MARIDO!  
+* sim marido
+
+Meu kkk, atÃ© parece que nos conhecemos hÃ¡ meses, duas pessoas simpÃ¡ticas Ã© outra coisa nÃ©? Kkkk  
+* verdade
+
+Esposa, agora me fala um pouco de vocÃª rsrs  
+* blÃ¡ blÃ¡ blÃ¡
+
+## CONVITE DE MADRUGADA
+
+ 
+(mandar 00:00)
+
+Tentei me segurar mas... estou com uma vontade exagerada e surpreendente de te fazer um convite ...  
+* Oi, que convite?  
+ 
+A vontade exagerada de te fazer um convite jÃ¡ passou ð  
+ 
+Quem sabe depois ela volta hahaha, vou dormir agora rsrs  
+* Como assim? NÃ£o vai dormir nÃ£o rapaz  
+ 
+Eita, vocÃª ainda estÃ¡ acordada?  
+* Volta aqui  
+ 
+Isso nÃ£o estava nos meus planos kkk  
+* Sim  
+ 
+Vamos supor, pirando aqui numa ideia louca, de que eu fique, e nÃ£o vÃ¡ dormir agora, o que vou ganhar com isso?  
+* Oi? Kkkkkkk  
+ 
+VocÃª que tem que me dizer kkk, estÃ¡ tentando me impedir de ir dormir e falou "volte aqui", entÃ£o me diga quais os benefÃ­cios e vantagens que terei uÃ© rsrs  
+* Minha companhia  
+ 
+Ahhhh, cadÃª as mulheres de atitude Brasil? Pensei que no mÃ­nimo ia dizer "uma massagem" rsrs
+
+## ESTILO DE JOGO (REX)
+
+Tem que saber a hora de usar, nÃ£o pode sair atirando haha. Imagina que vocÃª estÃ¡ tendo uma conversa normal com uma mina; falando de um tema qualquer
+
+E aÃ­ de repente vocÃª usa algo que gera desconforto, entÃ£o vocÃª vÃª ela se rebolando para gerar alÃ­vio, aÃ­ vocÃª usa uma outra rotina para fazer ela rir
+
+E aproveita e faz ela investir desafiando ela sobre algo e volta para um assunto normal, essa Ã© a dinÃ¢mica
+
+O objetivo Ã© criar de forma rÃ¡pida - dinÃ¢micas e estados emocionais, isso Ã© (SENSAÃÃES e SENTIMENTOS) associados Ã  vocÃª
+
+O segredo Ã© o "looping" e a "dinÃ¢mica", o lopping eu desenvolvi para instalar um estado subconsciente de perseguiÃ§Ã£o dela por vocÃª, um tipo de "dependÃªncia emocional"
+
+Eu trabalho para que o sistema de recompensa dela veja que sou Ãºtil para prover emoÃ§Ãµes Ã  ela e com isso ela lucra em valor e felicidade
+
+E a dinÃ¢mica Ã© fazer ela investir na medida que tambÃ©m vai vendo meu valor e sabe por que? Para que ela fique condicionada a (AÃÃO e RECOMPENSA), eu instalo esse estado de que ela me busca para ter uma recompensa (QUE NEM UM CACHORRO)
+
+## SOBRE ROTINAS (REX)
+
+NÃ£o adianta mandar uma rotina sem estar no contexto do assunto, algo que ela nÃ£o entenda ou sem ter cumplicidade, esse tipo de rotina que mostra interesse tem que ser algo que ela faÃ§a por merecer
+
+E tem que ser algo "natural" que mostre ser algo que vocÃª realmente pensou em dizer e nÃ£o algo que parece um "xaveco pronto", eu vou falando normal onde nÃ£o se vÃª ninguÃ©m xavecando ninguÃ©m
+
+Mas aos poucos eu vou gerando emoÃ§Ãµes nela e criando conexÃ£o, quando ela menos imagina - ela jÃ¡ investiu em mim, e jÃ¡ criou uma ideia positiva sobre mim, elas se interessam mesmo que eu use palavras como NOSSA AMIZADE
+
+Pois mulher nÃ£o se interessa por quem mostra interesse nelas, mulher se interessa por quem tem a capacidade de fazer elas se sentirem melhor, vocÃª sendo VOCÃ MESMO!
+
+# GERANDO TENSÃO/CURIOSIDADE
+## FUTURA EX-NAMORADA
+
+Duvido adivinhar como anotei seu nome  
+* Como
+
+Futura Ex-Namorada â¥ï¸  
+* Como assim, jÃ¡ prever um final
+
+Ã que vocÃª tem cara de quem no comeÃ§o Ã© toda simpÃ¡tica, manda figurinha fofa e termina fazendo o rapaz ouvir mÃºsica triste no banho ð¥¹
+
+VocÃª Ã© dessas que comeÃ§a fofa e termina virando trauma gostoso ou sÃ³ tem essa carinha de suspeita? ðð»ââï¸
+
+VocÃª Ã© dessas que deixa o rapaz ouvindo sofrÃªncia no banho ou ainda tÃ¡ na fase de parecer inocente?ðð»ââï¸
+
+VocÃª Ã© dessas que dÃ¡ trabalho pro coraÃ§Ã£o dos outros ou sÃ³ tem essa carinha de suspeita? ðð»ââï¸
+
+## LEITURA FRIA (REX)
+
+Deixa eu te falar, na hora que eu olhei pra vocÃª eu percebi algumas coisas sobre a sua personalidade, eu nÃ£o sei se vocÃª sabe o quanto vocÃª Ã© expressiva e o quanto algo tÃ£o simples como teu sorriso diz sobre vocÃª rsrs, mas nÃ£o se se vocÃª quer ouvir ha...
+
+Muito bem, vamos lÃ¡... VocÃª tem expressÃ£o de mulher de bom de coraÃ§Ã£o, que nÃ£o tem paciÃªncia pra pessoas que ficam em cima do muro, que sabe o que quer da vida, mesmo que Ã s vezes fica em dÃºvida, quem nÃ£o te conhece pensa que vocÃª Ã© durona e Ã s vezes atÃ© que Ã© mesmo kkk, pois vc gosta de falar a verdade, doa a quem doer rsrs
+
+Mas no fundo Ã© uma menina doce, sensÃ­vel, que jÃ¡ mostrou esse lado sensÃ­vel pra pessoas que nÃ£o deram valor, entÃ£o hoje provavelmente vc Ã© mais introspectiva
+
+NÃ£o fala muito da sua vida e emoÃ§Ãµes pras pessoas, mas adora estar com pessoas com bom astral, expressÃ£o de mulher pensativa, que toma decisÃµes e depois fica pensando se tomou a decisÃ£o certa ou nÃ£o...
+
+Tem olhar de alguÃ©m que quando gosta se entrega, que Ã© fiel, amiga, carinhosa... Mas que odeia mentira, e mesmo que a verdade doa, prefere sempre a verdade...
+
+Tem motivos pra se fechar pro mundo, afinal pessoas que vc esperou que visse o talento e as qualidades e valor que vocÃª possui nÃ£o enxergaram, por mais que vc faz tudo, pra algumas pessoas vc ainda Ã© alguÃ©m que tem a aprender, pessoas prÃ³ximas atÃ©, mas no fundo vc sabe que Ã© madura, mesmo que nos momentos de sensibilidade tenta nÃ£o mostrar, prefere ficar no seu canto, no seu mundo... Pensa "as pessoas nÃ£o me entenderiam"...
+
+Tem marcas de alguÃ©m que mesmo que jÃ¡ tendo se frustrado, ainda acredita que a melhor escolha Ã© ser assim, fazendo as pessoas se sentirem bem, por mais que jÃ¡ tenha se olhado no espelho e pensado "vc nÃ£o aprende nÃ©? tente ser mais dura com as pessoas", no fundo vocÃª percebe que nÃ£o vale a pena mudar, que Ã© do bem...
+
+Bom... Ã isso que me vem Ã  mente quando olho pra vocÃªâ¦
+
+---
+
+Hahaha, bora lÃ¡ entÃ£o... Seu sorriso Ã© encantador e revela muito sobre vocÃª, mesmo que vocÃª talvez nÃ£o perceba completamente, haha. VocÃª tem um coraÃ§Ã£ozinho bom, mas nÃ£o tem paciÃªncia pra aquelas pessoas que ficam em cima do muro, porque vocÃª sabe exatamente o que quer da vida, mesmo que Ã s vezes tenha umas dÃºvidas, nÃ©? ð¤ð­
+
+Algumas pessoas podem atÃ© te achar um tantinho chata ou metida, Ã s vezes vocÃª atÃ© Ã© mesmo haha, porque vocÃª nÃ£o tem medo de falar a verdade, doa a quem doer, rsrs! ðð¼ðð»ââ
+
+Mas, no fundo, vocÃª Ã© uma pessoa doce e sensÃ­vel, que jÃ¡ mostrou esse lado pra pessoas que nÃ£o souberam valorizar. EntÃ£o hoje em dia, talvez vocÃª seja um pouquinho mais na sua e nÃ£o curte compartilhar tanto sobre sua vida e emoÃ§Ãµes com os outros. VocÃª tem aquele olhar de quem tÃ¡ sempre pensando, alguÃ©m que toma decisÃµes e mesmo assim fica refletindo se fez a escolha certa ou nÃ£o... ð¤ð­
+
+Quando vocÃª encontra alguÃ©m especial, alguÃ©m que Ã© leal e carinhoso, se joga de corpo e alma! ðâ¤ Mas vocÃª nÃ£o suporta mentiras e mesmo que a verdade possa machucar, sempre prefere a sinceridade. Tem motivos pra se fechar pro mundo, afinal, aquelas pessoa  
+s que vocÃª esperava que reconhecessem seu talento e suas qualidades simplesmente nÃ£o conseguiram enxergar, mesmo com vocÃª dando o seu melhor, nÃ©? Mas vocÃª sabe o quÃ£o madura e incrÃ­vel Ã©! ð
+
+---
+
+Olha, pode parecer meio do nada rsâ¦ mas tÃ´ estudando um negÃ³cio chamado *Familiar ZoolÃ³gico*. Ã tipo: cada dia do mÃªs tem um animal simbÃ³lico, com traÃ§os bem especÃ­ficos de personalidade.
+
+NÃ£o Ã© signo, mas Ã© meio nessa pegada de entender essÃªncia. O mais doido? Tem gente que consegue adivinhar sÃ³ olhando expressÃµes, jeitos de falarâ¦ TÃ´ tentando treinar isso agora ð
+
+Mas antes: que dia vocÃª nasceu? (sÃ³ o dia mesmo, o resto eu explico depois rs)
+
+---
+
+TÃ´ estudando uma parada chamada *Familiar ZoolÃ³gico* â cada dia do mÃªs tem um animal simbÃ³lico, com traÃ§os especÃ­ficos de personalidade.  
+NÃ£o Ã© signo, Ã© mais simbÃ³lico mesmo, mas baseado em padrÃµes de comportamento e expressÃµes faciais.
+
+TÃ´ treinando agoraâ¦ que dia vocÃª nasceu? (sÃ³ o dia, o mÃªs nÃ£o importa kkk)
+
+---
+
+Bomâ¦ entÃ£o tÃ´ aqui fuÃ§ando teu perfil, olhando suas fotosâ¦  
+ e tem um sorriso teu que entrega mais do que vocÃª imagina.
+
+Tem uma leveza aliâ¦ mas tambÃ©m uma certa distÃ¢ncia. Tipo quem jÃ¡ se doou demais e hoje escolhe bem pra quem mostra o que sente.
+
+VocÃª parece ser do tipo que odeia enrolaÃ§Ã£o. Gosta de verdade dita na lata, mesmo que machuque. JÃ¡ te chamaram de chata, eu sei â mas Ã© sÃ³ porque vocÃª nÃ£o finge.
+
+Por trÃ¡s desse jeito forte, tem alguÃ©m sensÃ­vel. Que pensa demais, sente demaisâ¦ mas aprendeu a guardar isso pra si. E quando encontra alguÃ©m que vale, se entrega com tudo. Mas mentira te faz fechar a porta sem olhar pra trÃ¡s.
+
+Dito issoâ¦ faz todo sentido que seu Familiar ZoolÃ³gico seja ð¦ coruja panda mesmo.
+
+## LEITURA FRIA SEXUAL (ELIAS)
+
+EngraÃ§ado, quando eu reparo melhor em vocÃª e nas nossas conversas, acabo percebendo algumas coisas bem profundas...  
+* Uai... o q?
+
+NÃ£o sei se devo falar, sabe. Ainda mais que Ã© ligado a sexo ...  
+* Pode falar
+
+TÃ¡ bemâ¦
+
+Ã que esse seu jeito de ser comigo passam uma energia de que o sexo Ã© algo diferente, como um valor a mais do que com as outras mulheres. Certas mulheres do meu passado pareceram ter pensamento de homem sobre isso * sÃ³ pensam em sexo pelo ato, e nÃ£o pela sua intensidade em si
+
+E como disse, vocÃª nÃ£o passa isso, esse protocolo onde o cara te coloca de quatro e fica transando sem sentido * um verdadeiro sexo chato contigoâ¦
+
+Ao contrÃ¡rio disso, parece que sexo Ã© uma experiÃªncia muito mais profunda e de troca das energias, sabe. Ã algo mais emocional, sem ser plenamente fÃ­sico, como apreciar um belo toque intenso, mas delicado; com cheiros inesquecÃ­veis do seu parceiro e suspiros que te arrepiam ao mesmo tempo kkkk
+
+Faz algum sentido para vocÃª?  
+* Sim, continua...
+
+Digamos que nÃ³s estamos ficando... eu sei que o beijo deve ser eletrizante para vocÃª, bem como o toque ser sensual, mas nada vulgar. Acredito atÃ© que vocÃª tem pavor por um determinado tipo de homem hahaha  
+* Qual
+
+O "egoÃ­sta" kkkk  
+* Verdade, rs
+
+Pois Ã©, acabei descobrindo isso de uma forma simples, sabia?  
+* Como?
+
+Aiaiai, bem jÃ¡ te dei a dica, mas vamos lÃ¡ hahah  
+* (Blah, se responder)
+
+Por favor, nÃ£o me julgues... principalmente que essa caracterÃ­stica nÃ£o Ã© muito bem vista nos homens. Tenho receio de vocÃª nÃ£o gostar... vamos mudar de assunto hahaha  
+* NÃ£o, nÃ£o vou julgar, pode contar.
+
+EntÃ£o, eu sÃ³ consigo sentir prazer na relaÃ§Ã£o dando prazer... adoro conseguir chegar no meu mÃ¡ximo vendo a minha parceira se perder no meio do cheiro de sexo no ar, agarrando firme as minhas costas e cabelo, enquanto eu escuto seus suspiros. SÃ³ que isso somente acontece quando eu entrego prazer para ela... se nÃ£o, nÃ£o consigo sentir nada, sÃ³ um vazio.
+
+E entÃ£o, o que vocÃª acha da minha fraqueza?  
+* Nossa, amei... nÃ£o Ã© fraqueza....
+
+## PÃS LEITURA FRIA (REX)
+
+Haha foi sÃ³ impressÃµes que tive de vocÃª quando vi suas fotos, posso estar errado... mas senti de dizer hehe  
+* TÃ´ chocada!! sÃ©rio
+
+Tem coisas que nÃ£o dÃ¡ pra explicar nÃ©? SÃ³ posso dizer que de alguma maneira vocÃª parece ser especial, diferente rsrs, serÃ¡ que isso Ã© suficiente pra me pagar uma casquinha? Kkkkkk  
+* AtÃ© duas
+
+Sou tÃ­mido rsrs, mas... com certeza vai ser divertido, fechado!
+
+## LEITURA FRIA (MINHA ROTINA)
+
+Nos assuntos do amor, se fosse pra definir o que vocÃª procura numa Ãºnica palavra, a palavra seria "seguranÃ§a". Isso porque morre de medo sÃ³ de pensar em se desiludir no amor...
+
+Quando conhece alguÃ©m que pareÃ§a especial, sÃ³ se entrega apÃ³s ter a certeza de que essa pessoa Ã© sincera e fiel. Jamais demonstra logo de cara que estÃ¡ totalmente apaixonada. Prefere expressar seus sentimentos aos poucos, na medida em que o relacionamento se torna sÃ©rio, estou indo bem?
+
+Seu jeito alegre e divertida chama a atenÃ§Ã£o de todos perto de vocÃª. Como nÃ£o suporta a mentira, sÃ³ vai entregar seu coraÃ§Ã£o quando tiver certeza de que a relaÃ§Ã£o vale mesmo a pena. Para chegar a essa conclusÃ£o, vocÃª vai passar horas conversando com seu pretendente, sobre vÃ¡rios assuntos, na tentativa de conhecÃª-lo melhor. Se o parceiro tiver o seu pique para buscar sempre novos interesses, o romance geralmente dÃ¡ certo. Mas, se a relaÃ§Ã£o cair na rotina, mesmo estando muito a fim, vocÃª sente necessidade de buscar novas emoÃ§Ãµes
+
+Gosta de ter ao seu lado alguÃ©m dinÃ¢mico e engraÃ§ado, que esteja sempre pronto pra encarar o que der e vier pela frente. Cumplicidade, confianÃ§a, lealdade, liberdade e diÃ¡logo sÃ£o essenciais pro romance ser duradouro. Por isso, valoriza as pessoas que tÃªm personalidade forte como vocÃª e que tomem atitudes firmes diante de qualquer situaÃ§Ã£o, estou indo bem?
+
+Sobre amizade, vocÃª costuma ser a "conselheira" da turma. Isso porque vÃª a vida de forma realista, tem generosidade de sobra pra ajudar os amigos que gosta e usa o seu bom senso para transmitir seguranÃ§a pra quem tÃ¡ ao seu lado. PorÃ©m, vocÃª Ã© muitooo desconfiada... ou seja, demora um certo tempo para estreitar seus laÃ§os de amizade...
+
+Sobre trabalho, vocÃª acredita que o emprego Ã© a garantia de felicidade, pois Ã© ele que dÃ¡ a vocÃª a "estabilidade" e a tranquilidade que tanto valoriza. Por isso, agarra as oportunidades que aparecem com unhas e dentes, trabalha duro e dÃ¡ o melhor na profissÃ£o. Mas acho que nÃ£o gosta muito de mudanÃ§as, tipo... nÃ£o Ã© de ficar procurando um novo emprego toda hora, prefere se empenhar em suas atividades para se destacar naquilo que faz...
+
+Sobre o "pretendente", vocÃª procura pessoas bonitas, discretas, maduras e que cuidam do visual. Mas beleza nÃ£o Ã© o bastante! A pessoa precisa mostrar que quer compromisso sÃ©rio, conquistar sua confianÃ§a e transmitir total seguranÃ§a emocional. VocÃª quer um companheiro, alguÃ©m com os pÃ©s no chÃ£o, que queira compartilhar uma vida estÃ¡vel, tranquila e duradouraâ¦
+
+## PORQUE ACABO ME APAIXONANDO (TENSÃO)
+
+Eu gosto de vocÃª, mas nÃ£o posso falar hoje, sinto muito  
+* por quÃª?
+
+Porque acabo me apaixonado, faÃ§o jantares, massagem, brigadeiro e terÃ­amos noites alucinantes de amor, e depois acabo chorando com meu paninho kkkk
+
+E vocÃª postaria no Facebook "a fila andou" kkkk, vocÃªs sÃ£o malvadas rsrs  
+* kkkk
+
+TÃ¡ vendo? JÃ¡ estÃ¡ rindo de mim, risadas malÃ©ficas kkk
+
+## ROTINA DO MYSTERY (TENSÃO)
+
+Sabe Ã© atÃ© estranho, mas quer saber... Quando te conheci, a primeira impressÃ£o que tive foi ruim, eu atÃ© estava nervoso, de iniciar a conversa contigo, nÃ£o sei se devia dizer isso, mas agora que eu te conheÃ§o, vocÃª Ã© incrÃ­vel pra caramba, eu estou atÃ© nervoso, porque vocÃª se tornou importante pra mim, nÃ£o sei como vocÃª fez isso rsrs... VocÃª sequestrou minha mente FULANA
+
+## LUCAS (TENSÃO PRA SAIR)
+
+VocÃª me parece ser uma pessoa legal, tem alguma coisa em vocÃª que me deixa tranquilo pra dizer isso, mas quando eu olho pro mundo, todas as pessoas correndo, com mil preocupaÃ§Ãµes e deixando a vida passar... VocÃª de alguma forma me pareceu diferente delas, mas talvez eu esteja errado, nÃ£o sei
+
+O fato Ã© que seria legal a gente se ver de novo. longe dessas loucuras e correrias, de alguma forma acho que vocÃª ainda tem esse brilho especial rsrs
+
+## LUCAS (TENSÃO PRA SONHAR)
+
+Meu, nÃ£o vale a pena perder o sono pensando em mim, jÃ¡ atÃ© consigo ver vocÃª colocando a cabeÃ§a no travesseiro e tentando me esquecer rsrs
+
+Tentando nÃ£o pensar na prÃ³xima vez que a gente vai se ver rsrs ð
+
+## LUCAS (TENSÃO SEXUAL 1)
+
+Me peguei pensando aqui naquele momento sem querer, nossa nÃ£o quero lembrar mesmo, porque fico imaginando o que aconteceria se a gente fosse alÃ©m, nossa... pior que pode ser bom... pode ser delicioso... e fico aqui nesse conflito
+
+Meu, vocÃª precisa tomar cuidado com os desejos que vocÃª desperta, ou entÃ£o vocÃª vai ter que lidar com eles rsrs, sÃ³ avisando, vou precisar colocar a cabeÃ§a no lugar agora rsrs ð
+
+## LUCAS (TENSÃO SEXUAL 2)
+
+Tive o impulso de te beijar aquele dia, mas precisei ir embora, meu Deus, nÃ£o gosto de ser impulsivo, mas foi sacanagem ficar perto de vocÃª daquela forma, tive que me segurar pra manter uma distÃ¢ncia e nÃ£o ser sexual e te pegar lÃ¡ mesmo
+
+Muito conflito, sÃ©rio kkk cuidado com os desejos que vocÃª desperta! Ou entÃ£o vocÃª vai ter que lidar com eles rs, sÃ³ avisando. E pior que pode ser bom.. vou precisar colocar a cabeÃ§a no lugar agora tsc tsc
+
+## EXPECTATIVA ROMÃNTICA
+
+Â   
+Nossa kkk, impressÃ£o estranha que tenho quando falo com vocÃª rsrs  
+Â   
+Ah sei lÃ¡ rs, nÃ£o ri mas, falo com muitas pessoas por aqui e tipo, parece que com vocÃª tudo flui naturalmente, me faz rir e tal rsrs, parece que nos conhecemos hÃ¡ tempos, estranho hahaha  
+Â   
+Hahaha estou rindo aqui, e muito... SerÃ¡ que Ã© o destino, coincidÃªncia ou bruxaria mesmo? Hahaha? 
+
+## CHAMELEON (MIGALHAS DA VIDA)
+
+Â   
+* Tudo sim, e vocÃª?
+
+Eu estou Ã³timo! Hoje almocei num restaurante onde eu almoÃ§ava com meu avÃ´ quando era pequeno rsrsâ¦
+
+A comida continua maravilhosa, e o garÃ§om ainda era o mesmo que nos servia... trouxe boas memÃ³rias sabe rsrs... nunca pensei que uma refeiÃ§Ã£o ia me deixar tÃ£o feliz haha
+
+## ALDREY (HORA DE AVENTURA)
+
+Hoje eu tava assistindo um desenho que fazia tempo que nÃ£o assistia: Hora da Aventura sabe?
+
+Trouxe boas lembranÃ§as, fazia tempo que nÃ£o me sentia tÃ£o bem hehe
+
+Ãs vezes eu acho que as pessoas tÃ£o um pouco engessadas, sabe? Ficam presas na prÃ³pria rotina, nas se divertem, vivem pouco a vida, nÃ£o sei se vocÃª tem essa sensaÃ§Ã£o, mas acho que essas pequenas diversÃµes sÃ£o a coisa mais importante que existe
+
+## CHAMELEON (MADRUGADA/CAFÃ DA MANHÃ)
+
+Deixa eu te falar, a Ãºltima vez que comecei a conversar com uma estranha de madrugada, essa pessoa ficou um ano e dois meses comigo, entÃ£o a menos que vocÃª goste de cafÃ© da manhÃ£ na cama, dormir abraÃ§adinho, assistir filme e passear no parque de mÃ£os dadas, ainda dÃ¡ tempo de vocÃª fugir viu rsrs
+
+## CHAMELEON (PREPARADO PRO ENCONTRO)
+
+NÃ£o sei se estou preparado pra esse nosso encontro, vai que vocÃª rouba meu coraÃ§Ã£o! E aÃ­, como faz? ð
+
+## CHAMELEON (BORBOLETAS NO ESTÃMAGO)
+
+Pode ser que eu pareÃ§a um adolescente por causa do que eu vou te dizer, mas... eu estou me sentindo igual aqueles garotos da escola, vendo a garota que ele gosta, sensaÃ§Ã£o de  borboletas no estÃ´mago haha
+
+## CHAMELEON (FINGIMOS MUITO MAL)
+
+Sabe, nÃ³s fingimos muito mal que nÃ£o temos segundas intenÃ§Ãµes um com o outro...
+
+Adoro essa fase da conversa em que estÃ¡ evidente o interesse que um tem no outro, mas que ao mesmo tempo ambos ficam inseguros e ficam agindo como se fossem amiguinhos haha
+
+Me responde uma coisa... Por que serÃ¡ que Ã© tÃ£o difÃ­cil pra gente assumir que estamos curtindo um ao outro e que estamos doidos pra que as coisas dÃªem certo?
+
+## MÃSICA
+
+EngraÃ§ado, atÃ© uma mÃºsica fica diferente quando a gente tÃ¡ conhecendo alguÃ©m legal rsrs  
+(nÃ£o fale que Ã© ela)
+
+(VocÃª pode atÃ© fazer trocadilhos dizendo)
+
+Essa pessoa Ã© legal e Ã s vezes chata kkk, mas na maioria do tempo me deixa curioso e parece ser diferente de muitas que jÃ¡ conheci rsrs
+
+---
+
+VocÃª fica uma graÃ§a quando tenta criar regras pro meu jogo hahaha
+
+Mas vamos lÃ¡  
+Cerveja  
+NÃ£o fumo  
+MusculaÃ§Ã£o  
+ð
+
+## GERANDO CURIOSIDADE
+
+Oi fulana de neve rsrs tudo bem com vocÃª?  
+* Oi kkkk pq de neve?
+
+Ah, Ã© um dos seus 4 apelidos haha talvez o mais carinhoso  
+* Nossa, 4 apelidos rs me conta todos
+
+NÃ£o nÃ£o, sÃ³ posso contar pessoalmente rs
+
+---
+
+Eu acabei de perceber que vocÃª Ã© muito diferente das outras rsrs
+
+Ah, Ã© que se eu falar vocÃª vai ficar se achando...
+
+Ã que vocÃª tem um jeito Ãºnico assim sabe?
+
+De me fazer rir, de me divertir e isso acaba me conquistando, pode se dizer que isso estÃ¡ me seduzindo, aos poucos rsrs ðð
+
+---
+
+Nossa como vocÃª Ã© bem-humorada... Essa Ã© uma das 3 coisas que eu mais gosto numa mulher
+
+Ontem vocÃª me deixou curioso sobre aquilo que comeÃ§ou a falar...
+
+VocÃª me fez lembrar uma coisa rsrs
+
+Tive uma ideia rsrs
+
+Hummm, interessante rsrs
+
+VocÃª me lembra alguÃ©m... EngraÃ§ado rsrs
+
+Isso me lembra quando... Bom, deixa pra lÃ¡ rs
+
+Algo em vocÃª me chamou muito a atenÃ§Ã£o rsrs
+
+Imaginei vocÃª agora em cena rsrs, tÃ´ rindo aqui haha
+
+VocÃª me lembra uma garota que conheci ontem rsrs
+
+Nossa, nÃ£o acredito nisso rs
+
+## EMPILHANDO CURIOSIDADE
+
+Acho melhor nÃ£o falar por enquanto...
+
+Quando eu comecei a conversar com vocÃª eu tive duas ideias sobre vocÃª, mas nenhuma delas que vocÃª era curiosa rsrs
+
+NÃ£o, vocÃª Ã© muito curiosa, eu vou ser muito mau com vocÃª e eu sÃ³ vou falar isso amanhÃ£ porque vocÃª hoje nÃ£o estÃ¡ merecendo, sÃ©rio... VocÃª nÃ£o estÃ¡ merecendo, e vocÃª sabe porque nÃ£o estÃ¡ merecendo rsrs
+
+---
+
+Sabe o que mais gosto em vocÃª? Agora que vi essa foto? NÃ£o Ã© os olhinhos de mangÃ¡ kkk, nem essa boquinha de boneca, Ã© outraaaaa coisa, algo que vocÃª transmite na foto
+
+* O que?
+
+JÃ¡ que vai me chamar mais tarde, vou deixar vocÃª curiosa atÃ© lÃ¡ rsrs
+
+---
+
+PAAAAAAAARA!!! PAAAARAA! PARAAAAAAA! *-- tentativa de imitar o JoÃ£o KlÃ©ber
+
+## CHAMELEON (CURIOSIDADE)
+
+Existem trÃªs coisas que vocÃª precisa saber sobre mim antes de sairmos  
+* Quais
+
+A primeira Ã© que eu nÃ£o sento de frente, a segunda Ã© que eu nÃ£o admito alguÃ©m que nÃ£o coma junto comigo... Ah pera, deixa eu te mostrar uma coisa que lembrei agora
+
+## CHAMELEON (CURIOSIDADE CHAMANDO PRA SAIR)
+
+* NÃ£o sou chata pra comidas
+
+Bom saber disso, vocÃª jÃ¡ reÃºne 3 das 4 qualidades que admiro no ser humano  
+* Quais?
+
+Mas que curiosa! Haha  
+* Hahahaha
+
+Se eu te contar a que falta, vai que vocÃª forÃ§a ela sÃ³ pra me conquistar rsrs... AÃ­ nÃ£o vale, tem que fluir naturalmente rsrs  
+* Hahaha, conta as 3, nÃ£o precisa contar a que falta
+
+Mas se eu contar alguma das 3, vai que vocÃª deixar de fazer por ficar sem graÃ§a? Prefiro que continue expondo essas qualidades haha  
+* TÃ´ curiosa
+
+Te conto um dia ao vivo rsrs  
+* Ah conta vai... VocÃª nÃ£o sabe o quanto sou curiosa rs
+
+Que coisa!!! Assim vocÃª apressa demais as coisas rsrs
+
+## CRIANDO DESAFIOS
+
+Te considero minha maninha, entÃ£o nÃ£o tente me seduzir! Isso Ã© errado rsrs
+
+VocÃª tem cara de quem beija mal ð
+
+NÃ£o vai pensar em mim quando ouvir o barulho do whatsapp hein rsrs ð
+
+Cada dia vocÃª se veste melhor, ou sÃ³ estÃ¡ tentando me impressionar? Haha
+
+NÃ£o pense que por vocÃª ser tÃ£o doce comigo eu vou ficar com vocÃª... vocÃª nÃ£o pensou que seria tÃ£o fÃ¡cil assim nÃ©? Rsrs
+
+Eu nÃ£o confio mais nas mulheres... VocÃªs sÃ£o fogo, sÃ³ querem abusar do meu corpinho, sÃ³ porque eu sou gostosoð
+
+Se vocÃª nÃ£o fosse a quinta a me dizer isso hoje eu atÃ© diria obrigado rsrs
+
+VocÃª tem o beijo muito babado, mas eu gostei haha
+
+Estou com vontade de te roubar pra mim e deixar todas as outras pra depois, o que vocÃª acha disso? Rsrs
+
+A verdade precisa ser dita... Sua mÃ£e e admiradores tem te enganado... Acredite, cegos! Hahaha
+
+VocÃª tem o perfume mais gostoso do mundo, estou viciado rsrs
+
+Amei passar o dia com vocÃª hoje, estou sentindo seu perfume em mim atÃ© agora haha
+
+Sonhei que estava beijando uma boca deliciosa... serÃ¡ que era a sua? Rsrs
+
+Fico pensando o que seria mais excitante... te beijar debaixo de chuva ou em uma montanha vendo o pÃ´r do sol, o que acha? Haha
+
+---
+
+Meu vocÃª Ã© muito chata, nÃ£o vou mais falar com vocÃª, adeus e foi um prazer!
+
+Para, estou brincando, vocÃª estÃ¡ sensÃ­vel hoje?
+
+Eu gosto de vocÃª, um pouco vai :)
+
+## CHAMELEON (DESAFIOS)
+
+Sabe, uma coisa que me chama atenÃ§Ã£o em vocÃª Ã© esse seu jeito puro sabe? Eu te vejo como aquelas pessoas que nÃ£o fumam, nÃ£o bebem, dormem cedo, acordam cedo e deixam pra transar sÃ³ depois do casamento rsrs  
+* Ã ruim hein, nÃ£o sou assim nÃ£o!
+
+Mentira, Duvido! Meu instinto nÃ£o falha. Prove, entÃ£o!
+
+## CHAMELEON (COZINHAR/MASSAGEM)
+
+VocÃª acha que nesses aplicativos de paquera Ã© possÃ­vel achar uma mulher que valorize gestos romÃ¢nticos, tais como cozinhar pra ela? Fazer massagem? Ou isso seria utopia demais?  
+* BlÃ¡ blÃ¡ blÃ¡
+
+Eu Ã s vezes me sinto assim tambÃ©m sabe? Eu sei lÃ¡... VocÃª acha que um cara como eu... 29 anos, autÃ´nomo, super prÃ¡tico, mas ao mesmo tempo tem um romantismo Ã  moda antiga, gosta de por exemplo ver filme abraÃ§adinho, cozinhar pra parceira, danÃ§ar no meio da sala... serÃ¡ que no âtinder âdÃ¡ pra achar alguÃ©m com essas mesmas pretensÃµes? Haha  
+* Vem aqui agora
+
+Haha achei que vocÃª fosse me achar idiota por falar isso rsrs... Mas Ã© difÃ­cil encontrar viu... eu assim vou pensar que vocÃª Ã© romÃ¢ntica e isso Ã© perigoso porque adoro e estou solteiro rsrs  
+* Eu acho que vocÃª Ã© minha alma gÃªmeaÂ 
+
+## CONTRA INTUITIVO
+
+(Observem que mesmo ela estando na minha, validando e investindo... eu nunca posso cair 100% no frame dela, a maioria dos caras caem e Ã© aÃ­ que eles se ferram. Mesmo que o papo esteja bom e ela te mande atÃ© "nudes" e coisas erÃ³ticas, LEMBRE-SE de ser sempre CONTRA INTUITIVO, mude o humor, gente investimento dela, tensÃ£o e etc...)
+
+Ex:
+
+* Com calor que sentimos tem que ficar com pouca roupa e o melhor Ã© ficar sem roupa nenhuma, muito bommmm, adoro ficar assim
+
+AmÃ©m hahaha, eu creio kkkkkk, o que importa Ã© ficar Ã  vontade haha  
+* Sim, claro
+
+Nesse calor, sabe o que Ã© bom tambÃ©m?  
+* O quÃª?
+
+Chuveiro de motel  
+* ðððððððððð
+
+Calma, calma... Explico rsrs, Ã© que eles sÃ£o mega potentes, parece uma cachoeiraÂ   
+* Sim sim, entendo kkkk. Tem a cama com bastante espaÃ§o nÃ©? DÃ¡ para fazer brincadeiras de todos os jeitos, tem meia luz no tetoÂ 
+
+Ã disso que estou falando hahaha, estamos mais sintonizados do que rÃ¡dio fm hahahaha  
+* Kkkkkkkkkkkkkk
+
+Acho que vocÃª pessoalmente deve atÃ© adivinhar o que passa na minha mente hahaha
+
+Bruxaaaaaaaaaaaaaaaaaaaaa  
+* ðððððððððð
+
+## VALIDAÃÃO ESPECIAL (RODRIGO SOUSA)
+
+Olha... eu tenho muitas amigas bonitas e jÃ¡ fiquei com muitas mulheres bonitas e posso te dizer que... a maioria delas nÃ£o tem muito a oferecer por dentro, elas tem apenas beleza... sÃ£o vazias por dentro, nÃ£o digo todas, mas sim a maioria
+
+Sei lÃ¡... NÃ£o ligo muito pra aparÃªncia, o que conta muito para mim Ã© a personalidade da mulher, e vocÃª, eu vejo como uma mulher diferente por esse motivo... vocÃª consegue ser bonita por fora e bonita por dentro
+
+VocÃª tem beleza e personalidade! Consegue ser sexy e doce ao mesmo tempo hehe
+
+# QUANDO ELA...
+## RESPONDEU ALGUMAS MENSAGENS E DEPOIS PAROU:
+> OpÃ§Ã£o 1 (mais leve)
+Kkkkk descobri uma coisa sobre vocÃª ð
+VocÃª comeÃ§a toda gente boaâ¦ depois simplesmente desaparece da conversa como se nada tivesse acontecido
+TÃ´ comeÃ§ando a achar isso meio suspeito ð
+> OpÃ§Ã£o 2 (mais provocativa)
+DenÃºncia
+VocÃª me deixou falando sozinho e foi viver a prÃ³pria vida
+Confesso que esperava mais comprometimento dessa amizade de 24 horas ð
+> OpÃ§Ã£o 3 (gera bastante resposta)
+Tenho uma dÃºvida...
+VocÃª costuma esquecer de responder as pessoas...
+...ou resolveu testar minha paciÃªncia especificamente? ð
+
+## PERGUNTA, POR QUE TEM CARA DE BRAVA:
+> OpÃ§Ã£o 1 (mais leve)
+Kkkkkk pior que sim
+But vocÃª respondeu simpÃ¡tica demais, aÃ­ bagunÃ§ou minha teoria
+Agora preciso entender: vocÃª Ã© brava sÃ³ de fachada ou tem dias perigosos mesmo?
+> OpÃ§Ã£o 2 (mais provocativa)
+Sei nÃ£o kkkkk
+TÃ´ comeÃ§ando a achar que vocÃª tem essa cara de brava justamente pra enganar os desavisados
+AÃ­ a pessoa descobre tarde demais que vocÃª Ã© gente boa e jÃ¡ ficou com vontade de continuar conversando ð
+
+## QUANDO ELA NÃO SEGUE DE VOLTA
+
+> OpÃ§Ã£o 1 (mais leve)
+VocÃª esqueceu de me seguir de volta? NÃ£o se preocupa, nÃ£o vou comentar emojis de coraÃ§Ã£o em todas as suas fotos ð
+
+> OpÃ§Ã£o 2 (ainda leve)
+Ei, estou esperando me seguir de volta ð. Prometo que nÃ£o vou ficar stalkeando seu feed... muito rs
+
+> OpÃ§Ã£o 3 (mais provocativa)
+VocÃª sabia que tem um botÃ£o de 'seguir de volta'? SÃ³ uma dica! ð
+
+## QUANDO ELA SÃ DIA "OI"
+
+Seu 'oi' foi bonitoâ¦  
+Mas agora fiquei na dÃºvida: cÃª Ã© boa de papo mesmo ou sÃ³ coleciona notificaÃ§Ãµes na DM? ð
+
+## PARA DE RESPONDER OU VISUALIZA E NÃO RESPONDE
+
+UÃ©, cadÃª vocÃª? Espero que nÃ£o tenha sido abduzida por aliens ou algo assim ðð½
+
+---
+
+VocÃª estÃ¡ bem? TÃ¡ estranha hoje, sei lÃ¡... tava brincalhona a Ãºltima vez que nos falamos, tÃ¡ doente ou algo assim? Diz aÃ­, esses dias eu estava zoado tambÃ©m rsrs
+
+Entendi.... vou voltar lÃ¡ no LOCAL X (aonde foi a abordagem) e ver se encontro sua irmÃ£ gÃªmea. Quero perguntar o que aconteceu com sua irmÃ£, pois ela estÃ¡ esquisita, nÃ£o parece ser a mesma pessoa simpÃ¡tica daquele dia - parece que estÃ¡ de TPM, se ela quisesse um chocolate era sÃ³ avisar rsrs
+
+---
+
+Olha X, vocÃª ler isso sÃ³ mostra que a conversa esfriou demais.
+
+VocÃª deve ter percebido alguma idiotice que fiz e que tambÃ©m nÃ£o sei conversar direito. Acho milagre estar escrevendo assim kkkkk. 
+
+Maaaaaas acabou desse jeito, triste e cedo.
+
+Como nÃ£o percebi que eu sÃ³ te afastava, ficamos no vÃ¡cuo eterno. Olha que nem perguntei da sua Cor Favorita. Nem aquele Bom Diiiiiiiiiaaaaaaa.  
+Foi rÃ¡pido e sÃ³ mexeu com minha emoÃ§Ãµes.
+
+O tÃ©rmino da conversa foi claro acontecer. E o outro lado acho que mereÃ§o ir.
+
+AtÃ© mais nunca, Y
+
+---
+
+Meu, preciso te confessar uma coisa... tÃ´ atÃ© pensando em nÃ£o falar mais com vocÃª por um motivo...
+
+Fui ver sua foto aqui com esse olhar penetrante tentando me seduzir e fiquei atÃ© meio sem graÃ§a, vocÃª com certeza fez isso de propÃ³sito! Mancada hein... ð
+
+---
+
+Olha, desde que te conheci eu te curti, mas eu estou sentindo que estÃ¡ meia seca hoje, espero que saiba como curto conversar com vocÃª
+
+---
+
+Nossa, hoje vocÃª estÃ¡ meia grossa nÃ©? Melhor eu voltar a falar com vocÃª mais tarde rsrs
+
+(Espere um tempo e volte a falar com pessoa)
+
+Olha, nem te achei grossa, Ã© que tÃ´ estressado com alguns problemas, me desculpe?
+
+---
+
+Justo vocÃª foi deixar de sair comigo kkkk, olha que sacanagem rsrs
+
+CadÃª aquela menina simpÃ¡tica e divertida que falava comigo? Arranjou um namorado ciumento? SÃ³ pode kkkkkk
+
+Deixa eu te dizer uma coisa rsrs, vou ser sincero com vocÃª, sua beleza chama atenÃ§Ã£o, mas sua personalidade seduz sabia?
+
+Poxa vida, eu aqui todo bonito e gente boa e vocÃª nÃ£o falando comigo kkkkkk
+
+Ai meu Deus! Justo vocÃª nÃ£o vai me responder no whats rsrsrsr
+
+Reza a lenda que quem nÃ£o responde mensagem no whats, engorda uns 10kg rsrsrsr
+
+EstÃ¡ sumida hein kkk, te procurei em tudo quanto Ã© lugar... no Acre, no Google, SPC e Serasa kkk tÃ¡ fugindo do FBI, Ã©? Hahaha... ou arrumou algum namorado bravo que Ã© tenente do exÃ©rcito e agora nÃ£o pode mais falar comigo? Haha  
+   
+Ã Ã³bvio que vocÃª provavelmente foi abduzida por aliens, espero que seja parecidos com o Brad Pitt, e nÃ£o sejam daqueles feios ð½ hahaha, quando voltar pra terra (se voltar nÃ© rsrs) me chama, preciso falar com vocÃª...
+
+"Quem com duas setas fere. Com duas setas serÃ¡ ferido." - Demian Lispector
+
+Tem uma amiga que falando com um cara, sÃ³ que ele visualiza e nÃ£o responde, o que ela deve fazer?
+
+Hum, parece que vocÃª nÃ£o estÃ¡ afim de papo hoje ou entÃ£o estÃ¡ ocupada, mas de boa, quando quiser conversar Ã© sÃ³ chamar kkk, iria te falar algo quando vi seu perfil, mas deixa pra outra hora, beijo beijo
+
+---
+
+WhatsApp informa:
+
+A usuÃ¡ria leu a mensagem mas nÃ£o respondeu, nem deu sinal de vida, ou ela estÃ¡ muito ocupada ou desistiu de falar com vocÃª
+
+Aguarde...
+
+---
+
+Aff, acho que quando deus te desenhou ele tava usando um LÃ¡pis 12B, sua grossa
+
+---
+
+UÃ©, parou de falar por quÃª? TÃ¡ com dor de barriga? Rsrs
+
+UÃ©, parou de falar por quÃª? Teu cachorrinho morreu?
+
+UÃ©, parou de falar por quÃª? Arrumou algum namorado ciumento? Kkk e agora nÃ£o pode falar com meninos bonitos que nem eu nÃ©? Haha ai ai ð
+
+VocÃª parece irritada hoje rsrs, acho isso muito fofo kkk
+
+## PEGA MAL COM ALGUMA PIADA
+
+Se ofendeu com minha brincadeira foi? Kkkkk... nÃ£o estou acreditando nisso, achei que fosse do tipo de mina bem humorada rsrs, com senso de humor kkk, mas relaxa... te gosto ainda kkk, um pouco menos agora hahaha
+
+## POR QUE ESTÃ ME CHAMANDO DE AMOR?
+
+Eu chamo todas assim pra nÃ£o trocar o nome uai
+
+## POR QUE VOCÃ NÃO TEM NAMORADA?
+
+Eu sou pra casar menina rsrs, nÃ£o estou mais na idade do "oba, oba" nÃ£o, e ultimamente as mulheres sÃ³ querem saber de sexo, sÃ³ querem me usar, e eu tenho sentimentos
+
+Me fechei para mulheres que sÃ³ querem sexo
+
+Rsrs, nÃ£o vai me jogar na cama, me usar... passar noites em claro comigo, comeu meu estrogonofe e depois dizer que enjoou nÃ©? Hahaha
+
+Se vocÃª nÃ£o Ã© moÃ§a de enrolar, acho que vai me chamar para sair nÃ©? rsrs
+
+## QUANDO ELA QUER ALGO SÃRIO
+
+Oi FULANA, eu achei melhor me afastar porque pelo jeito das suas mensagens parece que estÃ¡ procurando algo sÃ©rio. Eu sou um cara tranquilo, na minha e nÃ£o gosto que fiquem me ligando assim do nada, sendo que nem nos conhecemos direito
+
+## QUANDO ELA TENTA FAZENDO JOGUINHO
+
+Hauhauha legalzinho foi boa, JÃ¡ te aviso que esse tipo de joguinho nÃ£o funciona comigo tÃ¡? Se nÃ£o quiser mais me ver ou falar comigo sÃ³ falar que a vida segue tranquilamente. TÃ´ velho jÃ¡ pra joguinho
+
+## NOTÃCIA RUIM (MORTE)
+
+MoÃ§a, minhas condolÃªncias pelo seu pai. NÃ£o tenho como imaginar o que estÃ¡ sentindo, mas caso queira desabafar, ou algo do gÃªnero, estou aqui. Caso contrÃ¡rio nÃ£o lhe incomodarei mais ;)
+
+## POR QUE VOCÃ APAGOU?
+
+Tinha erros de portuguÃªs, nÃ£o tinha como ficar assim ð¤¦ð»ââ
+
+## Ã LEGAL
+
+   
+JÃ¡ sabe que podemos acabar como dois doidinhos rolando na grama rsrs, desenhando coraÃ§Ãµes em Ã¡rvores, comendo algodÃ£o doce e ficar abraÃ§adinho no cinema rsrs
+
+Imagina o que suas amigas diriam depois que vocÃª contasse tipo "ownnnnn, que fofo kkkk"  
+* Hahaha adoroooo gosto muito de algodÃ£o doce, sÃ³ a parte da grama que pulo rs mas cineminha seria td de bom
+
+Isso foi um convite? Ã isso mesmo produÃ§Ã£o? Kkk, meninaaa rsrs cuidado!!! PrÃ³ximo dia dos namorados posso aparecer na porta da sua casa com caixa de bombom hein rsrs, sou romÃ¢ntico jÃ¡ falei kkkk  
+* Kkkk aceitos os bombons rs
+
+Aceito seu convite rsrs, terÃ§a?  
+* Sim!!! por mim td bem
+
+---
+
+Pare de ser tÃ£o legal comigo, senÃ£o daqui a pouco vou comeÃ§ar a te dar exclusividade, te tratar com carinho, te mimar e vocÃª vai ficar super com raivinha de mim haha
+
+## ELA FAZ MUITAS PERGUNTAS
+
+EntÃ£o rsrs, antes de comeÃ§ar a entrevista me diz uma coisa, eu vou ter vale refeiÃ§Ã£o? Vale transporte? Cesta bÃ¡sica? Kkkkkkk
+
+## CHAMELEON (ENTREVISTA DE EMPREGO)
+
+Eu quero saber, antes de responder a essa entrevista de emprego, que benefÃ­cios eu terei sendo aprovado? ð  
+* Minha companhia
+
+Isso Ã© a mesma coisa que minha empresa fala "teu benefÃ­cio Ã© o salÃ¡rio", jÃ¡ ouviu falar em recompensa total? Recompensa total Ã© o salÃ¡rio mais o ambiente de trabalho mais os benefÃ­cios e a satisfaÃ§Ã£o de estar lÃ¡, o "salÃ¡rio" Ã© vocÃª tudo bem, jÃ¡ Ã© bem tentador, mas Ã s vezes um salÃ¡rio alto nÃ£o compensa o stress que Ã© trabalhar na empresa, como Ã© o ambiente de trabalho aÃ­? ð
+
+## ME MALTRATA
+
+NÃ£o fala assim comigo, meu porquinho da Ã­ndia morreu hoje ð¢
+
+## TENTA TE COLOCAR NA FRIENDZONE
+
+Aff, ok entÃ£o... se acha que namorar seja tÃ£o ruim beleza, acho que criei falsas esperanÃ§as sobre vocÃª, mas acontece nÃ©? ð¬ðð¼ Amigos entÃ£o?  
+* Vai a merda haha
+
+VocÃª nÃ£o quer nada com nada, nem namoro, nem sexo, nem nada kkk, sÃ³ quer me encher o saco ðððð
+
+## DIZ QUE VOCÃ ESTÃ OCUPADO
+
+Estava mesmo kkk, pensando em alguÃ©m que nÃ£o tivesse medo de filme de terror rsrs e que nÃ£o tivesse mÃ£os bobas pra levar ao cinema, atÃ© pensei em vocÃª mas kkk #medo  
+* Adoro filme de terror, sou comportada rsrs
+
+Hahaha entÃ£o vocÃª me levaria? Kkk ownnnn *.* sabia que vocÃª era diferente das outras kkkk  
+* Nunca convidei um homem, eles que me convidam
+
+Hum #pipoca #risos #cocacola #susto vai dizer nÃ£o pra tudo isso? Kkkk, entÃ£o tÃ¡ nÃ© rsrs  
+* Ai ai tentador vocÃª, me convenceu hehe
+
+## CONTA EXPERIÃNCIAS RUINS (NAMORADO)
+
+Ã nisso que vocÃª estÃ¡ errando
+
+Em usar experiÃªncias do passado pra hoje, levando um tipo de escudo na mÃ£o
+
+SÃ³ porque homens jÃ¡ te fizeram sofrer, nÃ£o significa que todos hoje em dia farÃ£o o mesmo
+
+Por isso vocÃª fica com esse freio de mÃ£o puxado, fica se negando a oportunidade de viver algo novo...
+
+## VOCÃ FALA ISSO PRA TODAS
+
+Olha, eu acho que no fundo nÃ£o Ã© exatamente isso que vocÃª quer saber, e sim se eu sou um homem com potencial pra relacionamento sÃ©rio e te tratar todos os dias como se fosse Ãºnica, eu nÃ£o tiro a sua razÃ£o, nem fico chateado com o comentÃ¡rio, nÃ³s vivemos uma era onde as pessoas amam e deixam de amar com muita facilidade, todo mundo estÃ¡ impulsivo
+
+E acredito que vocÃª e eu estamos fartos de nos iludirmos com as pessoas.... EntÃ£o, a resposta Ã© "sim", eu sou um cara com potencial para relacionamento, e o dia que aparecer alguÃ©m que me dÃª a seguranÃ§a para assumir algo sÃ©rio e sem medo de ser algo de momento, vou fazer isso feliz!
+
+## NÃO QUER SAIR
+
+   
+Bom, se vocÃª nÃ£o tem certeza, acho melhor cancelarmos, minha agenda Ã© meio complicada pra marcar coisas de Ãºltima hora... NÃ£o rola pra mim rsrs
+
+## TE DEU BOLO
+
+Muito obrigado por nosso encontro, eu adorei, foi simplesmente o melhor encontro que tive em minha vida rsrs, adorei segurar sua mÃ£o e sentir tremer, seu coraÃ§Ã£o acelerado quando eu olhei nos seus olhos e disse o quanto vocÃª Ã© especial, sÃ©rio... seu abraÃ§o, seu beijo, simplesmente incrÃ­vel, grato por isso...
+
+## TE DEU BOLO (VICTOR DE PAULA)
+
+   
+Adorei nosso encontro hoje, vocÃª foi demais. Aquele beijo... nossa!  
+* O que? Ahm? NÃ£o saÃ­mos hoje.
+
+Como nÃ£o, FULANA. VocÃª me comprou a casquinha que tanto falou, tiramos uma foto juntos, encontramos o batom que vocÃª queria e no final me beijou!? Ai ai ai, tÃ¡ precisando tomar remÃ©dio para memÃ³ria hahahaha  
+* BlÃ¡-blÃ¡-blÃ¡, vocÃª estÃ¡ fumando... saiu com outra nÃ©. ... blÃ¡-blÃ¡-blÃ¡
+
+Entendi o que aconteceu entÃ£o... sonhei acordado... pensei que era realidade... atÃ© o seu perfume grudou na minha roupa
+
+Por falar de perfume... que doce ele era hahaha
+
+Mas tudo bem, vou ficar com o meu sonho hehe
+
+## DEPOIS DE FAZER ELA TE ACORDAR
+
+Hahaha mas pessoalmente espero que me acorde de maneiras mais interessantes rsrs, se nÃ£o... partir advogado #divÃ³rcio kkkk
+
+## SE SABE COZINHAR
+
+Eu cozinho bem, vou pensar em um prato, gosta do que? SÃ³ nÃ£o vai ficar imaginando eu de avental sem camisa, tipo marombeiro haha e nÃ£o me atrapalhe quando eu estiver na cozinha ð
+
+## PORQUE NÃO FEZ MÃGICA AQUELE DIA?
+
+Tem um ditado que fala para nÃ£o misturar negÃ³cios com emoÃ§Ãµes ðð
+
+Por fora eu transparÃªncia confianÃ§a, por dentro eu tava nervoso em te conhecer haha ðð
+
+E quem disse que nÃ£o fiz nenhuma mÃ¡gica contigo? ð  
+ 
+
+## TENTA TE FAZER CIÃMES
+
+(Bem... vamos Ã  um exemplo... ela vem e fala, nossa tÃ´ com o amor da minha vida (ou algo do gÃªnero onde vocÃª saiba que a provocaÃ§Ã£o tenha relaÃ§Ã£o direta ao ciÃºmes. Mas e aÃ­? Como reverter isso? Bem, meu caro Watson (haha), simplesmente pegue uma foto com sua melhor amiga, ou com sua mÃ£e (minha mÃ£e!? Sim, sua mÃ£e. Ã comprovado o ciÃºmes de mulheres pela mÃ£e do cÃ´njuge), ou, se vocÃª tiver, uma psicÃ³loga (por isso o nome do padrÃ£o) e ENVIE PARA ELA)
+
+EntÃ£o, ela Ã© a mulher da minha vida, toda vez que a encontro me sinto tÃ£o leve e protegido... Sabe quando abraÃ§amos alguÃ©m e podemos ficar horas e horas juntos? Ã mais ou menos isso... Ela se comunica sem nenhuma maldade comigo, posso contar todos os problemas que tenho, mas eu nÃ£o gosto disso, porque depois eu fico triste e sozinho, porque percebo que nosso carinho, nosso toque Ã© especial sabe?  
+ 
+
+## MANDA FOTOS
+
+   
+Cuidado hein hahaha, fica mandando essas fotos aÃ­ toda gatona, eu estou solteiro hein muiÃ© kkkk
+
+Issooo, faz isso mesmo... fica aÃ­ mandando foto, querendo me impressionar, aÃ­ posso me apaixonar e como jÃ¡ sei que nÃ£o faÃ§o seu tipo, vou me iludir e sofrer Ã  toa kkkk, menina mÃ¡ viu haha  
+   
+Nossa rsrs, vocÃª tÃ¡ fazendo dieta? TÃ¡ mais magra, me passa aÃ­ que estou querendo perder uns quilos tambÃ©m haha
+
+Uiaa me chama de Instagram e me transborda de suas melhores imagens rsrs
+
+Gata, se prepara que vou te tacar no papel de parede e te chamar de Instagram haha
+
+Rsrs, pagando de gatinha nessa foto aÃ­ hein haha, assim seus fÃ£s devem ficar loucos nÃ©?  
+   
+(Depois mandar isso)
+
+Kkkkk brincadeira, vocÃª Ã© bem fotogÃªnica, mas nÃ£o sei porque, tem algo que nÃ£o consigo parar nessa foto...
+
+## TE PEDE FOTOS
+
+Sou um homem de negÃ³cios... vocÃª manda uma, eu mando uma ð
+
+## FINGE TE MANDAR NUDES
+
+Ahhh se vocÃª mandasse um nudes de vocÃª mesma nem ficaria assim tÃ£o surpreso, garotas geralmente mandam toda hora kkk, isso nÃ£o seria nada demais rsrs, mas fiquei aqui pensando agora... serÃ¡ mesmo que seria capaz de me surpreender?
+
+Kkkk fiquei curioso agora haha. SerÃ¡ serÃ¡ serÃ¡?
+
+## QUANDO ELA LÃ O OPENER E NÃO RESPONDE*
+
+EntÃ£o tÃ¡ bom rsrs, continua com os "oi gatinha" dos caras ai haha, e com os velhos tarados de plantÃ£o pedindo pra vocÃª ligar a webcam a noite kkkk, beijos de luz rsrs
+
+---
+
+Super ocupada vocÃª pelo jeito nÃ©? Haha, fica dando atenÃ§Ã£o aos seus fÃ£s e esquece de me responder, nÃ©? ðð
+
+## PEDE POR ATENÃÃO 1
+
+   
+Hoje o dia foi corrido pra mim, eu tive que terminar umas coisas do trabalho, projeto atrasado, foco total sem pensar em mais nada alÃ©m do trabalho. Mas, preciso confessar uma coisa kkkk, teve um momento que parei pra comer um lanche e naquele momento, ao sentir o ar tocando minha pele, parece que junto com o vento, vocÃª veio em meu pensamento ð  
+   
+E na hora... pensei em te mandar uma mensagem pra te dizer uma coisa importante que eu lembrei lÃ¡ na hora, mas achei melhor deixar pra depois rsrs, melhor nÃ©?  
+   
+E o que era?  
+   
+NÃ£o, eu nÃ£o posso dizer por aqui... Ã algo extremamente importante que prefiro te dizer pessoalmente 
+
+(aqui Ã© provÃ¡vel que ela te convide)  
+ 
+
+## PEDE POR ATENÃÃO 2
+
+* Meu amor por vocÃª diminui toda vez que vocÃª demora mais de 5 segundos pra me responder  
+EntÃ£o quer dizer que gosta menos de mim por isso nÃ©?  
+* Sim  
+   
+Ah, o mais importante Ã© nunca esvaziar o copo por completo nÃ© kkkk, nem esvazio totalmente, nem transbordo... bom que assim sempre se quer mais e sempre tem o suficiente pra matarmos nossa sede ð
+
+## QUANDO ELA RI (1000 MENSAGENS POR DIA)
+
+(Ela ri e elogia seu comentÃ¡rio, aÃ­ vocÃª manda:)
+
+De inÃ­cio nem achei que vocÃª sabia dar risada haha, essa cara de sÃ©ria aÃ­, as pessoas geralmente te acham brava antes de te conhecer melhor nÃ©? Rsrs  
+(tensÃ£o e isca de investimento)  
+* BlÃ¡ blÃ¡ blÃ¡ 
+
+De inÃ­cio achei que era tipo essas "bonitonas da internet" que recebem 1000000 mensagens por dia e nÃ£o respondem ninguÃ©m, tipo aquelas "meninas malvadas" sabe? Rsrs  
+(falsa interpretaÃ§Ã£o dela, pra ela ter que corrigir)  
+* Hahaha, que isso... nÃ£o sou assim nÃ£o rsrs
+
+Hum, vai dizer que nÃ£o Ã© daquelas que seduzem os caras, depois acaba com eles, deixa eles em lÃ¡grimas e ainda posta no Facebook #Partiu #SouMÃ¡ hahahaha  
+(criando oportunidade dela se a achar poderosa e sedutora com pull back)  
+* NÃ£o kkk, faÃ§o isso nÃ£o rs, quem dera rs
+
+Haha liga nÃ£o, sou brincalhÃ£o assim mesmo viu, deve ser culpa do cafÃ©, mas juro que estou tentando parar... Juro hahaha  
+* Haha, tambÃ©m sou brincalhona
+
+Agora estou curioso rs, serÃ¡ que tu tambÃ©m sabe fazer brigadeiro, massagem e tambÃ©m Ã© romÃ¢ntica que nem eu? SerÃ¡, serÃ¡, serÃ¡? Hahaha  
+(mÃºltiplas armadilhas de investimento e mutualidade)  
+* BlÃ¡ blÃ¡ blÃ¡ 
+
+Sabia que vocÃª nÃ£o era sÃ³ mais um rostinho bonito e cabelo de comercial de shampoo kkk, tu Ã© gente boa, deve ser do meu signo entÃ£o haha  
+(ampliando mutualidade e gerando curiosidade)  
+* Qual seu signo? 
+
+Sou de libra, mas tem gente que nÃ£o curte e vocÃª sabe porque nÃ©?  
+* NÃ£o, por quÃª?
+
+Ã que sou muito intenso, nÃ£o aceito meio termo ou superficialidade, nÃ£o curto mimimi, qual o seu signo? Rsrs  
+* BlÃ¡-blÃ¡
+
+Dizem que esse signo Ã© bastante ciumenta, Ã© verdade? Haha
+
+## DIZ QUE GOSTA DE CINEMA
+
+Hummm sei, jÃ¡ atÃ© imagino, deve ser daquelas que nem deixam ver o filme rsrs, fica toda romÃ¢ntica, segurando a mÃ£o, dando beijinho e quando o cara olha pra vocÃª, tu estÃ¡ com os olhinhos brilhando e fazendo biquinho pra ele te beijar, certeza hahaha
+
+## ME CHAMA DE BOBO/DOIDO
+
+Boba vai ficar vocÃª se um dia nos vermos kkk, vai ficar toda tÃ­mida, com olhinhos brilhando e quando eu te pegar no colo, vai respirar fundo e pensar "agora que minhas amigas teriam que estar aqui pra me ver" kkkkkk ðð»ââ
+
+---
+
+TambÃ©m te gosto hahaha, mas antes me diz rsrs, quero saber se gostamos das mesmas coisas, azul ou vermelho? Sorvete ou aÃ§aÃ­? Cinema ou parque? Quarta ou quinta? Rsrs
+
+## ME ELOGIA
+
+* VocÃª Ã© lindo
+
+Olha, vocÃª nÃ£o diz isso pra todos nÃ£o nÃ©? Rsrs...   
+* Eu nÃ£o 
+
+E se eu ficar apaixonado? Rsrs, tem coisas que sÃ£o que nem batata frita, impossÃ­vel comer uma vez sÃ³ kkk. E quando gosto de alguÃ©m, demoro pra largar hein rsrs, se vocÃª quiser algo rÃ¡pido, passageiro, de uma noite e nada mais, melhor nem nos vermos hein kkkk  
+* Eu nÃ£o queria algo passageiro, quero algo bem longo se eu tmb xona quero toda vez
+
+Sexo brutal rsrs, com direito a 50 Tons de Cinza kkk... estou pensando seriamente tambÃ©m nessa possibilidade rsrs, da gente se ver... Ã© que sou meio tÃ­mido, liga nÃ£o viu rsrs  
+* Eita tem que ter carinho tambÃ©m viu
+
+Mas mulher gosta de carinho? Achei que nÃ£o tinha mais mulheres assim, romÃ¢nticas que curtem carinho rsrs  
+* Tranquilo paixÃ£o, eu quero muito te ver
+
+Vamos sim, acho que lÃ¡ pra quarta-feira, vou ver direitinho na agenda, aÃ­ te falo... pode ser?  
+* Eu gosto de carinho
+
+EstÃ¡ bom demais pra ser verdade... simpÃ¡tica, bonita, gostosa, carinhosa, que quer algo sÃ©rio, e ainda curte sexo brutal haha, vocÃª existe mesmo? Rsrs  
+* Como seria sexo brutal?
+
+Putz, nÃ£o dÃ¡ pra te falar isso, Ã© algo que sÃ³ mostrando nÃ©? Mas... faz assim, tu mostra como Ã© sexo com carinho e eu te mostro como Ã© brutal rsrs, aÃ­ vocÃª me diz se curtiu, e eu tambÃ©m te dou minha opiniÃ£o ok?  
+* Ok
+
+Serei honesto hein, quero o mesmo de vocÃª kkk, se nÃ£o curtir, quero que fale hahaha
+
+---
+
+Olha sÃ³ gente, ela sÃ³ me elogiando, vai achar que sÃ³ tenho qualidades, mal ela sabe a parte ruim kkkkk, se eu contar cairia da cadeira rsrs
+
+## ME CHAMA DE AMOR
+
+Me chamando de amor? Rsrs, assim eu gamo kkkkk
+
+## ME CHAMA FEIO/COMÃDIAS ROMÃNTICAS
+
+VocÃª Ã© sempre boba assim ou sÃ³ quando fala com caras bonitos e carecas, altos e fortes? Haha
+
+Nossaaa kkk, me chamou de feio rs, acho romÃ¢ntico quando vocÃª se faz de difÃ­cil rs, tenta criar essas "barreiras" tipo "de dificil" nÃ©? Ai ai ð
+
+Hummm tipo aquelas "comÃ©dias romÃ¢nticas" nÃ©? A garota se faz de difÃ­cil... AÃ­ o mocinho tambÃ©m, mas a gente sabe que Ã© tudo da boca pra fora nÃ© rsrs, mas legal... Prefiro assim mesmo hahaha
+
+## BUMBUM/MORDER (ACEITA SAIR)
+
+Seguinte, eu vou sair com vocÃª mas... Nada de me morder sÃ³ porque sou fofo, nem de apertar meu bumbum sÃ³ porque ele Ã© redondinho hein, e nada de me roubar beijo sÃ³ porque meus lÃ¡bios sÃ£o macios e molhados viu, posso confiar? ð
+
+## DIZ QUE Ã CASEIRA
+
+Hum jÃ¡ atÃ© imagino vocÃª em casa, quando eu for te visitar algum dia, aÃ­ te pego de surpresa, aÃ­ vocÃª jÃ¡ vai estar de pijaminha da pucca e pantufinha do mickey nÃ©? Hahaha sua cara ð
+
+## TE BATO, TE DOU UM SOCO
+
+LÃ¡ vem a 50 Tons de Cinza kkkk ai ai, sÃ³ faltava essa haha, olha... tem hora e lugar pra essas coisas hein, se um dia eu te ver, vÃª se nÃ£o faz eu passar vergonha no meio do shopping hahaha, se controle mocinhaâ¦ ð
+
+## QUANDO ELA MANDA ÃUDIO
+
+Sua voz Ã© tÃ£o gostosa, dÃ¡ vontade de estar aÃ­ deitado com vocÃª... sem contato fÃ­sico, porque somos sÃ³ amigos rsrs
+
+## QUANDO ELA ESTÃ NO TRAMPO
+
+JÃ¡ estÃ¡ no trampo?  
+* sim
+
+E fica no celular kkkk, que bonito hein rsrs
+
+## QUANDO NÃO POSSO CONTINUAR FALANDO
+
+Oi mocinha haha, achei que era bem humorada sÃ³ no tinder kkk  
+   
+Linda eu estou chegando em um casamento agora, dia de comer brigadeiro e beijinho sabe "comÃ© qui Ã© nÃ©?" hahaha... mas aÃ­ amanhÃ£ eu juro que falo com vocÃª direitinho tÃ¡? Kkkk, me add aÃ­, eu deixo hahaha ððð  
+* Aproveite  
+   
+Hahahaha, acho que a avÃ³ da noiva jÃ¡ sacou meu plano rsrs, ela tÃ¡ olhando com cara feia pra mim kkk... JÃ¡ percebeu que quero roubar brigadeiro kkk, atÃ© pisquei pra ela mas ela resistiu aff hahaha  
+* Rsrs  
+   
+Me deseje sorte kkkkk  
+* Sorte  
+   
+Quer ser minha parceira de crime, acho que vou te levar nos prÃ³ximos casamentos e aniversÃ¡rios kkk ðð  
+* Bobo  
+   
+TambÃ©m te gosto kkkkkk ð  
+* Eu sei, sou um amor!  
+   
+Agora voltei a gostar de vocÃª kkkk, voltou a ser fofa kkkk... SÃ³ um pouco hahaha ð  
+* Sei rsrs
+ 
+
+## AMÃMETRO
+
+O "amÃ´metro" tava assim â¤â¤  
+   
+AÃ­ deu uma alterada â¤ð  
+   
+Agora voltou â¤â¤  
+* Hahaha, bobo  
+   
+Hahaha, tambÃ©m te gosto rsrs  
+   
+E para de falar que tenho mimimi  
+   
+NÃ£o expliquei o "amÃ´metro" nÃ©? Foi mau, Ã© assim...  
+   
+â¤ ganha um show de mÃ¡gica, totalmente grÃ¡tis  
+â¤â¤ se aproximam e rola atÃ© ligaÃ§Ãµes ou Ã¡udios pelo whatsapp  
+â¤â¤â¤ tem direito a "casquinha da amizade"  
+â¤â¤â¤â¤ conhece minha cachorrinha a "maggie", e come meu miojo ð  
+â¤â¤â¤â¤â¤ pode comer minhas guloseimas e pode ver netflix comigo  
+â¤â¤â¤â¤â¤â¤ conhece minha mÃ£e, aquela fofa ðð»
+
+## VOCÃ ABORDA TODAS NO METRÃ?
+
+A verdade Ã© que estou buscando algo mais sÃ©rio e significativo, alguÃ©m com quem eu possa compartilhar momentos especiais e construir um relacionamento sÃ³lido. E acredito que em lugares como a estaÃ§Ã£o de metrÃ´ Ã© mais fÃ¡cil encontrar garotas que estÃ£o indo trabalhar ou indo pra faculdade, ou seja Ã© mais provÃ¡vel encontrar pessoas com objetivos semelhantes aos meus. NÃ£o que eu descarte totalmente outros lugares, mas acredito que a qualidade das conexÃµes que posso fazer em contextos mais "convencionais" pode ser mais alinhada com o que estou buscando, do que Tinder ou balada. Espero que isso tenha esclarecido melhor minha perspectiva. ðð©ð»âð¤âð¨ð»
+
+# ROTINA DE SONHOS
+## NUTELLA
+
+Tive um sonho bem louco com vocÃª kkkkk
+
+NÃ£o ia te contar, mas Ã© engraÃ§ado...
+
+Tipo eu estava saindo da empresa, no meio do caminho eu me encontrei com vocÃª... saÃ­mos e conversamos, quando percebi eu estava chegando emq casa com vocÃª, aÃ­ vocÃª entrou na minha casa e jÃ¡ viu que tinha nutella em cima da mesa, aÃ­ disse - "eu quero", aÃ­ eu disse que queria tambÃ©m, mas que iria comer de uma forma diferente rsrsâ¦
+
+VocÃª perguntou, - como ð? ai eu falei - "vou te mostrar, vem cÃ¡"... e te levei pro quarto, coloquei uma mÃºsica, acho que era Richard Marx - Whatever We Started (nÃ£o me peÃ§a pra te mandar esse clipe, SÃRIO!), comecei a te beijar mordendo seu pescoÃ§o e aos poucos ia te empurrando pra cama que estava atrÃ¡s de vocÃª
+
+AÃ­ eu te deitei na cama e fiquei em cima de vocÃª, e vocÃª estava muito quente rsrs... tirei sua blusinha e amarrei seus braÃ§os na cabeceira da cama com a blusinha, depois tirei minha camisa e vendei seus olhos com ela, depois disso peguei um pouco de nutella e passei nos seus lÃ¡bios e te beijei com vontade, aquele beijo que sÃ³ se pode dar entre 4 paredes sabe? 
+
+Rsrs... depois fui deslizando no seu pescoÃ§o, e ia deslizando cada vez mais... e cada vez mais, tirei seu sutiÃ£ e beijei sua barriguinha... enquanto tirava o seu shorts, te virei de costas e passei nutella no seu bumbum rsrs e me deliciava te lambendo e dando mordidinhas... te virei de novo e terminei de tirar sua calcinha, vocÃª jÃ¡ estava toda molhadinha rsrs... quando eu ia me preparar pra fazer vocÃª se contorcer de prazer, acordei puuufft ð°
+
+(Mandar mÃºsica do Richard Marx)
+
+---
+
+Haha vou te contar vai! Imagina sÃ³, estava em alguma estaÃ§Ã£o de trem ou metrÃ´, dou de cara contigo pelo caminho e, de repente, estamos lÃ¡, conversando e tal. AÃ­, sem mais nem menos, tÃ´ te levando pra minha casa, e chegando lÃ¡, adivinha? Nutella na mesa! Tu falou com teu jeitinho: "Quero!" E eu tambÃ©m, sÃ³ que de um jeito diferente haha!
+
+DaÃ­ tu perguntou: "Como? ð" E eu mandei a real: "Vem comigo"... AÃ­ te levei pro quarto, coloquei uma mÃºsica maneira, acho que era Richard Marx - Whatever We Started (nem me peÃ§a o clipe, sÃ©rio! ð). Comecei a te beijar, mordendo teu pescoÃ§o, e a coisa foi esquentando, devagarinho te empurrei pra cama que tava bem ali.
+
+Te deitei na cama e fiquei em cima, e cara, tu tava pegando fogo, haha! Tirei tua blusinha e amarrei teus braÃ§os na cabeceira da cama com ela. Depois tirei minha camisa e vendei teus olhos, sÃ³ pra deixar as coisas mais interessantes, saca? AÃ­, peguei um pouquinho de Nutella e passei nos teus lÃ¡bios e te beijei com vontade, aquele beijo que sÃ³ rola na intimidade, sabe?
+
+Haha... daÃ­, fui descendo pelo teu pescoÃ§o, e cada vez mais... e mais... tirei teu sutiÃ£ e dei uns beijinhos na tua barriguinha. Enquanto tirava teu shorts, te virei de costas e passei Nutella no teu bumbum, hahaha, aÃ­ me deliciei lambendo e dando mordidinhas... depois te virei de novo e tirei tua calcinha, e tu jÃ¡ tava toda molhadinha ð Haha... E aÃ­, justo quando ia partir pro ataque final e te fazer delirar de prazer, acordei do nada, puuufft! Que decepÃ§Ã£o! ð°
+
+## PONTE
+
+Tive um sonho bem louco com vocÃª kkkkk
+
+NÃ£o ia te contar, mas Ã© engraÃ§ado...
+
+A gente tava numa ponte acho, e do nada eu comecei a tirar a roupa, e vocÃª me perguntou o que eu estava fazendo, aÃ­ eu disse que ia pular da ponte pra recuperar o seu colar, vocÃª comeÃ§ou a puxar meu braÃ§o pra eu nÃ£o ir, naquele momento vocÃª nÃ£o queria perder outra coisa rsrs, mas mesmo assim eu pulei pois eu estava decidido e nÃ£o queria te ver daquele jeito triste, passaram alguns minutos e vocÃª comeÃ§ou a perceber que eu nÃ£o emergia na Ã¡gua
+
+VocÃª tirou sua roupa tambÃ©m e pulou tambÃ©m, a gente se encontrou lÃ¡ embaixo na Ã¡gua, a gente tava se afogando... e o seu colar? Seu colar estava na minha mÃ£o jÃ¡ kkk, eu coloquei ele no seu pescoÃ§o mesmo vocÃª sem ar pra respirar, a gente se beijou e ficamos de mÃ£os dadas... depois disso eu acordei suado, e nÃ£o consegui mais dormir...Â 
+
+## MARCAR DATE
+
+Tive um sonho interessante com vocÃª hoje kkkkk
+
+Hahaha loucura, fico atÃ© com vergonha de dizer... nÃ£o sei se vocÃª vai gostar kkk
+
+Haha, entÃ£o... eu estava dormindo tÃ£o bem... aÃ­ adivinha quem entrou no meu sonho? *vocÃª* sua invasora de sonhos!! ð  Kkkkkkk
+
+Kkkkkk, sonhei mesmo mas... nÃ£o sei se tenho coragem de contar tudo que aconteceu hahaha
+
+Hahaha, olha sÃ³... sÃ³ vou te dizer uma coisa... vocÃª fica linda de vermelho ðð
+
+Rsrs, sÃ³ sei que no sonho vocÃª estava top demais hahaha... mas vamos fazer assim, algumas coisas sÃ£o melhores se faladas pessoalmente, vocÃª me paga uma casquinha do McDonald's ð¦e eu te conto os detalhes beleza? Haha
+
+## ROTINA DO SONHO
+
+Â   
+Bom dia amor, sonhei com vocÃª hoje haha ð  
+Â   
+Sonhei com vocÃª e acordei cansado ð  
+* Kkkk, foi bom?  
+Â   
+Me deu um certo trabalho kkkk ð  
+* Kkkkkk  
+Â   
+E vocÃª nÃ£o sonhou comigo por quÃª? Posso saber mocinha? ð¡  
+* NÃ£o sonhei, mas acordei pensando em vocÃª ð  
+Â   
+Acordou feliz entÃ£o rsrs, mais algum "efeito colateral" ou deixa pra lÃ¡? ð  
+* Deixa pra lÃ¡ haha  
+Â   
+Deixa pra lÃ¡ nÃ©? ð¸ð¦
+
+## TUBARÃO
+
+Queria nem te falar, mas nÃ£o consigo tirar isso da cabeÃ§a! ð
+
+EntÃ£o, sonhei que te levei para a praia, e a gente comeÃ§ou a andar Ã  noite. A areia tava molhada, o vento batendo forte e aÃ­ a gente tinha que ficar bem juntinho pra se esquentar... aÃ­ a Ã¡gua molhou seus pÃ©s e vocÃª pulou nos meus braÃ§os pra nÃ£o se molhar.
+
+AÃ­ te segurei forte e acabamos caindo na areia haha! Pela sua expressÃ£o, deu pra perceber que vocÃª tava esperando um beijo meu. NÃ£o pensei duas vezes e te beijei, mas do tipo mais intenso, daqueles que sÃ³ damos entre 4 paredes, sabe?
+
+Hahaha, aÃ­ a gente ignorou que tava todo sujo de areia e quanto mais eu te segurava firme e apertava sua cintura, mais intenso ficava o beijo. Esquecemos do mundo, mas entÃ£o... apareceu um tubarÃ£o! E nÃ£o sÃ³ isso, ele estava andando! E acabou nos engolindo! Loucura total haha, tÃ´ rindo agora mas acordei atÃ© meio preocupado ð
+
+---
+
+EntÃ£o, estÃ¡vamos na praia, Ã  noite, o som das ondas quebrando e a brisa suave acariciando nossa pele... A atmosfera estava incrivelmente sensual, sabe? E aÃ­, enquanto caminhÃ¡vamos pela areia molhada, nossos corpos se aproximando naturalmente, quase como se estivÃ©ssemos danÃ§ando...
+
+De repente, uma onda mais ousada veio e molhou seus pÃ©s, e vocÃª se agarrou a mim instintivamente para nÃ£o se molhar mais. Naquele momento, senti uma conexÃ£o intensa entre nÃ³s, uma energia que sÃ³ pode ser descrita como magnÃ©tica.
+
+E entÃ£o, o inevitÃ¡vel aconteceu. Nosso olhar se encontrou e eu pude sentir a tensÃ£o elÃ©trica no ar, como se o mundo ao nosso redor desaparecesse... E quando nossos lÃ¡bios finalmente se tocaram, foi como se o tempo parasse. O beijo foi intenso, apaixonado, revelando desejos hÃ¡ muito tempo guardados.
+
+Mas, assim como tudo estava ficando mais quente, uma sensaÃ§Ã£o de perigo nos envolveu. Um tubarÃ£o? No meio do sonho e engoliu a gente. Acordei assustado... ð
+
+# CHAMANDO P/ SAIR
+## PRÃ-ENCONTRO (TON)
+
+Vou te falar uma coisa de forma bem direta, mas sem pressÃ£o nenhuma.
+
+Eu gosto de conversar com vocÃª. Tem algo no seu jeito que me chama atenÃ§Ã£o, nÃ£o parece sÃ³ conversa pra preencher silÃªncio.
+
+AÃ­ eu fiquei pensando numa coisa aqui.
+
+Eu pensei: "vou chamar ela pra sair"â¦ mas ao mesmo tempo talvez isso ainda seja meio estranho, porque querendo ou nÃ£o a gente ainda nÃ£o se conhece tÃ£o bem ao vivo.
+
+Vai que vocÃª Ã© uma agente secreta usando uma identidade falsa, nÃ©? A gente nunca sabe kkk
+
+EntÃ£o tive uma ideia melhor: em vez de chamar isso de encontro, a gente podia fazer uma espÃ©cie de prÃ©-encontro.
+
+Tipo, algo bem simples mesmo. A gente se vÃª rapidinho, em algum lugar que fique fÃ¡cil pra vocÃª, sÃ³ pra dar um oi, conversar um pouco e ver se a conversa bate ao vivo tambÃ©m.
+
+Pode ser um cafÃ©, uma casquinha, alguma coisa tranquila assim. Nada com cara de compromisso, nem de encontro super planejado.
+
+E pra vocÃª ficar em paz, pode ser num shopping, lugar movimentado, com bastante seguranÃ§a, bastante cÃ¢mera e testemunhas oculares caso eu tente contar uma piada ruim pessoalmente kkk
+
+A ideia Ã© sÃ³ essa: a gente se conhece um pouco melhor, vÃª se existe uma conexÃ£o legal ao vivo, e se fizer sentido, aÃ­ sim outro dia a gente marca alguma coisa mais de verdade.
+
+No pior cenÃ¡rio, a gente toma um cafÃ© e confirma que nenhum dos dois Ã© uma ameaÃ§a Ã  sociedade kkk.
+
+O que vocÃª acha?
+
+## PRÃ-ENCONTRO (REX)
+
+Posso te falar uma coisa que me veio a mente? Vai parecer engraÃ§ado mas rsrs, vou seguir a intuiÃ§Ã£o kkkk
+
+Tenta nÃ£o rir depois de ler tudo que eu te mandar ou mesmo antes do fim tÃ¡? Kkkk, vai perceber que Ã© uma Ã³tima ideia ok? Preparada?Â Â Â Â Â Â Â Â Â Â Â Â Â Â 
+
+Seguinte rsrs, confesso que sou meio tÃ­mido sabe... pra esses lances de encontro, acho que saÃ­ com duas mulheres da internet na vida toda... ri nÃ£o hein rsrs, Ã© que tambÃ©m namorei por bastante tempo kkk
+
+Mas sei que Ã s vezes por timidez a gente acaba nÃ£o se abrindo muito e tals...
+
+Mas bolei um jeito pra gente se ver, sem a gente se sentir tÃ­mido rsrs, algo rÃ¡pido, mas legal, divertido e super relax pra ambos, vai ser um prÃ©-encontro, isso mesmo um "prÃ©-encontro", e como seria isso vocÃª deve estar se perguntando...
+
+A gente se vÃª de forma rÃ¡pida, em algum lugar que seja bom pra ambos, talvez atÃ© um lugar que a gente passe durante o dia ou atÃ© a noite de volta pra casa, um metrÃ´, um terminal, a gente se vÃª, conversa rapidÃ£o, dÃ¡ umas risadas... talvez eu atÃ© te faÃ§a uma mÃ¡gica kkk, legal a ideia nÃ©?
+
+Ah e aceito sugestÃµes tÃ¡? Kkk pra melhorar isso. VocÃª tem cara de ser bem criativa, quer reformular o prÃ©-encontro? Ou assim estÃ¡ bom? Kkkk juro que se for uma ideia boa eu coloco seu nome no livro kkkkkk (tÃ­tulo: TÃMIDOS TAMBÃM AMAM by Demian Lispector) Hahahaha
+
+## USANDO FALSA VIBE DE AMIGOS
+
+Ei, reparei nas suas fotos que vocÃª se veste muito bem, tipo estilista nÃ© rsrs... acho que vou me aproveitar disso, sabe como? Haha
+
+Estou querendo comprar umas roupas diferentes, sei lÃ¡... uns modelos mais sociais e tal, esporte fino, mas jÃ¡ fiz isso com uma amiga antes e nÃ£o deu muito certo, ela me deixou parecendo o Silvio Santos haha ððð
+
+Vou te levar no Shopping rsrs, acho que vocÃª pode me dar uns toques legais de roupas, tipo opiniÃ£o feminina Ã© bom nessas horas nÃ© rsrs, se for... eu pago uma casquinha do Mc Donald's pra vocÃª tÃ¡? Rsrsrs
+
+Estava precisando de uma amiga assim rsrs, eba... toca aqui ðð¼
+
+## PRESENTE PRA MÃE
+
+Tive uma ideia genial, mas acho que vocÃª vai me chamar de folgado haha
+
+Ã que preciso comprar um presente pro aniversÃ¡rio da minha mÃ£e, e preciso de alguÃ©m pra ir comigo, estou com medo de comprar algo que ela nÃ£o goste, sei lÃ¡... sua mÃ£e curte os presentes que vocÃª dÃ¡ pra ela? Rsrs
+
+Beleza, faria isso por mim? Juro que nÃ£o vai ter que carregar muitas sacolas, sÃ³ algumas rsrs, mas jÃ¡ ajudaria... vocÃª tem cara de ser boa filha, vai me ajudar nÃ©? Haha
+
+AÃ­ sim rsrs, te pago um lanche no McDonald's tÃ¡? Amigos se ajudando, uiaaa que lindo haha ðð
+
+## QUESTIONANDO PORQUE ELA NÃO TE CONVIDA
+
+Haha vocÃª Ã© uma figura sabia? Curto falar com vocÃª, sei lÃ¡... de alguma maneira vocÃª Ã© diferente rsrs, sÃ³ estÃ¡ faltando uma coisa...
+
+UÃ©, vocÃª me chamar pra sair rsrs, tem um monte de filme legal no cinema, estou doido pra ver algum de terror haha, vocÃª nÃ£o chama pessoas que vocÃª acha legal pra sair?
+
+Curti seu humor rsrs, sÃ³ estou com medo de uma coisa...
+
+Espero que nÃ£o seja dessas que seduzem os caras e nem pagam uma casquinha do McDonald's pra eles rsrs, aÃ­ eles ficam em lÃ¡grimas e desiludidos oooooo dÃ³ hahaha ðð
+
+Opa aÃ­ sim, nÃ£o Ã© tÃ£o mÃ¡ como imaginei rsrs, isso significa que vai me chamar pra sair nÃ©? Rsrs
+
+(Caso ela faÃ§a um teste)
+
+Nunca chamei homem pra sair rsrs
+
+Que adianta eu chamar e vocÃª dizer nÃ£o rsrs, e talvez se me chamar eu diga sim haha, melhor nÃ©?
+
+Por que eu diria nÃ£o?
+
+Hahaha tÃ¡ tÃ¡ tÃ¡, Ã© que eu sou tÃ­mido, sabe como Ã©, nossa estou atÃ© vermelho aqui rsrs ð  
+* VocÃª Ã© tÃ­mido?
+
+TÃ¡ bom, entÃ£o amanhÃ£... vocÃª quer... quer... quer... nossa vai chover aqui, estÃ¡ fechando o tempo e aÃ­ tambÃ©m? Rsrs
+
+Hahaha
+
+Tem algum filme de terror bom que saiu?
+
+NÃ£o sei rs
+
+---
+
+Haha vocÃª Ã© uma figura sabia? Curto falar com vocÃª, sei lÃ¡... de alguma maneira vocÃª Ã© diferente rsrs, sÃ³ estÃ¡ faltando uma coisaâ¦  
+* o que?
+
+UÃ©, vocÃª me chamar pra sair rsrs  
+* o homem que tem que chamar
+
+Hahahaha achei que vocÃª iria romper as barreiras das tradiÃ§Ãµes e me mostrar que faz o que quer e ponto, nem Ã© tÃ£o difÃ­cil vai rsrs
+
+Vai ser bom pra vocÃª, sempre tem a primeira vez rsrs, e acho que agora seria o momento que valeria a pena nÃ©? Ou nÃ£o?  
+* kkkk
+
+Vamos ser diferentes rsrs, tipo uma "equipe"? ððððð  
+* me convenceu, quer sair comigo?
+
+EntÃ£o nÃ©? Sabe... tipo... estava pensando rsrs
+
+Hahahahahaha
+
+Bateria do celular estÃ¡ acabando, que coisa nÃ£o?  
+* seu mala rsrs
+
+TÃ¡ tÃ¡ tÃ¡ rsrs, jÃ¡ fiz um doce kkk, ficou mais romÃ¢ntico nÃ©? Confessa rsrs, mas eu...
+
+ACEITOOOOO
+
+Eu caso com vocÃª, aceito!  
+* que?
+
+Ops rsrs, me empolguei, eu aceito sair com vocÃª kkkk
+
+Aceitei o seu pedido... falta sÃ³ vocÃª salvar meu nome com um apelido carinhoso  
+* O que?
+
+Nada de mor, vida...  
+Vamos alÃ©m, para as estrelas...  
+VocÃª serÃ¡ minha Bonnie e eu seu Clyde ð¬
+
+## OUTRAS
+
+WhatsApp informa: FULANA, mudando de assunto ð
+
+1. Vou na rÃ¡dio na quarta, e vocÃª vai comigo!  
+2. Isso nÃ£o Ã© um convite garotinha, Ã© uma intimaÃ§Ã£o, 17:00 na frente do Center 03  
+3. EstÃ¡ agendado entÃ£o... lembrando sÃ³ que em caso de desistÃªncia, avisar com 24hrs de antecedÃªncia, podendo haver taxa de multa pelo cancelamento (Â¬â¿Â¬)
+
+Tic-tac tic-tac... vocÃª tem atÃ© amanhÃ£ pra responder se vai sair comigo no sÃ¡bado a noite... tic-tac... seu tempo estÃ¡ acabando garota (Â¬â¿Â¬)
+
+## CHAMELEON (SHOPPING)
+
+Vamos brincar de faz de conta? JÃ¡ brincou disso? Rsrs
+
+Ok... vocÃª serÃ¡ a minha namorada pelos prÃ³ximos cinco minutos... o assunto em pauta Ã© o final de semana que estamos planejando para relaxar e esquecer o estresse da semana... vocÃª ficou encarregada de escolher o filme, jÃ¡ escolheu? Porque eu jÃ¡ escolhi o que vou cozinhar pra gente... Qual filme escolheu? (Â¬â¿Â¬)
+
+DaÃ­ vocÃª e eu estamos animados, conversando na varanda Ã  vontade e alternando cada beijo com um momento de bate-papo agradÃ¡vel, onde um descobre mais sobre o universo do outro... nÃ³s nem vemos a hora passar... percebemos que o dia estÃ¡ amanhecendo e atÃ© ocorre que deverÃ­amos ir dormir, mas... quem disse que queremos? Rsrs
+
+Sabe FULANA, eu sou aquele que, se sair com vocÃª pro Shopping e te beijar, nÃ£o vou agir como se nada tivesse acontecido... eu gosto de, depois do beijo, aquele carinho que vem depois... onde ficamos de mÃ£os dadas embaixo da mesa, vocÃª com a cabeÃ§a encostada no meu ombro, a gente se conhecendo e falando da vida... ai ai que saudades de encontrar uma mulher assim... eu me sinto uma exceÃ§Ã£o entre os homens... sÃ©rio mesmo, mas ao mesmo tempo vejo que isso Ã© raridade pra mulher tambÃ©m nÃ©?
+
+Eu sou tipo... se a pessoa me agradou no encontro, e me agradou mesmo, me passou toda aquela seguranÃ§a, eu nÃ£o vejo motivo pra sair com outra pessoa, eu vou querer investir naquela que me agradou, eu nÃ£o vou querer investir em quem me beijou mas nÃ£o retribuiu carinho, nÃ£o me mandou um mensagem dizendo que "adorou o encontro", nÃ£o me procurou, me tratou com aquela total frieza... agora eu, pode me chamar de antiquado, pode me zoar, rir da minha cara, mas eu acredito no primeiro encontro perfeito, acredito naquele negÃ³cio de... "os dois irem pro Shopping, sentar um do lado do outro, ao invÃ©s de sentar um de frente pro outro, aquela conversa... que comeÃ§a meio fria, meio desconfortÃ¡vel, mas que a gente comeÃ§a ficar mais Ã  vontade... de repente do nada a gente olha um pro outro, dÃ¡ aquele beijo gostoso... depois desse beijo, comeÃ§a aquele carinho, coloco meu braÃ§o em volta do seu, seguro sua mÃ£o por debaixo da mesa, conversamos e vocÃª me fala teus sonhos, me confessa seus medos, vocÃª me fala dos seus vÃ­cios, das suas virtudes, dos seus defeitos, e pergunta os meus com a maior curiosidade do mundo rsrs, eu conto e a gente se beija novamente e a gente olha pra TV, e comeÃ§a a comentar algum programa, de repente comeÃ§amos a descobrir os gostos um do outro, de cinema de filme, e a gente fica vendo o relÃ³gio passando tÃ£o depressa e a gente nÃ£o querendo que a noite passe tÃ£o depressa sabe? Ã... e de repente o encontro nem vai terminar em sexo, e se nÃ£o terminar nÃ£o tem problema porque foi maravilhoso assim mesmo e fica pra uma prÃ³xima, essas coisas nÃ£o tem pressa..."
+
+VocÃª existe?
+
+Existir existo, e te dou a oportunidade de me apertar pra comprovar haha, e quem sabe isso nÃ£o ocorre dentro de um Shopping, muito em breve rsrs
+
+## CHAMELEON (ATITUDE)
+
+ProduÃ§Ã£o, cadÃª as mulheres que valorizam o homem com atitude e determinaÃ§Ã£o e que sabe respeitar uma mulher? CadÃª, cadÃª?
+
+Queria te contar algo, mas nÃ£o sei se vocÃª vai acreditar ðð
+
+EntÃ£o jÃ¡ que vocÃª valoriza um homem com atitude e determinaÃ§Ã£o, quer dizer que se eu te chamar pra tomar um sorvete, vocÃª aceita? Hahaha, Ã© isso mesmo? Rsrs
+
+## CHAMELEON (1Âº ENCONTRO)
+
+Amor seguinte... eu vou viajar por dez dias e gostaria muito de te ver antes disso, pois eu sei que existe uma grande probabilidade das coisas esfriarem se a gente permanecer no virtual rsrs
+
+Eu nÃ£o sei se vocÃª serÃ¡ uma simples amiga, uma ficante, uma namorada ou atÃ© mesmo a mÃ£o dos meus filhos... a Ãºnica coisa que sei Ã© que precisamos nos encontrar pra saber qual vai ser o desfecho (Â¬â¿Â¬)
+
+## CHAMELEON (CHAMANDO PRA CASA)
+
+Eu sei que parece meio estranho vocÃª ir na casa de um cara logo no primeiro encontro, portanto, eu quero te assegurar que eu nÃ£o vou ficar nem um pouco chateado se vocÃª passar minha foto, telefone e endereÃ§o pra duas ou trÃªs amigas pra que elas saibam onde vocÃª estÃ¡. Eu nem me incomodo se vocÃª pedir pra que alguma delas te ligue em algum momento de nosso encontro pra saber se vocÃª estÃ¡ bem. Porque esse Ã© o protocolo. Ã o que eu faria se fosse vocÃª me convidando pra ir na sua casa. AliÃ¡s, eu ficaria desconfiado se nÃ£o fizesse NADA disso e viesse totalmente de boa e sem questionar. AÃ­ sim, eu ficaria com com medo rsrs
+
+## XEQUE MATE (ELIAS)
+
+Ah vocÃª jÃ¡ me enrolou demais, agora nÃ³s temos algumas condiÃ§Ãµes no nosso encontro
+
+JÃ¡ vou chegar te beijando  
+* Como assim, vamos conversarâ¦
+
+Conversar nÃ³s jÃ¡ conversamos aqui, quer ficar mais 3 horas perdendo tempo? Se arruma, te pego Ã s 8
+
+# TESTES DE CONGRUÃNCIA
+## - VocÃª Ã© tÃ£o baixinho/altura
+
+Eu nÃ£o sou baixinho, eu sou sagacidade concentrada ð
+
+Boa, Einstein. Mandando ver no Ã³bvio ð
+
+Eu fico feliz que vocÃª seja mais alta, pois aÃ­ tem mais de vocÃª para eu desprezar ð
+
+As coisas deixam de crescer uma vez que atingem a perfeiÃ§Ã£o, Ã© essa a lei divina ð
+
+Quando Deus me criou, ele perguntou: alto e mal dotado ou baixo e bem-dotado? O resto da histÃ³ria, jÃ¡ dÃ¡ para deduzir ð
+
+## - Qual a sua idade?
+
+Idade sÃ³ importa quando estamos falando de queijos e vinhos. Ou os dois juntos, porque nÃ©... ð
+
+Tenho 9.453 dias, 5 horas, 24 minutos e 3,4,5,6,7... Preciso dar os segundos? SenÃ£o vou ficar o resto da vida te dizendo a idade ð
+
+Menos do que vocÃª gostaria que eu tivesse, mais do que vocÃª pensa que eu tenho ð
+
+## - VocÃª Ã© gay/bicha?
+
+Shh! Eu estou tendo um trabalho fudido para fingir que sou homem e vocÃª vem querendo me expor? Quieta! ð
+
+Essa Ã© uma resposta que sÃ³ vou saber te dar depois de te dar uns pegas. Se nÃ£o gostar, provavelmente sim ð
+
+SÃ³ Ã s terÃ§as ð
+
+## - VocÃª Ã© feio, hein?
+
+Eu tenho certeza de que 90% da sua beleza pode ser removida com uma toalhinha umedecida haha
+
+Eu nÃ£o sabia que eu tinha um espelho que falava! ð
+
+Isso veio de vocÃª? Caramba, a que ponto esse mundo chegou... ð
+
+## - VocÃª Ã© estranho...
+
+Obrigado! Normal Ã© chato! ð
+
+Eu nÃ£o sou estranho, sou um cara de ediÃ§Ã£o limitada ð
+
+Me parece que temos algo em comum, afinal de contas ð
+
+## - VocÃª tem o pinto pequeno
+
+Mulher que sabe trepar nÃ£o reclama do tamanho da Ã¡rvore ð
+
+O que importa nÃ£o Ã© o tamanho da vara e sim o feitiÃ§o ð
+
+NÃ£o importa o tamanho do martelo, mas sim a precisÃ£o que ele bate ð
+
+## - VocÃª Ã© muito velho para mim
+
+O que estÃ¡ em jogo nÃ£o Ã© a idade, e sim se vocÃª tem maturidade para ficar comigo ð
+
+## - VocÃª Ã© muito novo para mim
+
+Quando vocÃª julga a maturidade de alguÃ©m pela idade, Ã© a sua maturidade que entra em jogo nÃ£o a de quem vocÃª julga ð
+
+## - VocÃª Ã© gordo
+
+NÃ£o Ã© que eu seja gordo, mas Ã© que eu amo tanto meu abdÃ´men tanquinho que eu preferi protegÃª-lo com uma camada de gordura rsrs ð
+
+Cuidado, eu comi a Ãºltima pessoa que fez um comentÃ¡rio desses ð
+
+Preciso ser gordo, nÃ©? SÃ³ um corpo deste tamanho para comportar tamanha personalidade ð
+
+Gordura Ã© um desequilÃ­brio calÃ³rico temporÃ¡rio... mas estupidez, infelizmente, Ã© uma aberraÃ§Ã£o genÃ©tica ð
+
+Meus parabÃ©ns pelo pÃ³s-doutorado em assuntos Ã³bvios ð
+
+Sabe, eu juro que tentei... Mas nÃ£o consigo, nem a pau, imaginar porque estÃ¡ tÃ£o interessada no meu peso ð
+
+## - VocÃª Ã© muito sÃ©rio
+
+Eu sorrio bastante quando vocÃª nÃ£o estÃ¡ por perto haha ð
+
+Ah, vocÃª estava tentando me fazer rir? Nem me liguei! ð
+
+Se vocÃª fosse capaz de ler os meus pensamentos, nÃ£o estaria sorrindo... ð
+
+## - VocÃª Ã© muito cuzÃ£o!
+
+Ei, vocÃª nÃ£o Ã© proctologista para dizer isso. Cala a boca antes que te denuncie por exercÃ­cio ilegal da profissÃ£o ð
+
+Nunca seja escroto com um cuzÃ£o, senÃ£o dÃ¡ merda ð
+
+## - VocÃª Ã© muito sem noÃ§Ã£o!
+
+Ficou ofendido com a minha opiniÃ£o? Imagina os comentÃ¡rios que eu guardo sÃ³ para mim ð
+
+## -  VocÃª Ã© muito autoritÃ¡rio!
+
+Eu nÃ£o sou autoritÃ¡rio, eu sÃ³ estou dizendo o vocÃª deveria estar fazendo ð
+
+Sou autoritÃ¡rio mesmo, preciso definir um novo parÃ¢metro de qualidade nas relaÃ§Ãµes ð
+
+## - VocÃª Ã© doente!
+
+NÃ£o sou nÃ£o! As vozes na minha cabeÃ§a sempre me dizem que sou normal! ð
+
+NÃ£o Ã© questÃ£o de ser doente, e sim de viver uma realidade diferente da sua ð
+
+Shh! Cala a boca! VocÃª quer que o povo do hospÃ­cio ouÃ§a isso? ð
+
+## - VocÃª Ã© muito desastrado...
+
+TropeÃ§ar em superfÃ­cies planas Ã© uma arte que poucos dominam ð
+
+## - VocÃª Ã© um idiota...
+
+JÃ¡ abraÃ§ou um idiota hoje? Nem eu. Vem cÃ¡, vem cÃ¡... ð
+
+Pois Ã©, eu estava certo. Seu pai devia ter gozado fora aquela noite... ð
+
+DÃ¡ para falar em portuguÃªs? Sou pÃ©ssimo em entender "mimimi" ð
+
+## - VocÃª Ã© um perdedor...
+
+(Pega o celular) O zoolÃ³gico ligou, estÃ£o querendo saber porque sua jaula estÃ¡ vazia ð
+
+Caramba, que honra! Sempre quis conhecer aquela pessoa que estava encarregada de decidir quem Ã© ou deixa de ser um perdedor! ð
+
+Quem quer que tenha te dito para ser vocÃª mesmo te deu um pÃ©ssimo conselho... ð
+
+Sabe, eu acho muito fofo esse seu jeito de achar que sua opiniÃ£o importa alguma coisa... ð
+
+## - VocÃª Ã© explosivo!
+
+NÃ£o sou explosivo, Ã© que tem dias que estou menos paciente com as merdas que vocÃª fala ð
+
+Desculpa, era eu quem devia encher sua vida de alegria hoje? ð
+
+NÃ£o sou explosivo, sÃ³ reajo de forma violenta a idiotices ð
+
+## - VocÃª Ã© malvado!
+
+Eu sou bom, eu juro! Os chifres sÃ£o apenas para comportar a aurÃ©ola ð
+
+JÃ¡ que eu vou para o inferno mesmo, que pelo menos eu garanta um camarote VIP ð
+
+Desculpa, eu acho que vocÃª me confundiu com essas pessoas que aturam vocÃª ð
+
+## - VocÃª Ã© grosso / mal educado!
+
+Desculpe, o meio da minha frase interrompeu o comeÃ§o da sua? ð
+
+Eu nÃ£o sou grosso, eu sÃ³ boto para fora o que as outras pessoas apenas pensam ð
+
+Ficou puta? EntÃ£o, missÃ£o cumprida ð
+
+## - VocÃª Ã© irÃ´nico/sarcÃ¡stico demais...
+
+Eu nÃ£o sou sarcÃ¡stico, sou uma pessoa engraÃ§ada cercada por idiotas ð
+
+Nem sempre sou sarcÃ¡stico. Muitas vezes, o que eu falo Ã© para valer ð
+
+Eu me escondo atrÃ¡s do sarcasmo porque Ã© feio mandar ir Ã  merda ð
+
+Sarcasmo Ã© apenas um dos muitos serviÃ§os que eu ofereÃ§o ð
+
+## - VocÃª Ã© egoÃ­sta!
+
+SÃ³ dÃ¡ para agradar uma pessoa por dia e hoje eu escolhi a mim mesmo ð
+
+Ei, isso nÃ£o Ã© verdade. Eu sou bem flexÃ­vel, contanto que tudo esteja de acordo com o que eu quero ð
+
+Pois Ã©, hoje o que eu mais queria era deixar de lado tudo que eu gostaria de fazer para ficar aqui, aguentando o seu mimimi ð
+
+## - VocÃª Ã© tÃ­mido, hein!
+
+Eu nÃ£o sou tÃ­mido, sÃ³ estou escondendo minha sagacidade para nÃ£o te deixar sem graÃ§a ð
+
+Se eu sou amigÃ¡vel, eu estou dando mole. Se eu sou sÃ©rio, sou arrogante. Se eu fico quieto, sou tÃ­mido. NÃ£o dÃ¡ para agradar a todos ð
+
+NÃ£o sou tÃ­mido, Ã© que seria burrice planejar um assassinato em voz alta ð
+
+NÃ£o sou tÃ­mido, sÃ³ nÃ£o tenho assunto para conversar com vocÃª ð
+
+Quem nÃ£o me conhece pensa que sou quieto. Que me conhece, adoraria que eu fosse ð
+
+## - VocÃª Ã© teimoso!
+
+NÃ£o sou teimoso, sou apenas uma pessoa que sabe dizer "nÃ£o" sem se sentir mal ð
+
+Eu atÃ© concordaria contigo, mas aÃ­ ambos estariam errados ð
+
+NÃ£o Ã© questÃ£o de teimosia, meu jeito Ã© realmente melhor, Ã© sÃ©rio ð
+
+Todo mundo discordando de mim, nÃ£o Ã© possÃ­vel que apenas eu tenha bom senso por aqui... ð
+
+## - VocÃª Ã© burro!
+
+Ã mesmo? E que grandes feitos vocÃª tem para compartilhar conosco, Einstein? ð
+
+A nÃ£o ser que seu nome seja Google, pare de agir como se soubesse de tudo ð
+
+## - NÃ£o gostei de vocÃª...
+
+EntÃ£o cai fora do meu fÃ£ clube, porra! ð
+
+NÃ£o tem problema se vocÃª nÃ£o gostar da minha personalidade, tenho vÃ¡rias outras! ð
+
+Eu nÃ£o odeio vocÃª, sÃ³ nÃ£o fico empolgado com a sua existÃªncia ð
+
+NÃ£o me odeie por nÃ£o ser igual a mim ð
+
+## - VocÃª nÃ£o tem amigos...
+
+NÃ£o ter amigos Ã© melhor do que ter amizades falsas, como vocÃª ð
+
+Melhor para mim, pois nÃ£o preciso ficar lidando com idiotas iguais a vocÃª ð
+
+## - Cale a boca!
+
+Desculpa, alguÃ©m pediu uma dose de sua opiniÃ£o ou posso mandar o pedido voltar? ð
+
+## - VÃ¡ se fuder!
+
+Agora? Na frente de todas essas pessoas? ð
+
+## - Estou muito puta contigo
+
+Antes de me dizer o que fiz de errado, quero dizer, em minha defesa, que estou pouco me fudendo ð
+
+Podemos pular a parte da briga e entrar na parte do sexo de reconciliaÃ§Ã£o? ð
+
+Ainda bem que vocÃª fica sexy quando briga comigo, pois isso Ã© frequente demais ð
+
+Sua montanha-russa bipolar estÃ¡ me causando tontura ð
+
+Tem gente que cultiva suas prÃ³pria tempestades e ainda fica surpreso quando chove... ð
+
+## - Ã tudo culpa sua!
+
+Ã muito fofo quando vocÃª culpa a todos menos vocÃª mesma ð
+
+VocÃª sempre serÃ¡ a estrela principal da sua prÃ³pria lista de vÃ­timas ð
+
+Quando sempre acontece um problema em todo lugar onde vocÃª estÃ¡, adivinha qual Ã© a triste realidadeâ¦ ð
+
+NÃ£o me culpe pela sua idiotice, leve essa reclamaÃ§Ã£o os seus pais ð
+
+## - Qual o seu problema?
+
+Se vocÃª passar a questionar cada comportamento esquisito que ver por aÃ­, o seu dia promete ser longo ð
+
+Estou levemente resfriado ð
+
+Quer uma lista? ð
+
+Excesso de libido ð
+
+## - VocÃª Ã© louco/doido?
+
+Porra, primeiro meu psicÃ³logo e agora vocÃª? ð
+
+Sim... Por gostosas que nem vocÃª! ð
+
+VocÃª faz isso parecer ruim ð
+
+Sim, eu sou â e com terrÃ­veis momentos de sanidade! ð
+
+VocÃª tambÃ©m estÃ¡ ouvindo essas vozes? Elas estÃ£o te dizendo a mesma coisa? ð
+
+## - VocÃª Ã© virgem?
+
+Isso Ã© uma pergunta ou um convite a participar de um ritual satÃ¢nico? ð
+
+Isso Ã© segredo de estado ð
+
+Durma comigo e descubra a resposta ð
+
+NinguÃ©m Ã© virgem, a vida fode todo mundo ð
+
+## - VocÃª mudou...
+
+NÃ£o mudei, vocÃª Ã© que nunca me conheceu direito ð
+
+NÃ£o mudei, simplesmente amadureci. A sua hora ainda vai chegar ð
+
+Eu estou realizando algumas mudanÃ§as na minha vida... Se vocÃª nÃ£o tiver notÃ­cias minhas, Ã© porque vocÃª provavelmente Ã© uma delas ð
+
+Ou eu mudei ou simplesmente parei de agir como vocÃª gostaria que eu agisse ð
+
+## - VocÃª tem namorada?
+
+Por quÃª, conhece alguÃ©m interessada na vaga? ð
+
+Estou fazendo processo seletivo nesta sexta na minha casa. Aparece lÃ¡ usando algo bem sensual ð
+
+Ainda estou entrevistando candidatas ð
+
+Sim, mas vocÃª pode entrar na lista de espera ð
+
+Sim, eu tenho â e a minha esposa estÃ¡ puta da vida por causa disso! ð
+
+## - Porque vocÃª ainda nÃ£o casou?
+
+Porque prefiro ser um solteiro feliz que um casado triste ð
+
+Acho que foi sorte ð
+
+Porque o seu marido ainda nÃ£o te deixou ð
+
+Minha noiva estÃ¡ esperando a liberdade condicional dela ð
+
+Casamento nÃ£o Ã© uma palavra, Ã© uma sentenÃ§a ð
+
+## - Quando vocÃª pretende deixar de ser galinha?
+
+Para quÃª fazer uma sÃ³ mulher triste quando posso fazer vÃ¡rias delas felizes? ð
+
+Gosto demais de sexo para abrir mÃ£o disso ð
+
+Porque o seu marido ainda nÃ£o te deixou ð
+
+Prefiro um relacionamento que me beneficie do que um que me sentencie ð
+
+## - Porque vocÃª ainda estÃ¡ solteiro/namora?
+
+Porque existem mulheres perfeitas nos quatro cantos do universo, mas a grande merda Ã© que o universo Ã© redondo ð
+
+AusÃªncia de companhia Ã© melhor que mÃ¡ companhia ð
+
+Porque eu sempre risco da minha lista quem me faz essa pergunta ð
+
+## - VocÃª me ama?
+
+Eu como a sua comida, nÃ£o como? ð
+
+VocÃª nÃ£o estÃ¡ sentindo esse amor? ð
+
+## - Eu te amo!
+
+Opa, minha macumba estÃ¡ funcionando ð
+
+Jesus tambÃ©m ð
+
+## - EstÃ¡ sentindo minha falta?
+
+VocÃª povoa meus pensamentos impuros ð
+
+Me sinto pÃ©ssimo sem vocÃª. Ã quase a mesma coisa que sinto quando vocÃª estÃ¡ aqui comigo ð
+
+Sim, eu sinto sua falta. NÃ£o, nÃ£o quero voltar para vocÃª ð
+
+Sinto falta da antiga vocÃª, essa nova versÃ£o Ã© uma bosta ð
+
+## - Porque vocÃª e sua ex-namorada terminaram?
+
+DivergÃªncias religiosas. Ela se achava Deus e eu nÃ£o concordava com isso ð
+
+Porque o amor Ã© cego e o relacionamento cura a cegueira ð
+
+MamÃ£e. Ela disse que estava muito levado e que nÃ£o podia mais namorar ð
+
+VocÃª namoraria alguÃ©m que nÃ£o gosta de Chaves? ð
+
+## - VocÃª sumiu!
+
+Eu gosto de dar o benefÃ­cio da minha ausÃªncia para aqueles que nÃ£o apreciam a minha presenÃ§a ð
+
+Achei que o fato de eu nÃ£o ter te dado confianÃ§a fosse evidÃªncia suficiente para vocÃª saber que eu nÃ£o estava mais afim de conversar ð
+
+## - EstÃ¡ fazendo o quÃª?
+
+Fantasiando comigo rasgando suas roupas e violentando seu corpo ð
+
+Enterrando um corpo, espero que ninguÃ©m descubra ð
+
+As vozes na minha cabeÃ§a nÃ£o sÃ£o reais, mas costumam me dar Ã³timas idÃ©ias. Estava aqui, fazendo um brainstorming com elas ð
+
+## - Trabalha com o quÃª?
+
+Doador de esperma ð
+
+Telemarketing. Bote seu telefone aqui que vou te passar as melhores promoÃ§Ãµes com exclusividade ð
+
+Sou modelo de capacete, vocÃª deve ter me visto em vÃ¡rias revistas de moto ð
+
+## - EstÃ¡ saindo com outras garotas?
+
+NÃ£o, sÃ³ com outros homens ð
+
+O tempo todo. SaÃ­ com minha mÃ£e ontem, minha irmÃ£ hoje... Espero que nÃ£o se incomode ð
+
+AlÃ©m de vocÃª? Umas 75... ð
+
+## - VocÃª tem medo de compromisso?
+
+Mulher Ã© igual polÃ­cia. Elas tem todas as provas nas mÃ£os mas ainda assim querem arrancar uma confissÃ£o ð
+
+Para quÃª comprar a vaca se vocÃª pode beber o leite de graÃ§a? ð
+
+## - VocÃª Ã© imaturo!
+
+Imaturidade? Aquela palavra que gente chata usa para definir gente divertida? ð
+
+Eu nÃ£o quero crescer, Ã© uma armadilha ð
+
+Minha maturidade Ã© um reflexo da maturidade de quem estÃ¡ comigo ð
+
+Eu nÃ£o sou imaturo, foi vocÃª que comeÃ§ou e a Ãºltima palavra Ã© minha, eu que sei e vocÃª nÃ£o pode mais falar nada, porque se falar, sua mÃ£e vai morrer ð
+
+## - VocÃª Ã© anti-social...
+
+Minha sociabilidade Ã© Ã³tima, sÃ³ preciso melhorar Ã© a minha tolerÃ¢ncia a idiotas ð
+
+NÃ£o sou anti-social, sÃ³ nÃ£o gosto desta gente ð
+
+Meu amigo imaginÃ¡rio achou isso ofensivo, peÃ§a desculpas ð
+
+## - VocÃª Ã© estourado...
+
+ Eu nÃ£o teria que trabalhar minha raiva se as pessoas trabalhassem sua idiotice ð
+
+Brigar com um idiota sÃ³ comprova a existÃªncia de dois deles ð
+
+Eu nunca vou para a cama com raiva, eu fico acordado planejando minha vinganÃ§a ð
+
+Eu nÃ£o preciso me acalmar, vocÃª que precisa calar a boca ð
+
+## - VocÃª se acha muito!
+
+Mas o que em mim alguÃ©m nÃ£o amaria? ð
+
+Convencimento Ã© um mal de pessoas inteligentes, bonitas e divertidas, nÃ© ð
+
+NÃ£o sei se a palavra certa Ã© convencimento ou amor-prÃ³prio ð
+
+Prazer, meu sobrenome Ã© GPS ð
+
+## - VocÃª Ã© bagunceiro, viu!
+
+Eu gosto de manter meu quarto bagunÃ§ado porque caso alguÃ©m entre e tente me matar, ele vai tropeÃ§ar em algo e morrer ð
+
+## - VocÃª Ã© falso/mentiroso
+
+Quando eu mentir pra vocÃª, vocÃª nÃ£o vai saber, e vai ser por uma boa razÃ£o ð
+
+E vocÃª Ã© verdadeira. Uma verdadeira chata! ð
+
+Pessoas falsas sÃ£o aquelas que se preocupam com a imagem. As verdadeiras estÃ£o cagando e andando para isso ð
+
+Ser legal com quem vocÃª quer dar uma surra nÃ£o Ã© ser falso, Ã© ser um adulto ð
+
+## - VocÃª Ã© tÃ£o engraÃ§ado!
+
+SÃ³ notou isso agora? ð
+
+Na realidade, nem sou. Sou mau para caramba, e todo mundo acha que estou de zoeira ð
+
+VocÃª esqueceu do "e muito gato" tambÃ©m ð
+
+Ã bom que a gente se entende. Eu me acho engraÃ§ado e vocÃª oficializa isso ð
+
+## - Deixa de ser invejoso!
+
+VocÃª pensar que sou invejoso Ã© sÃ³ uma forma de amenizar as suas inseguranÃ§as
+
+## - Seu preguiÃ§oso!
+
+NÃ£o sou preguiÃ§oso, Ã© que fico muito feliz fazendo nada ð
+
+Trabalho duro nunca matou alguÃ©m, mas para quÃª correr riscos? ð
+
+VocÃª chama de preguiÃ§oso, eu chamo de modo de economia de energia ð
+
+## - VocÃª Ã© depressivo demais!
+
+E vocÃª Ã© certamente um raio de sol, nÃ©? ð
+
+Eu te mandaria ir para o inferno, mas eu trabalho lÃ¡ e nÃ£o quero ver a sua fuÃ§a ð
+
+## - Deixa de ser intrometido!
+
+Se eu me intrometo Ã© porque me importo. No dia em que eu me calar, Ã© porque comecei a planejar a sua morte ð
+
+Eu nÃ£o sou intrometido, eu sou um orador motivacional ð
+
+## - VocÃª Ã© obsessivo com trabalho!
+
+ObsessÃ£o? Aquela palavra que os preguiÃ§osos usam para definir "dedicado"? ð
+
+A Ãºnica ocasiÃ£o em que sucesso vem antes de trabalho Ã© no dicionÃ¡rio
+
+## - VocÃª Ã© muito previsÃ­vel
+
+Quando comeÃ§o a ser espontÃ¢neo, minha conta bancÃ¡ria me lembra de parar com isso ð
+
+Eu acho que com o devido preparo consigo ser bastante espontÃ¢neo ð
+
+## - VocÃª empurra demais com a barriga
+
+Ã bom deixar as coisas para quando vocÃª estÃ¡ mais velho e experiente ð
+
+## - VocÃª Ã© muito lerdo!
+
+Eu trabalho com duas velocidades: lento e parado ð
+
+NÃ£o importa o quÃ£o lento vocÃª seja, vocÃª sempre serÃ¡ mais rÃ¡pido que aqueles que estÃ£o no sofÃ¡ ð
+
+## - Ok. (no sentido de desdenhar)
+
+Vejo que seu vocabulÃ¡rio comeÃ§ou a ficar escasso ð
+
+VocÃª sabe que ganhou a discussÃ£o quando a pessoa disse "ok" ð
+
+Continua revirando os olhos, de repente vocÃª encontra o seu cÃ©rebro ð
+
+## - VocÃª sabe quem eu sou?
+
+Definitivamente, alguÃ©m que ainda nÃ£o sabe como se apresentar ð
+
+Desculpa, eu perdi todas as minhas habilidades paranormais em um acidente de carro que tive aos seis anos ð
+
+Porque pergunta isso, perdeu a memÃ³ria? ð
+
+## - VÃª se cresce!
+
+Quando vocÃª nÃ£o faz besteira enquanto Ã© jovem, vocÃª nÃ£o vai ter motivo para sorrir quando estiver velho ð
+
+Envelhecer Ã© inevitÃ¡vel, ficar chato Ã© opcional ð
+
+NÃ£o leve a vida tÃ£o a sÃ©rio, ninguÃ©m sai dela vivo mesmo ð
+
+VocÃª sÃ³ Ã© jovem uma vez, mas dÃ¡ para ser imaturo para sempre ð
+
+## - VocÃª nÃ£o sabe dirigir?
+
+NÃ£o, nÃ£o dirijo, nÃ£o boto ovo, nÃ£o fabrico rÃ¡dio, tem um monte de coisa que nÃ£o ser fazer
+
+## - Tenho namorado?
+
+Ah que bom! Significa que podemos conversar sem vocÃª dar em cima de mim ð
+
+# COMPLICADAS/RESSIGNIFICAÃÃO
+## QUANDO ELA TE BLOQUEIA
+
+Deixa eu adivinhar, vocÃª Ã© dessas que desligava o videogame quando via que ia morrer e nÃ£o queria ver "game over" na tela, daÃ­ vc fazia isso pra se iludir de que o jogo acabou pq vc quis, e nÃ£o pq era uma pessima jogadoraâ¦
+
+## QUANDO ELA FALA QUE SOMOS "DIFERENTES" 1
+
+Bom, vocÃª obviamente nÃ£o estÃ¡ pronta para se permitir e encontrar alguÃ©m daqui... Um beijo, FULANA. Boa sorte!
+
+Sinceramente, eu nÃ£o estou me sentindo motivado a ficar bancando o cachorro adestrado para ganhar um biscoito, entÃ£o... Fica de boa, tÃ¡ legal? Vou dar uma lida aqui num material que preciso estudar...
+
+Essa foi uma resposta de grande valor filosÃ³fico! Fiquei intrigado, fale mais a respeito disso...
+
+Sabe, vocÃª nÃ£o Ã© tÃ£o linda a ponto disso salvar a sua estupidez
+
+Sabe, eu adoro uma mulher que me testa... uma mulher que testa tem critÃ©rios, nÃ£o se contenta com qualquer coisa... e quem muito exige, certamente tem muito a oferecer, nÃ©? E eu acho que nÃ³s dois jÃ¡ tivemos a nossa cota de gente desinteressante e/ou mal resolvida... mas esses casos e acasos de Tinder Ã© um assunto perfeito para aquele aÃ§aÃ­ maroto no Shopping, que tal a gente conversar, ganhar a confianÃ§a um do outro e ver se isso nÃ£o acontece?
+
+## QUANDO ELA FALA QUE SOMOS "DIFERENTES" 2
+
+JÃ¡ vi que vocÃª tem muitas qualidades haha... infelizmente "persistir" nÃ£o me parece ser uma delas... vocÃª jÃ¡ viu algum filme que parecia ser chato no comeÃ§o, mas que depois te surpreendeu? Quem sabe um de nÃ³s nÃ£o serÃ­amos esse filme? Eu acho que hoje em dia as pessoas estÃ£o sob o "efeito Netflix". Assistem aos primeiros 10 minutos do filme e se nada acontecer, desistem e partem pro prÃ³ximo filme. Elas nÃ£o esperam pra ver se vÃ£o se surpreender. Lembra da Ã©poca da locadora? A gente tinha que escolher bem o filme que ia levar pra casa, e mesmo que comeÃ§asse chato, a gente insistia porque sabia que era aquilo e mais nada. Relacionamentos estÃ£o assim hoje. Na mÃ­nima diferenÃ§a as pessoas jÃ¡ desistem. NÃ£o era assim no passado... E pra mim, as verdadeiras pessoas decididas sÃ£o aquelas que vÃªem o filme por mais de 10 minutos rsrs
+
+## QUANDO ELA FALA QUE SOMOS "DIFERENTES" (VICTOR DE PAULA)
+
+Aiaiai, vocÃª aÃ­, com belas qualidades... PorÃ©m, vocÃª parece ser mais uma que sofre do terrÃ­vel "efeito Netflix".
+
+Lembra da Ã©poca das locadoras? Que nÃ£o tinham muitas opÃ§Ãµes de filmes? A gente alugava e tinha assistir tudo, afinal era aquilo ou nada. Mas hoje em dia tem uma coisa interessante que chamei de "efeito Netflix", e como Ã© isso?
+
+Seguinte, as pessoas assistem os primeiros 10 minutos do filme ou sÃ©rie e, se nada acontecer, desistem e partem pro prÃ³ximo - elas nÃ£o esperam mais para ver se vÃ£o se surpreender ou se vai ter um _plot twist_ legal. Tudo isso porque temem "perder" tempo com algo ruim por causa dos 10 primeiros minutos, que Ã©poca estranha nÃ©? 
+
+Eu falei isso porque Ã© uma associaÃ§Ã£o interessante aos relacionamentos atuais. Dificilmente encontrarÃ¡ alguma pessoa que persista e passe da "barreira dos 10 minutos", para poder dizer com convicÃ§Ã£o que *nÃ£o vale mesmo Ã  pena*, por exemplo: vocÃª estÃ¡ visualizando e nÃ£o respondendo e nem me conhece direito rsrs
+
+EntÃ£o hoje em dia... eu prefiro aguentar para ver se tenho as "borboletas no estÃ´mago", o "suspense", e dramas por algo interessante. A boa e velha locadora. Eu sei que pessoas nÃ£o sÃ£o filmes, mas ainda assim elas precisam se permitir para que eu continue nesse roteiro misterioso. Mas e vocÃª: percebe e se permite a isso?
+
+## QUANDO ELA DIZ QUE TENHO ALGUM "DEFEITO"
+
+Imagina que eu tivesse te conhecido na balada e vocÃª morasse na Liberdade e eu em Osasco, se a gente tivesse tido algum tipo de quÃ­mica certamente darÃ­amos um jeito de se ver, agora na internet nÃ£o nÃ©? Se eu disse que moro em Osasco e a pessoa na Liberdade, ela jÃ¡ desiste logo, diz que Ã© "muito longe", botam as coisas tudo na frente sabe? E eu acho que isso Ã© tudo pelo excesso de "opÃ§Ã£o". Porque se vocÃª nÃ£o tiver uma afinidade por menor que seja, tem sempre o "prÃ³ximo". A Internet virou um "Outlet" de parceiros em potencial, Ã© como se a gente tivesse comprando uma roupa, e vocÃª vÃª aquela que Ã© o seu tamanho, seu nÃºmero, perfeita, mas ela tem uma mancha, o que vocÃª faz? Pega outra limpa, mesmo sabendo que aquela mancha tem jeito, entÃ£o existem diferentes que na maioria das vezes nÃ£o sÃ£o tÃ£o gritantes assim, Ã© sÃ³ uma mancha de sujeira que tem jeito, mas algumas pessoas nÃ£o enxergam assim...
+
+## QUANDO ELA FAZ MUITAS "PERGUNTAS"
+
+Eu nÃ£o sei da sua experiÃªncia de vida e tambÃ©m nÃ£o sei qual seu propÃ³sito no Jaumo (se Ã© achar alguÃ©m legal ou se Ã© sÃ³ "zoeira"/"curiosidade"). Eu jÃ¡ namorei um ano uma mulher do Jaumo e acho que Ã© possÃ­vel achar gente legal aqui. VocÃª me parece ser legal mas tudo que tem feito atÃ© agora foi me testar. NÃ£o comeÃ§o achei que fosse zoeira, mas vocÃª estÃ¡ prestes a completar 24h assim. E desculpa, mas nÃ£o sou seu bobo corte. Queria te conhecer melhor mas a minha dignidade estÃ¡ acima de qualquer mulher linda. EntÃ£o conversamos de adulto pra adulto ou... Bom, foi um prazer
+
+## RESSIGNIFICAR (APRESSADO)
+
+Sou apressado mesmo, pois eu odeio gente lerda e tenho certeza que vocÃª, na qualidade de mulher, tambÃ©m pensa assim... acho muito mais perdoÃ¡vel pecar por excesso de atitude do que pela falta dela... vocÃª, que jÃ¡ deve ter se deparado com homens lerdos, com certeza concorda comigo... ou serÃ¡ que vocÃª gosta de gente sem atitude? (Â¬â¿Â¬)
+
+## RESSIGNIFICAR (CRIANÃA)
+
+Eu diria que vocÃª acertou na mosca... porque foi graÃ§as ao ato de ter mantido a crianÃ§a interior que eu hoje em dia consigo ser criativo, inovador, jovem e divertido, eu simplesmente nÃ£o tenho medo de ser bobo e a vida sorri pra mim. Melhor do que ser essas pessoas chatas que nÃ£o riem de nada e sÃ³ falam de coisas entediantes nÃ©? AliÃ¡s, me fala que vocÃª nÃ£o Ã© dessas...
+
+## DEFESA CHEWBACCA (SOUTH PARK)
+
+Chewbacca Ã© um Wookiee do planeta Kashyyyk. Mas Chewbacca vive no planeta Endor. Agora, pense no assunto: ISSO NÃO FAZ SENTIDO!Por que um Wookiee de dois metros e meio de altura viveria em Endor, com um grupo de Ewoks de cinquenta centÃ­metros de altura? ISSO NÃO FAZ SENTIDO! Mas o mais importante, vocÃªs devem se perguntar: o que isso tem a ver com o caso?
+
+Nada. Senhoras e senhores, isso nÃ£o tem nada a ver com este caso! ISSO NÃO FAZ SENTIDO! Agora me ouÃ§am. Sou um advogado defendendo uma mega gravadora de discos e estou falando sobre Chewbacca! Isso faz algum sentido? Senhoras e senhores, eu nÃ£o estou fazendo sentido algum! Nada disso faz sentido.
+
+VocÃªs devem apenas lembrar, quando estiverem na Sala do JÃºri deliberando e conjeturando sobre a ProclamaÃ§Ã£o da EmancipaÃ§Ã£o, se isso faz sentido? NÃ£o! Senhoras e senhores deste suposto jÃºri, ISSO NÃO FAZ SENTIDO! Se Chewbacca vive em Endor, vocÃªs devem absolver. A Defesa termina."
 
 </pre>
 </body>
