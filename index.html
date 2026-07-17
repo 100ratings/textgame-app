@@ -92,16 +92,18 @@
             font-size: 15px;
             transition: transform 0.1s, background 0.2s;
             word-wrap: break-word;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .msg:active { transform: scale(0.98); background: #d0e3fc; }
-        .msg.copiado { background: #d4edda !important; border-left-color: #28a745 !important; color: #155724; font-weight: bold; text-align: center; }
+        .msg.copiado { background: #d4edda !important; border-left-color: #28a745 !important; color: #155724; font-weight: bold; text-align: center; justify-content: center; }
         
-        .aviso { background: var(--warning-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--warning-text); border: 1px solid #ffeeba; }
+        .aviso { background: var(--warning-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--warning-text); border: 1px solid #ffeeba; display: flex; justify-content: space-between; align-items: center; }
         
-        /* Estilo Rosa para falas dela */
-        .fala-dela { background: var(--pink-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--pink-text); border: 1px solid #ffccd5; }
+        .fala-dela { background: var(--pink-bg); padding: 12px; border-radius: 8px; font-size: 14px; font-style: italic; margin-bottom: 12px; color: var(--pink-text); border: 1px solid #ffccd5; display: flex; justify-content: space-between; align-items: center; }
 
-        .sub { font-weight: bold; margin: 20px 0 10px 0; color: #444; border-bottom: 2px solid #eee; padding-bottom: 5px; font-size: 15px; }
+        .sub { font-weight: bold; margin: 20px 0 10px 0; color: #444; border-bottom: 2px solid #eee; padding-bottom: 5px; font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
         .active { display: block !important; }
         #raw-data { display: none; }
 
@@ -252,9 +254,6 @@
             font-weight: bold;
             color: var(--primary-color);
         }
-        .search-bar {
-            position: relative;
-        }
 
         /* ===== DESTAQUE DE RESULTADO ===== */
         .msg.search-highlight,
@@ -279,6 +278,121 @@
             100% { transform: scale(1); }
         }
 
+        /* ===== EDITOR VISUAL ===== */
+        .edit-mode .edit-btn { display: inline-flex !important; }
+        .edit-mode .add-btn-container { display: flex !important; }
+        .edit-mode .msg, .edit-mode .sessao-header, .edit-mode .cenario-header { cursor: pointer !important; }
+        .edit-mode .msg:active { transform: none !important; }
+
+        .edit-btn {
+            display: none;
+            background: #ffc107;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-left: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .add-btn-container {
+            display: none;
+            justify-content: center;
+            padding: 10px 0;
+            gap: 10px;
+        }
+
+        .btn-add {
+            background: #f0f2f5;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #666;
+            transition: all 0.2s;
+        }
+        .btn-add:hover {
+            background: #e8f0fe;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        #editor-controls {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 3000;
+            gap: 15px;
+            align-items: center;
+        }
+        #editor-controls.active { display: flex; }
+
+        .btn-open-admin {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1500;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Modal de Edição */
+        #edit-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .modal-content textarea {
+            width: 100%;
+            height: 150px;
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        .modal-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
         /* ===== TOAST ===== */
         .toast {
             position: fixed;
@@ -301,7 +415,6 @@
         
         <!-- BARRA DE BUSCA -->
         <div class="search-bar" id="searchBar">
-            <!-- DROPDOWN DE RESULTADOS -->
             <div class="search-dropdown" id="searchDropdown"></div>
             <span class="search-icon">🔍</span>
             <input 
@@ -314,10 +427,10 @@
             >
             <div class="search-results" id="searchResults">
                 <span class="search-count" id="searchCount"></span>
-                <button class="search-btn" id="btnPrev" onclick="anteriorRes()" title="Anterior" aria-label="Resultado anterior">◀</button>
-                <button class="search-btn" id="btnNext" onclick="próximoRes()" title="Próximo" aria-label="Próximo resultado">▶</button>
+                <button class="search-btn" id="btnPrev" onclick="anteriorRes()" title="Anterior">◀</button>
+                <button class="search-btn" id="btnNext" onclick="próximoRes()" title="Próximo">▶</button>
             </div>
-            <button class="search-btn" id="btnClear" onclick="limparBusca()" title="Limpar" aria-label="Limpar busca" style="display:none;font-size:14px;">✕</button>
+            <button class="search-btn" id="btnClear" onclick="limparBusca()" title="Limpar" style="display:none;font-size:14px;">✕</button>
         </div>
         
         <div class="controls">
@@ -335,19 +448,34 @@
 
     <div id="toast" class="toast">Copiado com sucesso!</div>
 
+    <!-- EDITOR VISUAL -->
+    <button class="btn-open-admin" id="toggleEditBtn" onclick="toggleEditMode()" title="Modo Edição">⚙️</button>
+    
+    <div id="editor-controls">
+        <span style="font-weight:bold; color:var(--primary-color);">🛠️ Modo Edição Ativo</span>
+        <button class="btn-collapse" onclick="salvarNoGithub()" style="background: #28a745; color:white; border:none;">💾 Salvar no GitHub</button>
+        <button class="btn-collapse" onclick="localStorage.removeItem('gh_token'); alert('Token removido!');">🔑 Limpar Token</button>
+        <button class="btn-collapse" onclick="toggleEditMode()">❌ Sair</button>
+    </div>
+
+    <div id="edit-modal">
+        <div class="modal-content">
+            <h3 id="modal-title" style="margin-top:0;">Editar Item</h3>
+            <textarea id="modal-text"></textarea>
+            <div class="modal-btns">
+                <button class="btn-collapse" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-collapse" id="confirmEditBtn" style="background:var(--primary-color); color:white; border:none;">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function processar() {
             const rawElement = document.getElementById('raw-data');
             if (!rawElement) return;
             const raw = rawElement.textContent;
             const app = document.getElementById('app');
-            const linhas = raw.split('\n');
             
-            let html = '';
-            let emSessao = false;
-            let emCenario = false;
-
-            // Decodificar HTML entities no raw-data (ex: &lt; vira <)
             const decoded = raw
                 .replace(/&lt;/g, '<')
                 .replace(/&gt;/g, '>')
@@ -356,56 +484,86 @@
                 .replace(/&#39;/g, "'");
             
             const linhasDec = decoded.split('\n');
+            let html = '';
+            
+            const editBtns = (tipo) => `
+                <div style="display:inline-flex; gap:5px;">
+                    <button class="edit-btn" onclick="abrirModal(this, '${tipo}')" title="Editar">✏️</button>
+                    <button class="edit-btn delete-btn" onclick="removerItem(this)" title="Excluir">🗑️</button>
+                </div>
+            `;
+
+            const addBtns = () => `
+                <div class="add-btn-container">
+                    <button class="btn-add" onclick="adicionarItem(this, 'msg')">+ Mensagem</button>
+                    <button class="btn-add" onclick="adicionarItem(this, 'sub')">+ Subtópico</button>
+                    <button class="btn-add" onclick="adicionarItem(this, 'aviso')">+ Aviso</button>
+                    <button class="btn-add" onclick="adicionarItem(this, 'fala')">+ Fala Dela</button>
+                </div>
+            `;
+
+            let emSessao = false;
+            let emCenario = false;
+
+            html += `<div class="add-btn-container" style="margin-bottom:20px;"><button class="btn-add" onclick="adicionarItem(this, 'sessao')">+ Nova Sessão</button></div>`;
 
             linhasDec.forEach(linha => {
                 linha = linha.trim();
                 if (!linha) return;
 
                 if (linha.startsWith('# ')) {
-                    if (emCenario) { html += '</div></div>'; emCenario = false; }
-                    if (emSessao) { html += '</div></div>'; }
+                    if (emCenario) { html += addBtns() + '</div></div>'; emCenario = false; }
+                    if (emSessao) { html += addBtns() + '</div></div>'; }
                     const titulo = linha.replace('# ', '');
-                    html += `<div class="sessao"><div class="sessao-header" onclick="t(this)">${titulo} <span>▼</span></div><div class="sessao-content">`;
+                    html += `<div class="sessao" data-raw="# ${titulo}"><div class="sessao-header" onclick="t(this)"><span>${titulo}</span> <div>${editBtns('sessao')} <span>▼</span></div></div><div class="sessao-content">`;
+                    html += `<div class="add-btn-container"><button class="btn-add" onclick="adicionarItem(this, 'cenario')">+ Novo Cenário</button></div>`;
                     emSessao = true;
                 } else if (linha.startsWith('## ')) {
-                    if (emCenario) { html += '</div></div>'; }
+                    if (emCenario) { html += addBtns() + '</div></div>'; }
                     const titulo = linha.replace('## ', '');
-                    html += `<div class="cenario"><div class="cenario-header" onclick="t(this)">${titulo} <span>▼</span></div><div class="cenario-content">`;
+                    html += `<div class="cenario" data-raw="## ${titulo}"><div class="cenario-header" onclick="t(this)"><span>${titulo}</span> <div>${editBtns('cenario')} <span>▼</span></div></div><div class="cenario-content">`;
                     emCenario = true;
-                } else if (linha.startsWith('### ')) {
-                    html += `<div class="sub">${linha.replace('### ', '')}</div>`;
-                } else if (linha.startsWith('+ ')) {
-                    // Subtópicos (como sessões mas menores, dentro de cenários)
-                    html += `<div class="sub">${linha.replace('+ ', '')}</div>`;
+                } else if (linha.startsWith('### ') || linha.startsWith('+ ')) {
+                    const texto = linha.startsWith('### ') ? linha.replace('### ', '') : linha.replace('+ ', '');
+                    html += addBtns();
+                    html += `<div class="sub" data-raw="+ ${texto}" onclick="c(this)"><span>${texto}</span>${editBtns('sub')}</div>`;
                 } else if (linha.startsWith('> ')) {
-                    html += `<div class="aviso">${linha.replace('> ', '')}</div>`;
+                    const texto = linha.replace('> ', '');
+                    html += addBtns();
+                    html += `<div class="aviso" data-raw="> ${texto}" onclick="c(this)"><span>${texto}</span>${editBtns('aviso')}</div>`;
                 } else if (linha.startsWith('* ')) {
-                    // Fala dela em Rosa (substituiu o antigo '< ')
-                    html += `<div class="fala-dela">${linha.replace('* ', '')}</div>`;
+                    const texto = linha.replace('* ', '');
+                    html += addBtns();
+                    html += `<div class="fala-dela" data-raw="* ${texto}" onclick="c(this)"><span>${texto}</span>${editBtns('fala')}</div>`;
                 } else if (linha.startsWith('---')) {
-                    html += '<hr style="border:0; border-top:1px solid #eee; margin:15px 0;">';
+                    html += addBtns();
+                    html += `<div class="divisor" data-raw="---"><hr style="border:0; border-top:1px solid #eee; margin:15px 0;">${editBtns('divisor')}</div>`;
                 } else {
-                    html += `<div class="msg" onclick="c(this)">${linha}</div>`;
+                    html += addBtns();
+                    html += `<div class="msg" data-raw="${linha}" onclick="c(this)"><span>${linha}</span>${editBtns('msg')}</div>`;
                 }
             });
 
-            if (emCenario) html += '</div></div>';
-            if (emSessao) html += '</div></div>';
+            if (emCenario) { html += addBtns() + '</div></div>'; }
+            if (emSessao) { html += addBtns() + '</div></div>'; }
+            
+            html += `<div class="add-btn-container" style="margin-top:20px;"><button class="btn-add" onclick="adicionarItem(this, 'sessao')">+ Nova Sessão</button></div>`;
+            
             app.innerHTML = html;
         }
 
         function t(el) {
             const content = el.nextElementSibling;
             content.classList.toggle('active');
-            const span = el.querySelector('span');
-            span.textContent = content.classList.contains('active') ? '▲' : '▼';
+            const span = el.querySelector('span:last-child');
+            if (span) span.textContent = content.classList.contains('active') ? '▲' : '▼';
         }
 
         function recolherTudo() {
             document.querySelectorAll('.sessao-content, .cenario-content').forEach(el => {
                 el.classList.remove('active');
             });
-            document.querySelectorAll('.sessao-header span, .cenario-header span').forEach(el => {
+            document.querySelectorAll('.sessao-header div span:last-child, .cenario-header div span:last-child').forEach(el => {
                 el.textContent = '▼';
             });
         }
@@ -417,17 +575,18 @@
         }
 
         function c(el) {
-            const txt = el.textContent;
+            if (isEditMode) return;
+            const txt = el.querySelector('span').textContent;
             if (el.classList.contains('copiado')) return;
 
             navigator.clipboard.writeText(txt).then(() => {
                 el.classList.add('copiado');
-                const originalText = el.innerHTML;
+                const originalContent = el.innerHTML;
                 el.textContent = '✅ Copiado!';
                 showToast();
                 setTimeout(() => {
                     el.classList.remove('copiado');
-                    el.innerHTML = originalText;
+                    el.innerHTML = originalContent;
                 }, 800);
             }).catch(err => {
                 console.error('Erro ao copiar: ', err);
@@ -445,15 +604,9 @@
             const resultadosDiv = document.getElementById('searchResults');
             const dropdown = document.getElementById('searchDropdown');
 
-            // Limpar destaques anteriores
-            document.querySelectorAll('.search-highlight').forEach(el => {
-                el.classList.remove('search-highlight');
-            });
+            document.querySelectorAll('.search-highlight').forEach(el => el.classList.remove('search-highlight'));
+            if (btnClear) btnClear.style.display = termo.length > 0 ? 'block' : 'none';
 
-            // Mostrar/ocultar botão limpar
-            btnClear.style.display = termo.length > 0 ? 'block' : 'none';
-
-            // Ocultar dropdown se termo curto
             if (termo.length < 2) {
                 resultadosDiv.classList.remove('visible');
                 dropdown.classList.remove('visible');
@@ -461,7 +614,6 @@
                 return;
             }
 
-            // Coletar todos os elementos buscáveis
             const msgs = document.querySelectorAll('.msg');
             const avisos = document.querySelectorAll('.aviso');
             const falas = document.querySelectorAll('.fala-dela');
@@ -470,7 +622,6 @@
             const sessaoHeaders = document.querySelectorAll('.sessao-header');
 
             todosElementosBusca = [];
-
             [...sessaoHeaders, ...cenariosHeaders, ...subs, ...avisos, ...falas, ...msgs].forEach(el => {
                 if (el.textContent.toLowerCase().includes(termo)) {
                     todosElementosBusca.push(el);
@@ -496,132 +647,44 @@
         function gerarDropdown() {
             const dropdown = document.getElementById('searchDropdown');
             const termo = document.getElementById('searchInput').value.trim();
+            if (resultadosBusca.length === 0) { dropdown.classList.remove('visible'); return; }
 
-            if (resultadosBusca.length === 0) {
-                dropdown.classList.remove('visible');
-                return;
-            }
-
-            let html = `<div class="search-dropdown-header"><span>${resultadosBusca.length}</span> resultado${resultadosBusca.length > 1 ? 's' : ''} para "<strong>${escaparHTML(termo)}</strong>"</div>`;
-
+            let html = `<div class="search-dropdown-header"><span>${resultadosBusca.length}</span> resultados para "<strong>${termo}</strong>"</div>`;
             resultadosBusca.forEach((el, idx) => {
                 const texto = el.textContent.trim();
-                // Pegar contexto do pai (sessao ou cenario)
-                let contexto = '';
-                let parent = el.parentElement;
-                while (parent && parent !== document.body) {
-                    if (parent.classList.contains('sessao-content')) {
-                        const sessaoHeader = parent.previousElementSibling;
-                        if (sessaoHeader) contexto = sessaoHeader.textContent.replace(' ▲','').replace(' ▼','').trim();
-                        break;
-                    }
-                    if (parent.classList.contains('cenario-content')) {
-                        const cenarioHeader = parent.previousElementSibling;
-                        if (cenarioHeader) contexto = cenarioHeader.textContent.replace(' ▲','').replace(' ▼','').trim();
-                        break;
-                    }
-                    parent = parent.parentElement;
-                }
-
                 const isActive = idx === indiceAtual ? ' active-result' : '';
-                const tipoLabel = getTipoLabel(el);
-
-                html += `<div class="search-dropdown-item${isActive}" data-index="${idx}" onclick="irParaRes(${idx})">`;
-                html += `<span class="search-dropdown-number">${idx + 1}</span>`;
-                html += `<div class="search-dropdown-text">`;
-                if (contexto) html += `<small style="color:#999;font-size:11px;">${escaparHTML(contexto)}</small><br>`;
-                if (tipoLabel) html += `<small style="color:#667eea;font-size:10px;font-weight:bold;">${tipoLabel}</small> 
-`;
-                html += escaparHTML(texto.substring(0, 120)) + (texto.length > 120 ? '...' : '') ;
-                html += `</div>`;
-                html += `</div>`;
+                html += `<div class="search-dropdown-item${isActive}" data-index="${idx}" onclick="irParaRes(${idx})">
+                    <span class="search-dropdown-number">${idx + 1}</span>
+                    <div class="search-dropdown-text">${texto.substring(0, 120)}</div>
+                </div>`;
             });
-
             dropdown.innerHTML = html;
         }
 
-        function escaparHTML(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        function getTipoLabel(el) {
-            if (el.classList.contains('msg')) return '💬';
-            if (el.classList.contains('aviso')) return '⚠️';
-            if (el.classList.contains('fala-dela')) return '🌸';
-            if (el.classList.contains('sub')) return '📌';
-            if (el.classList.contains('cenario-header')) return '📂';
-            if (el.classList.contains('sessao-header')) return '📁';
-            return '';
-        }
-
         function atualizarBusca() {
-            const count = resultadosBusca.length;
-            const atual = indiceAtual + 1;
-            document.getElementById('searchCount').textContent = atual + ' / ' + count;
-            document.getElementById('btnPrev').disabled = count <= 1;
-            document.getElementById('btnNext').disabled = count <= 1;
+            document.getElementById('searchCount').textContent = (indiceAtual + 1) + ' / ' + resultadosBusca.length;
         }
 
         function irParaRes(idx) {
-            // Limpar todos os destaques
-            document.querySelectorAll('.search-highlight').forEach(el => {
-                el.classList.remove('search-highlight');
-            });
-
+            document.querySelectorAll('.search-highlight').forEach(el => el.classList.remove('search-highlight'));
             if (idx < 0 || idx >= resultadosBusca.length) return;
-
             const el = resultadosBusca[idx];
             el.classList.add('search-highlight');
             indiceAtual = idx;
-
-            // Expandir sessões e cenários se necessário
             expandirPais(el);
-
-            // Scroll suave até o elemento
             el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-            // Remover destaque após 3 segundos
-            setTimeout(() => {
-                el.classList.remove('search-highlight');
-            }, 3000);
-
-            // Atualizar dropdown com item ativo
-            atualizarDropdownAtivo();
+            setTimeout(() => el.classList.remove('search-highlight'), 3000);
             atualizarBusca();
         }
 
-        function atualizarDropdownAtivo() {
-            // Atualizar classes active no dropdown sem regenerar tudo
-            document.querySelectorAll('.search-dropdown-item').forEach(item => {
-                item.classList.remove('active-result');
-            });
-            const activeItem = document.querySelector(`.search-dropdown-item[data-index="${indiceAtual}"]`);
-            if (activeItem) {
-                activeItem.classList.add('active-result');
-                // Scroll o dropdown para mostrar o item ativo
-                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-
         function expandirPais(el) {
-            // Percorrer pais até encontrar sessao-content ou cenario-content
             let parent = el.parentElement;
             while (parent && parent !== document.body) {
-                if (parent.classList.contains('sessao-content') && !parent.classList.contains('active')) {
+                if ((parent.classList.contains('sessao-content') || parent.classList.contains('cenario-content')) && !parent.classList.contains('active')) {
                     parent.classList.add('active');
                     const header = parent.previousElementSibling;
                     if (header) {
-                        const span = header.querySelector('span');
-                        if (span) span.textContent = '▲';
-                    }
-                }
-                if (parent.classList.contains('cenario-content') && !parent.classList.contains('active')) {
-                    parent.classList.add('active');
-                    const header = parent.previousElementSibling;
-                    if (header) {
-                        const span = header.querySelector('span');
+                        const span = header.querySelector('span:last-child');
                         if (span) span.textContent = '▲';
                     }
                 }
@@ -629,64 +692,184 @@
             }
         }
 
-        function próximoRes() {
-            if (resultadosBusca.length === 0) return;
-            const proximo = (indiceAtual + 1) % resultadosBusca.length;
-            irParaRes(proximo);
-        }
-
-        function anteriorRes() {
-            if (resultadosBusca.length === 0) return;
-            const anterior = (indiceAtual - 1 + resultadosBusca.length) % resultadosBusca.length;
-            irParaRes(anterior);
-        }
-
+        function próximoRes() { if (resultadosBusca.length > 0) irParaRes((indiceAtual + 1) % resultadosBusca.length); }
+        function anteriorRes() { if (resultadosBusca.length > 0) irParaRes((indiceAtual - 1 + resultadosBusca.length) % resultadosBusca.length); }
         function limparBusca() {
             document.getElementById('searchInput').value = '';
-            document.querySelectorAll('.search-highlight').forEach(el => {
-                el.classList.remove('search-highlight');
-            });
+            document.querySelectorAll('.search-highlight').forEach(el => el.classList.remove('search-highlight'));
             document.getElementById('searchResults').classList.remove('visible');
             document.getElementById('searchDropdown').classList.remove('visible');
-            document.getElementById('searchDropdown').innerHTML = '';
             document.getElementById('btnClear').style.display = 'none';
             indiceAtual = -1;
-            resultadosBusca = [];
         }
 
-        // Foco visual na barra de busca
-        document.getElementById('searchInput').addEventListener('focus', () => {
-            document.getElementById('searchBar').classList.add('focused');
-        });
-        document.getElementById('searchInput').addEventListener('blur', () => {
-            document.getElementById('searchBar').classList.remove('focused');
-        });
+        // ===== LÓGICA DO EDITOR VISUAL =====
+        let isEditMode = false;
+        let itemSendoEditado = null;
+        const GITHUB_CONFIG = {
+            owner: '100ratings',
+            repo: 'textgame-app',
+            path: 'index.html',
+            branch: 'main'
+        };
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').then(reg => {
-                    console.log('SW registrado!', reg);
-                    // Detectar quando uma nova versão do SW é instalada
-                    reg.addEventListener('updatefound', () => {
-                        const newWorker = reg.installing;
-                        newWorker.addEventListener('statechange', () => {
-                            if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
-                                // Nova versão detectada e ativada — recarregar automaticamente
-                                console.log('Nova versão detectada, recarregando...');
-                                window.location.reload();
-                            }
-                        });
-                    });
-                    // Verificar atualizações a cada 5 minutos
-                    setInterval(() => {
-                        reg.update();
-                    }, 5 * 60 * 1000);
-                    // Verificar imediatamente ao carregar
-                    reg.update();
-                }).catch(err => {
-                    console.log('SW falhou!', err);
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            document.body.classList.toggle('edit-mode', isEditMode);
+            document.getElementById('editor-controls').classList.toggle('active', isEditMode);
+            document.getElementById('toggleEditBtn').textContent = isEditMode ? '👁️' : '⚙️';
+        }
+
+        function abrirModal(btn, tipo) {
+            event.stopPropagation();
+            itemSendoEditado = btn.closest('[data-raw]');
+            const textoAtual = itemSendoEditado.querySelector('span').textContent;
+            document.getElementById('modal-title').textContent = `Editar ${tipo.toUpperCase()}`;
+            document.getElementById('modal-text').value = textoAtual;
+            document.getElementById('edit-modal').style.display = 'flex';
+            
+            document.getElementById('confirmEditBtn').onclick = () => {
+                const novoTexto = document.getElementById('modal-text').value.trim();
+                if (novoTexto) {
+                    itemSendoEditado.querySelector('span').textContent = novoTexto;
+                    const rawAtual = itemSendoEditado.getAttribute('data-raw');
+                    const prefixo = rawAtual.includes(' ') ? rawAtual.split(' ')[0] : '';
+                    if (['#', '##', '+', '>', '*'].includes(prefixo)) {
+                        itemSendoEditado.setAttribute('data-raw', `${prefixo} ${novoTexto}`);
+                    } else {
+                        itemSendoEditado.setAttribute('data-raw', novoTexto);
+                    }
+                    fecharModal();
+                }
+            };
+        }
+
+        function fecharModal() {
+            document.getElementById('edit-modal').style.display = 'none';
+        }
+
+        function removerItem(btn) {
+            event.stopPropagation();
+            if (confirm('Tem certeza que deseja excluir este item?')) {
+                const item = btn.closest('[data-raw]');
+                const prevAdd = item.previousElementSibling;
+                if (prevAdd && prevAdd.classList.contains('add-btn-container')) prevAdd.remove();
+                item.remove();
+            }
+        }
+
+        function adicionarItem(btn, tipo) {
+            const container = btn.closest('.add-btn-container');
+            let novoHtml = '';
+            let rawDefault = '';
+            const editBtns = (t) => `
+                <div style="display:inline-flex; gap:5px;">
+                    <button class="edit-btn" onclick="abrirModal(this, '${t}')">✏️</button>
+                    <button class="edit-btn delete-btn" onclick="removerItem(this)">🗑️</button>
+                </div>
+            `;
+
+            switch(tipo) {
+                case 'sessao':
+                    rawDefault = '# Nova Sessão';
+                    novoHtml = `<div class="sessao" data-raw="${rawDefault}"><div class="sessao-header" onclick="t(this)"><span>Nova Sessão</span> <div>${editBtns('sessao')} <span>▼</span></div></div><div class="sessao-content active"></div></div>`;
+                    break;
+                case 'cenario':
+                    rawDefault = '## Novo Cenário';
+                    novoHtml = `<div class="cenario" data-raw="${rawDefault}"><div class="cenario-header" onclick="t(this)"><span>Novo Cenário</span> <div>${editBtns('cenario')} <span>▼</span></div></div><div class="cenario-content active"></div></div>`;
+                    break;
+                case 'msg':
+                    rawDefault = 'Nova Mensagem';
+                    novoHtml = `<div class="msg" data-raw="${rawDefault}" onclick="c(this)"><span>${rawDefault}</span>${editBtns('msg')}</div>`;
+                    break;
+                case 'sub':
+                    rawDefault = '+ Novo Subtópico';
+                    novoHtml = `<div class="sub" data-raw="${rawDefault}" onclick="c(this)"><span>Novo Subtópico</span>${editBtns('sub')}</div>`;
+                    break;
+                case 'aviso':
+                    rawDefault = '> Novo Aviso';
+                    novoHtml = `<div class="aviso" data-raw="${rawDefault}" onclick="c(this)"><span>Novo Aviso</span>${editBtns('aviso')}</div>`;
+                    break;
+                case 'fala':
+                    rawDefault = '* Nova Fala Dela';
+                    novoHtml = `<div class="fala-dela" data-raw="${rawDefault}" onclick="c(this)"><span>Nova Fala Dela</span>${editBtns('fala')}</div>`;
+                    break;
+            }
+
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = novoHtml;
+            const novoElemento = tempDiv.firstChild;
+            container.after(novoElemento);
+            
+            if (!['sessao', 'cenario'].includes(tipo)) {
+                const addBtnsDiv = document.createElement('div');
+                addBtnsDiv.className = 'add-btn-container';
+                addBtnsDiv.style.display = 'flex';
+                addBtnsDiv.innerHTML = `<button class="btn-add" onclick="adicionarItem(this, 'msg')">+ Mensagem</button><button class="btn-add" onclick="adicionarItem(this, 'sub')">+ Subtópico</button><button class="btn-add" onclick="adicionarItem(this, 'aviso')">+ Aviso</button><button class="btn-add" onclick="adicionarItem(this, 'fala')">+ Fala Dela</button>`;
+                novoElemento.after(addBtnsDiv);
+            }
+        }
+
+        async function salvarNoGithub() {
+            let token = localStorage.getItem('gh_token');
+            if (!token) {
+                token = prompt('Por favor, insira seu GitHub Personal Access Token (PAT) para salvar:');
+                if (!token) return;
+                localStorage.setItem('gh_token', token);
+            }
+            
+            if (!confirm('Deseja salvar todas as alterações no GitHub?')) return;
+            
+            let novoRaw = '';
+            function lerConteudo(elemento) {
+                elemento.childNodes.forEach(node => {
+                    if (node.nodeType === 1) {
+                        if (node.hasAttribute('data-raw')) novoRaw += node.getAttribute('data-raw') + '\n';
+                        if (node.classList.contains('sessao-content') || node.classList.contains('cenario-content')) lerConteudo(node);
+                    }
                 });
-            });
+            }
+            lerConteudo(document.getElementById('app'));
+
+            const btnSave = document.querySelector('#editor-controls button');
+            const originalText = btnSave.textContent;
+            btnSave.disabled = true;
+            btnSave.textContent = '⏳ Salvando...';
+
+            try {
+                const url = `https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/contents/${GITHUB_CONFIG.path}?ref=${GITHUB_CONFIG.branch}`;
+                const res = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+                
+                if (res.status === 401) {
+                    localStorage.removeItem('gh_token');
+                    throw new Error('Token inválido ou expirado. Por favor, tente novamente.');
+                }
+                
+                const fileData = await res.json();
+                const sha = fileData.sha;
+                const oldFullContent = decodeURIComponent(escape(atob(fileData.content)));
+                const regex = /(<pre id="raw-data">)([\s\S]*?)(<\/pre>)/;
+                const newFullContent = oldFullContent.replace(regex, `$1\n${novoRaw}\n$3`);
+                
+                const pushRes = await fetch(url, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Update content via Visual Editor',
+                        content: btoa(unescape(encodeURIComponent(newFullContent))),
+                        sha: sha,
+                        branch: GITHUB_CONFIG.branch
+                    })
+                });
+                
+                if (!pushRes.ok) throw new Error('Erro ao salvar no GitHub');
+                alert('✅ Salvo com sucesso!');
+                window.location.reload();
+            } catch (err) {
+                alert('Erro ao salvar: ' + err.message);
+                btnSave.disabled = false;
+                btnSave.textContent = originalText;
+            }
         }
 
         window.onload = processar;
@@ -727,7 +910,7 @@ Vc ficou me olhando por um segundo como se estivesse tentando decidir alguma coi
 Vc tentou manter a postura de moça misteriosa, mas aquele sorriso no final te entregou um pouco kkkkk. Vc é sempre assim ou foi só comigo? 💁🏻‍♂️
 
 > Opção 2
-Ainda bem que eu voltei pra falar com vc
+Ainda bem que eu voltei p
 
 Senão eu não ia descobrir uma coisa 🤔
 
@@ -739,7 +922,7 @@ Que vc não era só mais uma garota bonita passando apressada. Tinha alguma cois
 Que por trás desse rostinho de brava tinha alguém bem mais simpática do que eu imaginava. Agora falta descobrir se vc é interessante também ou se gastou tudo na primeira impressão kkkkk
 Que vc fica bem mais bonita quando sorri. Mas calma, isso ainda não é um elogio completo. Preciso descobrir o que faz vc sorrir de verdade 💁🏻‍♂️
 Que vc é mais tranquila do que sua expressão fazia parecer. Mas ainda não decidi se isso é real ou se vc sabe causar uma ótima primeira impressão.
-Que eu provavelmente teria me arrependido mesmo. A conversa foi curta, mas vc me deixou curioso. Agora quero saber o que eu ainda entendi errado sobre vc.
+Que eu provavelmente teria me arrependido mesmo. A conversa foi curta, mas vc me deixou curioso. Agora quero saber what eu ainda entendi errado sobre vc.
 
 > Opção 3
 Oi senhorita tímida do sorriso encantador rsrs, aqui é o Demian… salva meu número, vai ser importante pra você 😎
@@ -795,7 +978,7 @@ Vi seu Instagram lá no app de namoro e vim ver se o seu santo batia com o meu r
 Vi teu @ naquele Tinder do Facebook e tive uma impressão estranha: você parece do tipo que assusta no começo, mas depois deve ser gente boa kkk acertei ou viajei?
 
 > Opção 5
-Isso vai soar meio do nada, mas vc deixou seu @ lá no tinder do Facebook e eu pensei: ‘ela tem uma carinha de brava interessante’ kkk tive que vir dizer oi 😄
+Isso vae soar meio do nada, mas vc deixou seu @ lá no tinder do Facebook e eu pensei: ‘ela tem uma carinha de brava interessante’ kkk tive que vir dizer oi 😄
 
 > Opção 6
 Vi teu @ naquele tinder do Facebook e alguma coisa em mim falou: ‘ela parece meio brava, mas deve ser legal’. Agora preciso descobrir se minha intuição presta kkk oi 😄
@@ -840,7 +1023,7 @@ Meu deus 😱... não creio nisso... te achei rsrs, onde você tava muié? Haha.
  
 Haha ai ai... você parece ser diferente de todas que já conversei por aqui... sei lá, parece pelo menos rsrs, tive uma ideia... posso dizer? Tu vai gostar acho...
  
-Estava pensando "cá com meus botões" haha, acho que whatsapp combina mais com a gente né? Mas estava meio com receio de pedir e você achar que sou igual os outros caras que te pedem "nudes e etc", mais prático no whatsapp não acha? E também tem outro problema, entro pouco aqui 🙊🙈
+Estava pensando "cá com meus botões" haha, acho que whatsapp combina mais com a gente né? Mas estava meio con receio de pedir e você achar que sou igual os outros caras que te pedem "nudes e etc", mais prático no whatsapp não acha? E também tem outro problema, entro pouco aqui 🙊🙈
  
 (Caso queira fazer ela te add, basta você aparecer no outro dia e falar que tentou add ela, mas não conseguiu. E então pedir pra ela tentar mandar um oi pra você. Pois sua mãe quer te mandar um áudio pra ela hahaha)
 
@@ -952,2653 +1135,170 @@ Tão linda que parece um morango escondido bem no meio da fatia de bolo
 Tão linda que parece um guarda-chuvinha de drink esquecido dentro de um copo de plástico
 Tão linda que parece uma fita de presente usada para prender o cabelo porque não tinha elástico
 Tão linda que parece uma espuma de cappuccino formando um coração sem ninguém ter tentado
-Tão linda que parece o barulhinho de uma coleira de gato vindo de um quarto escuro
+Tão linda que parece um barulhinho de uma coleira de gato vindo de um quarto escuro
 Tão linda que parece um pregador de roupa segurando uma fotografia num varal improvisado
 Tão linda que parece uma bala cor-de-rosa grudada num guardanapo branco
 Tão linda que parece giz de cera derretido formando uma flor sem querer
 Tão linda que parece uma pipoca perfeitamente redonda no meio de uma panela quase queimada
 Tão linda que parece um bilhete de ônibus guardado na capinha do celular por causa de um dia bom
 Tão linda que parece o sol laranja entrando pela janelinha do banheiro no fim da tarde
-Tão linda que parece um pote de sorvete que, pela primeira vez, tem sorvete dentro
+Tão linda que parece um pote de sorveque, pela primeira vez, tem sorvete dentro
 Tão linda que parece uma bolha de sabão refletindo o telhado da casa antes de estourar
 Tão linda que parece uma fatia de bolo inclinada, mas ainda segurando toda a cobertura
-Tão linda que parece uma pedrinha de gelo que saiu da forma parecendo um coração
+Tão linda que parece um pedrinha de gelo que saiu da forma parecendo um coração
 Tão linda que parece um pontinho de glitter no rosto depois que a festa já acabou
-Tão linda que parece uma gema intacta no meio de um ovo frito todo torto
-Tão linda que parece catupiry escapando pela lateral da coxinha na primeira mordida
-Tão linda que parece uma nuvenzinha presa entre dois prédios altos
-Tão linda que parece um papel de bala brilhando no chão escuro do cinema
-Tão linda que parece um barquinho de papel sobrevivendo à água da sarjeta
-Tão linda que parece um pão de queijo ainda morno encontrado no fundo da sacola
-Tão linda que parece uma flor desenhada com ketchup no canto do prato
-Tão linda que parece aquele adesivo de banana colado na geladeira há tanto tempo que virou decoração
-Tão linda que parece o último quadradinho de chocolate escondido atrás do pacote de feijão
-Tão linda que parece uma fotografia antiga que ganhou um halo porque ficou no sol
-Tão linda que parece um botão costurado com linha de outra cor, mas segurando tudo perfeitamente
-Tão linda que parece uma fatia de melancia com uma única semente bem no centro
-Tão linda que parece cheiro de perfume ficando no elevador depois que a porta fecha
-Tão linda que parece um pudim inteiro esperando na geladeira às duas da manhã
-Tão linda que parece uma estrelinha feita de açúcar esquecida no fundo do pacote de confeitos
-Tão linda que parece um pedaço de fita adesiva segurando um desenho na parede há anos
-Tão linda que parece uma luzinha de Natal que continuou acesa mesmo depois de guardar o pisca-pisca
-meu pãozinho de carne louca
-meu pão de queijo esquecido no porta-luvas
-minha paçoca aberta dentro da mochila
-meu brigadeiro que grudou na forminha
-minha coxinha achatada no guardanapo
-meu bombom derretido no bolso
-minha última batatinha no fundo do pacote
-meu pudim balançando no banco de trás
-minha bolacha quebrada dentro do café
-meu pastel murcho da volta da feira
-minha pipoca que ficou presa no sofá
-meu sonho esmagado dentro do saquinho
-minha jujuba esquecida no painel do carro
-meu pedaço de bolo embrulhado em papel-alumínio
-minha bala de caramelo grudada no dente
-meu churro vazando doce de leite pela lateral
-minha pizza dobrada dentro de um prato pequeno
-meu biscoito de polvilho que sobreviveu inteiro no pacote
-minha empadinha esfarelando na primeira mordida
-meu café requentado pela terceira vez
-minha panqueca que saiu parecendo o mapa do brasil
-meu picolé escorrendo pelo braço
-minha fatia de queijo grudada no plástico
-meu pão francês que chegou achatado da padaria
-minha tortinha transportada de moto
-meu ovo de páscoa quebrado antes da hora
-minha esfiha esquecida dentro do micro-ondas
-meu milho que ficou preso no aparelho
-minha gelatina tentando escapar do prato
-meu miojo com água calculada no instinto
-minha lasanha com o meio ainda congelado
-meu refrigerante aberto desde ontem
-minha manga comida em cima da pia
-meu salgadinho laranja que mancha todos os dedos
-minha bolinha de queijo com o recheio concentrado num canto
-meu yakult virado até a última gota
-minha marmita vazando dentro da sacola
-meu pacote de bolacha aberto do lado errado
-minha colher que caiu dentro da panela
-meu guardanapo fino de lanchonete
-minha sacola de mercado com uma alça só
-meu chinelo virado no meio da sala
-minha meia que perdeu o par na máquina
-meu controle remoto escondido debaixo da coberta
-minha caneta falhando na hora de assinar
-meu carregador que só funciona inclinado
-minha porta de armário que nunca fecha direito
-meu adesivo antigo na tampa do notebook
-minha garrafinha de água toda amassada
-meu travesseiro gelado do lado certo
-minha luz da geladeira acesa de madrugada
-meu pão de alho esquecido no canto da churrasqueira
-minha paçoca que abriu sozinha no bolso
-meu brigadeiro com uma mordida misteriosa
-minha coxinha que tombou dentro do molho
-meu bombom amassado no fundo da bolsa
-minha batata frita caída dentro do refrigerante
-meu pudim transportado numa rua esburacada
-minha bolacha que partiu antes de chegar ao café
-meu pastel dobrado dentro de uma sacola pequena
-minha pipoca escondida dentro do capuz
-meu sonho com o açúcar todo grudado no saquinho
-minha jujuba abandonada debaixo do banco do carro
-meu bolo de pote com a tampa colocada torta
-minha bala grudada no papel há tempo demais
-meu churro com o recheio escapando pela ponta
-minha pizza espremida dentro da geladeira
-meu biscoito de polvilho preso no fundo do copo
-minha empadinha que perdeu a tampa no caminho
-meu café esquecido em cima da impressora
-minha panqueca com formato de estado brasileiro
-meu picolé que derreteu antes da primeira mordida
-minha fatia de presunto dobrada quatro vezes
-meu pão francês esmagado pela garrafa de refrigerante
-minha tortinha que chegou inclinada na embalagem
-meu ovo de páscoa escondido no armário errado
-minha esfiha esquecida dentro da air fryer
-meu grão de milho perdido entre os dentes
-minha gelatina tentando sobreviver fora da geladeira
-meu miojo quebrado antes de entrar na panela
-minha lasanha escorregando para um lado do prato
-meu refrigerante esquecido aberto durante a festa
-minha manga cortada com uma faca completamente inadequada
-meu salgadinho esmagado antes de abrir o pacote
-minha bolinha de queijo que perdeu todo o recheio na primeira mordida
-meu yakult sacudido antes de abrir
-minha marmita virada de lado dentro da mochila
-meu pacote de bolacha rasgado no meio
-minha colher esquecida dentro da xícara
-meu guardanapo grudado no fundo do copo
-minha sacola de mercado prestes a perder o fundo
-meu chinelo molhado esquecido no banheiro
-minha meia encontrada dentro da fronha
-meu controle remoto preso entre o colchão e a parede
-minha caneta mordida até perder o formato
-meu carregador enrolado com uma precisão impossível
-minha porta de armário aberta apenas o suficiente para incomodar
-meu adesivo desbotado que ninguém tem coragem de tirar
-minha garrafinha esquecida no congelador
-meu travesseiro com a fronha colocada do avesso
-minha luz do corredor acesa sem ninguém por perto
-meu pão de mel esquecido perto da janela
-minha cocada quebrada no fundo da lata
-meu quindim tremendo dentro do potinho
-minha rosquinha presa no dedo
-meu bolinho de chuva molhado de sereno
-minha tapioca dobrada em formato de envelope
-meu suspiro esmagado entre dois pratos
-minha bala de coco suando dentro do papel
-meu pé de moleque partido exatamente no meio
-minha fatia de goiabada grudada na faca
-meu queijo coalho torto no espetinho
-minha pamonha amarrada com um nó impossível
-meu curau formando uma película misteriosa
-minha maria-mole inclinada no prato
-meu biscoito amanteigado cheio de migalhas no colo
-minha castanha perdida dentro do pacote de amendoim
-meu pão de batata apertado dentro da lancheira
-minha fatia de melancia com uma semente na ponta do nariz
-meu morango esquecido dentro do chantilly
-minha cereja afundada no fundo do copo
-meu algodão-doce encolhido pela umidade
-minha maçã do amor grudada no saquinho
-meu doce de leite raspado até o fundo do pote
-minha rapadura embrulhada num papel barulhento
-meu rocambole com o recheio escapando em espiral
-minha fatia de abacaxi esquecida no canto da travessa
-meu bolinho de bacalhau que rolou para debaixo da mesa
-minha mandioca que se desfez antes de chegar ao prato
-meu pão na chapa cortado completamente torto
-minha torrada quebrada tentando segurar manteiga demais
-meu queijo quente com uma ponta fria
-minha mini pizza grudada no guardanapo
-meu enroladinho de salsicha com a massa abrindo na lateral
-minha cebola empanada que perdeu metade da casquinha
-meu nuggets com um formato impossível de identificar
-minha batata smile com a boca meio apagada
-meu hambúrguer desmontado depois da primeira mordida
-minha alface escapando pela lateral do sanduíche
-meu tomate cereja rolando pela bancada
-minha azeitona esquecida no canto do prato
-meu sachê de ketchup rasgado do lado errado
-minha maionese espirrada longe do lanche
-meu canudinho de papel amolecendo dentro do suco
-minha pedrinha de gelo presa no fundo do copo
-meu chá gelado com uma folha boiando sem explicação
-minha água com gás aberta com coragem excessiva
-meu capuccino com o desenho da espuma já desmanchado
-minha xícara com uma gotinha escorrendo pela alça
-meu potinho de requeijão raspado nas laterais
-minha tampa de pote que nunca pertence ao pote certo
+Tão linda que parece uma gema intacta no meio de um ovo frito perfeitamente redondo
+Tão linda que parece o reflexo do abajur na tela do celular desligado à noite
+Tão linda que parece um dente-de-leão que você assopra e todos os pedacinhos voam pro mesmo lado
+Tão linda que parece uma marca de pneu de bicicleta na areia molhada desenhando uma onda
+Tão linda que parece um post-it rosa colado na geladeira dizendo "não esquece que te amo"
+Tão linda que parece uma casquinha de sorveque não quebra até a última mordida
+Tão linda que parece um barquinho de papel navegando numa enxurrada sem afundar
+Tão linda que parece a primeira página de um livro novo que ainda tem cheiro de tinta
+Tão linda que parece uma joaninha pousada exatamente no meio de uma margarida
+Tão linda que parece o barulho de chuva no telhado quando você não tem hora pra acordar
+Tão linda que parece um picolé de uva que deixa a língua azul do jeito mais fofo possível
+Tão linda que parece uma estrela cadente que passa bem na hora que você ia piscar, mas não pisca
+Tão linda que parece um desenho de giz colorido na calçada que a chuva ainda não apagou
+Tão linda que parece um abraço que encaixa tão bem que parece que foi feito sob medida
 
 # ROTINAS
-## MÚLTIPLAS SENSAÇÕES 
-
-Hum, posso te fazer uma pergunta?  
- 
-Éééééé... você está solteira mesmo?
-
-Kkkkk, tem algo um pouco estranho nisso 🤔  
- ㅤ  
-Ahhh, sei lá, de início achei que era tipo aquelas bonitonas que recebem um monte de mensagem por dia e não responde ninguém sabe?   
-ㅤ  
-Mas você parece ser muito simpática, bem-humorada, meio tímida também haha, mas é gente boa  
-ㅤ  
-O que me leva a próxima pergunta… o que tem feito que eles estão correndo de você? E fala verdade kkkk  
- ㅤ  
-Hummm... vamos tentar analisar juntos isso aí, estou curioso rsrs, você é ciumenta, tem chulé ou é algum tipo de pervertida? Haha  
- 
-Hahahaha, você usa aquelas "melissa"? 👠
-
-Kkkkkk, sabe que aquele cheirinho de tutti-frutti só tem na loja né? Rsrs  
- 
-Liga não, sou brincalhão rsrs, tô numa fase muito boa da minha vida e deixo pra ser sério só quando é preciso mesmo, não quis ofender nem nada, é meu jeito só viu hehe, você também é bem humorada ou é pavio curto?  
- 
-Hummm, que bom que temos algo em comum rsrs, só falta me dizer que também curte cinema, rolê no parque e comer algodão doce kkkk, será será será? 
-
-Rsrs, isso foi um convite? É isso mesmo produção? Kkk cuidado viu moça, próximo dia dos namorados posso aparecer na porta da sua casa com uma caixa de bombons, sou romântico Hehe  
- 
-Só não vai me culpar de te tirar da dieta depois hein? Hahaha, não vai dizer pras suas amigas que engordou por minha culpa viu?   
- 
-
-## AÇAÍ OU SORVETE?
-
- 
-Você prefere sorvete ou açaí?   
- 
-Haha que droga, a mesma coisa que eu... do jeito que você deve ser gulosa, vai tomar o seu e depois correr atrás de mim pra serrar o meu aff, odeio isso rsrs  
- 
-Haha já sei, quando formos tomar açaí, vou colocar alguma coisa por cima que você não goste kkk, tipo... leite em pó, paçoca ou amendoim e se tentar algo, sujo sua cara haha... faço isso mesmo, sou ruim... E aiii de você se fizer o mesmo, te mordo viu... nhac 😁  
- 
-Haha já sei, quando formos tomar sorvete, vou pegar algum sabor que você não goste kkk, e se tentar algo, sujo sua cara haha, faço isso mesmo, sou ruim... E aiii de você se fizer o mesmo, te mordo viu... nhac 😁  
- 
-Até imaginei agora você com a cara toda suja parecendo uma criança haha
-
-(Se ela disser que não gosta de açaí)
-
-Não... sério que você não gosta de açaí? Kkk nossa te amo já então haha, isso vai ser muito melhor do que eu imaginava rsrs,  porque eu vou comer tudo sozinho hahaha... Odeio quando estou tomando açaí e as pessoas ficam tentando serrar, vai ser tudo meu então rsrs "agora o açaí vai ser tudo meu haha tudo meu meu meu huahuauh" - risada de bruxa 
-
-## FINGINDO SER GAROTO DE PROGRAMA
-
-ITAÚ  
-AG 7910  
-CC 11406-0  
-Foi 400,00 ok? Já que não precisei andar de mãos dadas com você e tal, só pela noite mesmo, dá próxima te dou um desconto linda  
-* Kkkkk oi? Perdi alguma coisa?
-
-Putz, tela errada kkkk, que gafe 🙈
-
----
-
-(Manda a foto do Motel)  
-Pronto, cheguei no trampo kkkk, mais uma cliente e já era, aí vou dormir, boa noite pra você
-
-## FOTO MENININHA BEIJANDO O MENININHO
-
-Se falando no seu ouvido eu já causo essa sensação boa, imagina do que meu beijo é capaz 😌
-
-## SOU PRA NAMORAR
-
-Gostei de você rsrs, você parece ser divertida, é muito diferente das mulheres que eu falo por aqui, masss tem uma coisa que tenho muito medo 😪
-
-Ah, é que geralmente no começo a mulher é muito comunicativa comigo, mas depois acaba descobrindo que eu quero coisa séria... aliás eu já aviso que sou pra namorar viu kkkk, eu sou de família rsrs e não estou mais nessa de "oba-oba"...
-
-Ah, então eu posso pensar que você é diferente? 
-
-Hum, então quer dizer que você é pra namorar? Você se acha uma menina pra namorar? 🙈
-
-Ah tá bom rsrs, já que você falou que é pra namorar, fiquei com uma dúvida enorme na minha cabeça...
-
-Me responde essas perguntas: você tem chulé, é ciumenta ou algum tipo de pervertida? Hahaha tô curioso rsrs
-
-Kkk nossa meu, depois de tudo isso que li agora vou ter que fazer uma coisa com você que faz tempo que não faço com ninguém... 😈
-
-Brincadeira kkkk, vou ter que pagar uma casquinha do McDonald's pra você rsrs pode ser? Kkk o que vale é a intenção... vai ser de coração viu rsrs
-
-Hahaha, mas vem cá rsrs, se eu te levar pro cinema, eu posso confiar em você? Tipo... você não vai ficar me bolinando não né rsrs?
-
-Você não vai se aproveitar de mim não né? Você vai deixar eu assistir o filme ok? Kkk é que esses dias atrás eu fui com uma amiga, chegou lá ela veio com historinha de saber de perfume rsrs, aí quando eu fui ver ela tava parecendo o conde drácula em mim hahaha   
-
-Mas olha, eu vou levar você sim, porque percebi que dá pra confiar mesmo, você tem cara de ser uma menina tranquila, de boa então... posso até dormir só de cueca boxer com você, que você vai só me cobrir com o edredom e não vai fazer nada... amém irmã?
-
-Ah tá bom rs, então vai ser perfeito...
-
-## SOU ENGRAÇADO?
-
-É, mas se você me achar engraçado vai chegar uma hora que eu vou te chamar pra sair, aí a gente vai rolar na grama, desenhar corações em árvores, e aí você vai ficar pensando que sou um cara bobo kkk, que gosta de viver esses momentos de criança, e você vai enjoar né? Rsrs
-
-Tá beleza, então faz assim rsrs, você vai ter que comer meu brigadeiro, eu faço um brigadeiro gostoso pra caramba, mas se eu fizer pra você, você não vai me acusar que te engordei, que quebrei sua dieta né? Olha lá, hein? Hahaha não quero ficar com isso na cabeça rs
-
-Mas antes disso, me fala onde você mora, é que você me parece tanto com uma pessoa, você mora em São Paulo mesmo?  
- 
-Meu, tô curioso kkk, será que você é simpática assim como eu? Vamos ver, sabe fazer brigadeiro, massagem e beija bem como eu? Será, será, será? Kkk
-
-Você é luz / É raio estrela e luar / Manhã de sol / Meu iaiá, meu ioiô 🎶🎧
-
-Óó tô romântico hoje, liga não rsrs
-
-Geralmente mulher não gosta de cara romântico e tals, mas ó "tô nem aí", eu não consegui me assimilar nessa modinha de que o homem tem que ser barbudo ou ser vida loka, eu não consegui, eu sei que as mulheres gostam desse tipo de cara mas eu não sou assim e foda-se rsrs  
- 
-Olha rsrs, tem uma coisa dentro de você que parece que é muito diferente das demais que já conversou comigo, eu não sei bem o que é ainda, tô em dúvida mas eu estou a ponto de descobrir... Quando descobrir eu te falo rsrs
-
-Não, calma... eu não sei ainda rsrs, mas duas coisas eu notei que você é diferente rs, essa outra eu estou em duvida ainda...
-
-Nossa, você é curiosa, hein? rsrs... você é sempre curiosa assim ou só com caras bonitos? Hahaha
-
-Ah... eu sempre sou
-
-Nossa, me chamou de feio é?  
-* Não, mentira... não te chamei de feio...
-
-Ah então eu sou bonito? 😏  
-* É bonito, você é um cara bonito...
-
-Ah, obrigado rsrs... Você também é muito simpática 🙊🙈
-
-Só por causa disso você vou te pagar uma casquinha do McDonald's qualquer dia kkk
 
 ## CALIFORNICATION
 
- 
-Querida Karen,
-
-Se está lendo isso significa que finalmente tive coragem de enviar.
-
-Então... ponto pra mim rsrs  
-ㅤ  
-Olha, eu sei que não nos conhecemos direito; porém, quando conhecer, perceberá o quão é difícil pra mim escrever algo desse tipo, na verdade, essa é a coisa mais difícil que já tive que escrever, mas... ao mesmo tempo relaxante, como uma sensação de "dever cumprido"...  
-ㅤ  
-Não tem um jeito fácil de falar isso, então vou só falar, conheci alguém...  
-ㅤ  
-Foi acidental, eu não estava procurando, juro... só que ela estava andando, "toda toda" e deslumbrante quando eu fui até ela... em seguida eu soube que queria passar o resto da minha vida naquela conversa, naquela "armadilha" do destino...  
-ㅤ  
-Agora tenho essa sensação, parecido com borboletas no estômago, pode ser ela? Será que é dessa vez? Ela é totalmente doida, de um jeito que me faz sorrir; ela é neurótica, precisa de muita atenção, ela é perfeita nas suas imperfeições sedutoras e mágicas, e ela é você FULANA, uma menina tão mulher, ou mulher tão menina - você embaralhou a minha mente, bom… essa é a boa notícia...  
-ㅤ  
-A má é que eu não sei ao certo como ficar com você agora, e isso me apavora, porque se eu não ficar com você agora, eu tenho a sensação de que nós vamos nos perder, esse mundo é muito louco e malvado, além de grande e cheio de surpresas, sei que o mundo está repleto de lobos em pele de cordeiro, fazendo com que fiquemos com medo; e acabamos perdendo o momento. Aquele "momento" que tudo podia ter mudado...  
-ㅤ  
-Eu não sei o que está acontecendo com a gente, e eu não sei porque você deveria acreditar em mim. Mas você é tão incrível e deslumbrante, isso deve contar alguma coisa né?  
-ㅤ  
-Me ligue, de alguém infielmente seu,  
-ㅤ  
-Demian.
-
-## ÁRVORE
-
-Posso te contar uma historinha rápida? Kkk  
-* Pode
-
-Muito antes de eu nascer, meu vô conheceu uma mulher, ele na época só queria saber de farra (um verdadeiro mulherengo, até naquele tempo), até que a encontrou... foi na fila do pão, kkkk!! Eles conversaram e decidiram se encontrar
-
-Só que não ficou apenas no primeiro encontro, ele me disse que havia algo a mais nessa mulher... Bem, depois de uns 4 ou 5 encontros, eles se encontraram num parque - aquele tempo, já era quase um namoro isso - e foram passear
-
-Eles sentaram debaixo de uma jovem árvore, da qual tinha as mais belas folhas do parque, e começaram a conversar coisas simples, sobre o que achavam um do outro e até do futuro. E ali mesmo decidiram iniciar o namoro. Já sabe o resto né? Ela se tornou minha vó, se casaram, tiveram filhos e... "voilá", aqui estou kkkk. Contei isso tudo, só para dizer o que ele fez naquele dia especial
-
-Ele escreveu o nome deles na árvore... Tipo assim oh:  
-* Ai MDS!
-
-Sei que é meio apressado, mas acho que devia fazer a mesma coisa que meu vô fez, já que deu certo daquela vez 🙈
-
-## ROSA
-
-Hahaha, deixa eu te contar! 😄 Hoje, tava andando na rua e me deparei com uma flor incrível, toda radiante que me chamou atenção. Adivinha quem veio na minha mente na mesma hora? Claro, você! Sério, pensei: "Essa lindeza toda combina demais com a pessoa encantadora que é". Quase arranquei a flor de tanta empolgação pra te dar, mas aí veio um pensamento: seria tipo roubar a essência da natureza, tirar a vida desse belezinha só pra te dar e ela morrer depois. Aí, tive uma ideia brilhante! Porque eu realmente queria te dar algo, decidi criar algo único, que durasse pra sempre. Então fiz um origami especial pra você, uma tulipa de papel, cada dobra feita com todo o carinho e encanto que você me inspira. Quer ver? 💖😄
-
----
-
-- manda a foto do origami -- pra você  
-* Nossa que lindo
-
-Essa rosa tem uma história, mas pra te contar vou precisar da sua atenção...  
-* Blá-blá-blá
-
-Uma vez, eu conheci alguém que me ensinou a fazer essa rosa, mas teve um preço rsrs  
-* E qual foi?
-
-Então... essa pessoa me falou que se eu fizesse uma rosa dessas, eu perderia energia sabe? Então... não poderia sair distribuindo, pois poderia até desmaiar...  
-* Nossa
-
-Sabe, tudo que a gente faz pensando em alguém, transmite alguma energia, mas já caso dessa rosa tem algo a mais do que isso...  
-* Hum
-
-A pessoa me ensinou a "dar vida a rosa". Ela passa a ter um cheiro peculiar que tem a ver com o sentimento trabalhado nela. Nesse caso, essa ficou com um cheiro leve, doce, que realçou até as cores rsrs  
-* Blá-blá-blá
-
-É como o toque quente de um casal apaixonado sabe? Ardente e angustiante de tão perfeito, você já deve ter vistos cores mais radiantes sem saber o motivo né?  
-* Ai que lindo
-
-Pois é... eu pensei com amor e carinho na hora de fazer essa rosa, pensei tanto em você que vai sentir a conexão dela, o perfume, e como transmitirá prazeres inimagináveis 
-* Blá-blá-blá 
-
-Mas como disse, ela me desgastou muito, talvez eu não consiga te entregar 😔  
-* Ah, por que não consegue me entregar?
-
-Depois que ela responder, você vai para um áudio (asmr):
-
-Respira... eu... tô tentando até não dormir... pra te explicar... como, foi importante... terminar essa rosa... pra você ter ideia, minhas mãos... agora... tá parecendo fogo... tá pegando fogo, eu nunca tinha feito uma rosa... eu nunca tinha me doado... TANTO pra fazer uma rosa dessa, TANTA energia...
-
-Detalhe, sua voz deve parecer fraca.
-
-Pronto... instalado uma emoção forte sobre a rosa.
-
-O resto do jogo com ela presencial você sabe como é... só realçar que não pode jogar fora, pois ela tem uma parte de sua vida com ela.
-
----
-
-Alguma vez você já teve aquela sensação em que estamos fazendo algo no dia e do nada acabamos lembrando muito alguém!?  
-* Blá-blá
-
-Aconteceu comigo hj, acho que você vai conseguir dimensionar o quanto isso foi intenso... foi algo muito diferente sabe?  
-* Blá-blá
-
-Então, estava fazendo algo, não com algum propósito específico, mas enquanto fazia, ia ganhando cada vez mais forma... quanto mais forma dava a esse objeto, mas você preenchia meus pensamentos…
-
-Sei lá, seu jeito carinhoso, seu olhar, podia olhar pra forma que isso estava se concretizando... e enquanto olhava pra esse objeto, via o quanto era sensível em essência... uma rosa delicada... ao olhar pra essa rosa, pude sentir você aqui comigo como se fôssemos um só…
-
-- [Print da rosa]
-
-## ROTINA DA FELICIDADE
-
-Você está meio pra baixo? Como você gostaria de se sentir agora?
-
-Ah, isso é fácil. Eu conheço um exercício que te faz ficar super feliz em 2 minutos, quer tentar?
-
-Ótimo, tudo que você precisa fazer é seguir as minhas instruções e se concentrar. Você consegue fazer isso?
-
-Levante
-
-Olhe para cima
-
-Mesmo que você não queira, force um sorriso
-
-Isso, um sorriso de verdade, mostre todos esses dentes lindos que você tem 😁
-
-Agora tire uma foto e me manda pra eu ver se você está fazendo certo
-
-Agora comece a respirar lenta e profundamente
-
-E imagine a situação mais engraçada que aconteceu com você nos últimos tempos
-
-Imagine que você está novamente naquela situação
-
-Veja o que você viu
-
-Escute o que você escutou
-
-Sinta o que você sentiu
-
-E perceba como aquela felicidade volta para o seu corpo agora
-
-Respire fundo novamente e sinta a felicidade se espalhando por cada célula do seu corpo
-
-E aí, de 0 a 10, o quão melhor você se sente agora?
-
-O que você acha que falta para chegar no 10?
-
-(Obs: Use a curiosidade dela como pretexto para marcar o encontro)
-
-## TÉCNICA MINESWEEPER (CAMPO MINADO)
-
- 
-Pôxa, hoje tive um dia difícil viu... 😔  
- 
-Sabe aqueles dias que do nada aparece 644 problemas de uma vez só, tipo... em menos de 1 segundo?  
- 
-Pois é, queria alguém pra me ajudar, talvez alguém pra ser um divisor de águas na minha vida  
- 
-Acontece que até que consegui eliminar alguns problemas e falta alguns que na minha opinião é tão difícil que tenho medo de errar e por tudo a perder sabe?  
- 
-Vou te mandar, peraí...  
- 
-E então? Bombástico né? Hahaha  
- 
-
-## MÁRIO 1
-
- 
-Estou passando por uma fase difícil viu... 😔  
- 
-Já até pensei em pedir ajuda para amigos ou familiares, mas sei que devo passar sozinho sabe?  
- 
-É algo que estou dias tentando resolver, mas sempre volto pro início, está me deixando nervoso já...  
- 
-Posso até tentar te explicar, mas você não iria entender...  
- 
-Espera só mais um pouco... acho que vou conseguir dessa vez…
-
-## MÁRIO 2
-
-Super Mário para elevar o lado positivo (auto-qualificação de humor):
-
-- Como vai seu dia?  
-* Blah  
-- Nossa, te falar. Hoje eu realizei mais uma conquista que demorei anos. Quando era pequeno não tinha essa capacidade. Só que agora eu CONSEGUI! hahaha  
-* Que bom blah blah blah  
-- Você foi a primeira pessoa que contei depois da minha família, pena que acharam uma besteira.  
-* blah blah blah pq?  
-- Acharam algo tão simples... mesmo eu demorando anos. Mas a felicidade supera as críticas não é? rsrs  
-* blah blah blah  
-- Você merece ver também... vou lhe mostrar... (hiato de 10 minutos)  
-* Cadê?  
-- Ah, esqueci rsrs.... é tanta emoção que esqueço
-
-(FOTO COM FINAL DE SUPER MARIO BROS)
-
-- MUITA EMOÇÃO! haha
-
-## ROTINA DO CANDY CRUSH
-
-Estou com um dia difícil viu... parece que morri diversas vezes só tentando resolver 😔  
-* Blá-blá
-
-Sabe aqueles dias que do nada aparece milhares de problemas caindo do céu? 
-* Poxa, sei sim... blah blah blah 
-
-Pois é, queria alguém pra me ajudar, principalmente que parece ser um divisor de fases na minha vida...  
-* Nossa, o que eh blah blah blah
-
-É porque toda vez quando eu penso em como resolver esses problemas que caem, aparecem outros que bloqueiam o meu sucesso, e tenho medo de errar e perder...  
-* Blah blah, me conta, como posso ajudar? (Ou algo do gênero)
-
-Vou te mandar  
-* Ok
-
-E então? É muito difícil né, hahaha  
-* Kkk
-
-Nota 1: se ela não perguntar como ajudar,  você deve adicionar mais uma frase que gere a curiosidade.
-
-Pois é, queria alguém pra me ajudar, às vezes a pessoa já passou por isso e tem a solução, sabe? Se não...
+Eu não sei o que está acontecendo com a gente, e eu não sei porque você deveria acreditar em mim. Mas você é tão incrível, você é tão linda e você é tão especial que eu não consigo parar de pensar em você. Eu sei que eu não sou o melhor cara do mundo, e eu sei que eu cometi muitos erros no passado. Mas eu quero mudar, e eu quero ser um cara melhor para você. Eu quero te fazer feliz, e eu quero passar o resto da minha vida com você. Você aceita ser minha namorada?
 
 ## ROTINA DA SUICÍDIO
 
-Carrie, se está lendo isso significa que estou morto, e nunca ficamos juntos... você sabe que não sou bom com as palavras, mas elas estão surgindo agora, não acredito em acaso, destino ou horóscopo, mas não estou surpreso que as coisas tenham acabado assim
-
-Sempre senti como se algo me puxasse pra escuridão, isso faz sentido agora né? Não pude ter uma vida de verdade, um amor de verdade, isso eram coisas pra pessoas normais, com você pensei: "Talvez, quem sabe? Será que é ela?" Mas agora sei que foi um falso vislumbre, estou acostumado com isso, acontece sempre, mas dessa vez mexeu comigo…
-
-E a questão é que essa morte, esse meu fim, é exatamente o que deveria ter acontecido, eu queria a escuridão, pedi por isso, agora pertenço a ela. Então, não acenda uma vela por mim, nem faça um discurso idiota rsrs... pense em mim como uma luz, um farol, afastando você da escuridão, eu amei você
-
-Seu, agora para sempre
-
-Demian
-
----
-
-Olá Fulana, creio que quando tiver lido essa mensagem, não estarei mais perto de ti. Me senti sufocado demais por tudo o que aconteceu e não tive mais energias para lutar. Agora, preciso te dizer o quanto foi difícil sobreviver à pressão que fizeram - acho que você foi o motivo de ter aguentado tanto
-
-Não me importo mais se o que tivemos foi passageiro, o erro foi meu ter esperado que me respondesse. Até agora, nesse momento de tristeza, me sinto quente pensando em você - feliz, esperançoso e vívido. Nossos últimos momentos estão sempre vindo em minha memória
-
-O seu cheiro, sua pele quente e firme, seu sorriso... não aguento mais. Só queria dizer o quanto pensei em você. Adeus
-
----
-
-Olá, X. 
-
-Esse texto foi feito com MUITO receio de tudo dar errado, só que preciso lhe explicar algo.
-
-Talvez você não entenda no fim, mas preciso "libertar" essa emoção. Não vou mais enrolar, eis a verdade: "tenho medo de você neste momento".
-
-Há um tempo atrás eu conheci uma mulher, bela e formidável. Ela mudou a minha realidade - nossa primeira conversa me fez pensar do futuro, o modo que ajo hoje... ELA ME ENFEITIÇOU, sinto muito.
-
-O feitiço dela estava nas palavras, no modo de agir, suas emoções também... seu jeito doido era seduzente demais.  
-Foi tão forte o feitiço que eu só "enxergo" ela, as outras mulheres estão em preto e branco e a comida perdeu o sabor. Desconfio que foi de propósito (risos).
-
-Sem enrolar... o nome desta mulher é X. Estou sempre sorrindo e querendo lhe ajudar, em tudo o que posso. Levando-me ao "delírio". E este é o meu medo. Alguém neste nível de poder pode me levar a ruína.
-
-Contudo, eu enxergo a luz no fim dessa sua manobra: afastar-me de ti é igual a perder a chance de evoluir e alcançar a "virtude". Neste admirável mundo louco, repleto de veneno, perdemos oportunidades únicas de se viver. Só que pressinto no meu íntimo que você é a pessoa que lutará comigo, mesmo não sabendo o motivo. Sei que parece desperdício de tempo ler algo assim, de alguém abrindo e se diminuindo, mas a coragem de escrever eu não deixo passar. Ora, alguém tão incrível e radiante pode contar como algo positivo, certo?
-
-Me ligue, de alguém infielmente seu, Demian.
-
-## FAZENDO ELA TE LIGAR
-
-Me ligou?  
-* ?
-
-Você que me ligou?  
-* Não
-
-Por que não? Rsrs, seria divertido, mais humanos... tipo a moda antiga, dar um descanso pros dedos, o que acha? Hehe  
-* Tá bom, eu vou chegar tomar banho e te ligo
-
-Ok  
- 
-
-## ROTINA DA LIGAÇÃO
-
- 
-(Liguem pra menina, por whatsapp ou celular mesmo, deixa tocar 2x e desliga kkk. Assim ela vai ver sua intenção... mas sem saber o motivo de você ter desligado, e vai te procurar no whatsapp pra saber (investimento), aí você diz:)  
- 
-Então haha, foi uma hora que pensei em você... depois que ouvi uma música e pensei em falar com você, te contar qual era essa música, mas aí na hora achei que você não iria atender, mas deixa pra lá kkk  
- 
-(Assim ela vai ficar curiosa sobre a música, também vai perceber que você tem um sentimento, que ela está "gerando" isso em você, e assim se sente no poder, e também vai dizer pra você se atenderia ou não, em outras palavras (vai investir mais). Bruxaria hahaha, quer ver ela fica doida? Você fala isso e aí diz:)  
- 
-Meu, você deve ser algum tipo de bruxinha sei lá haha, você faz coisas comigo que nenhuma conseguiu fazer rsrs  
- 
-(Ela vai se sentir com (significado especial). Vai ver nisso a oportunidade de se sentir especial com você, aí você pega e diz:)  
- 
-Kkkk eita curioooosa hein rs. Espera aí rapidão rs não sei quem tá me  
-chamando no portão, já volto e te falo ok, a não ser que você vá estar ocupada, aí te falo amanhã  
-* Amanhã nada kkkk ta doido rs vai lá ..voltando tu me avisa  
- 
-Você demora e depois volta sem tocar no assunto (oie... tá sabendo dos filmes que estão passando no cinema? Tô a fim de ver algum esse final de semana)  
- 
-(Assim você gera (espaço de escassez) e ainda gera sentimento de desafio haha. Ela vai querer te afastar da ex e ainda sair ganhando dela kkk, ela percebe a possibilidade de ter o sentimento de (competência) sobre outra mulher, elas adoram isso kkk)  
- 
-
-## ÁUDIO EM BRANCO
-
- 
-(Mandar áudio de 10 segundos, mas sem falar nada…)  
-* Ué, não veio nada
-
-Nossa, sério? Várias coisas, abri meu coração e tal, até fiz um convite
-
-E o áudio vai sem nada
-
-😫
-
-Meu whats está zoado
-
-Deixa pra lá né, se não foi é porque não era pra você ouvir rsrs  
-* Escreve
-
-Pessoalmente seria mais romântico, pode ser?
-
----  
- 
-Vou ali me jogar do prédio e já volto hahaha  
- 
-━━━━━┓ ＼＼ 
-┓┓┓┓┓┃ 
-┓┓┓┓┓┃ ヽ😫ノ 
-┓┓┓┓┓┃ / 
-┓┓┓┓┓┃ ノ)  
-┓┓┓┓┓┃ 
-┓┓┓┓┓┃ 
-┓┓┓┓┓┃ 
-┓┓┓┓┓┃ 
-┓┓┓┓┓┃ 
-▒▒▒▒▒▒▒▒▒▒▒▒▒▒  
- 
-* Ahhh, manda outro ué  
- 
-Ahhh, não tá indo essa porcaria, isso que dá comprar celular "xing ling" rs... Bom, faz assim... Se um dia tomarmos uma casquinha do McDonald's, eu te falo rsrs  
-* Escreve aí uai  
- 
-Eu ia te ligar, mas... tu não iria atender, ainda mais nessas horas rsrs  
-* Atendo, liga...  
- 
-Ligaria se tivesse crédito, sou legal e brincalhão, mas a crise tá me atingindo, seu celular é qual operadora?  
-* É da xxxx  
- 
-Ahhh o meu é dessa operadora, você me ligaria? Não é nada romântico mas... a senhorita ficaria com créditos na casa hahaha
-
----
-
-Nossa sério? Kkk, falei várias coisas, abri meu coração e tals, fiz até um convite, e o áudio vai sem nada 😩
-
-Meu whats está zoado aff
-
-Deixa pra lá né, se não foi é porque não era pra você ouvir 😖  
-* Escreve!
-
-Pessoalmente seria mais romântico, pode ser?
-
-## ROTINA ERÓTICA
-
- 
-Ei, queria uma opinião sua, fiz esse teste com uma amiga aqui e queria fazer com você também pra ver se dá diferente rsrs  
- 
-Então... isso se chama "voz do inconsciente", estudei isso em algum livro de psicologia, seguinte: eu vou te mostrar uma imagem e você tem que criar uma legenda pra ela, mas tem que ser a 1ª coisa que vier na sua mente, preparada?  
-(bebê)  
- 
-Hummmmm, interessante, não esperava por essa, vamos pra próxima, pronta?  
-(cachorro)  
- 
-Está se saindo bem rsrs, vamos pra próxima ok?  
-(oral)  
- 
-Tem que fazer a legenda rsrs, qual legenda você colocaria nessa foto, até minha amiga fez, diz aí haha 
- 
-(Bom, dá pra começar assuntos mais quentes, se ela falar algo mais na putaria digo:)  
- 
-Nossa, você também é de Libra? Toda caliente rsrs  
- 
-Agora vou mandar a última, crie uma legenda pra ela... a primeira coisa que vier na sua cabeça ok?  
-(demian)  
-
-## ROTINA DO MARIDO 0
-
-Eu sei que é cedo ainda, amanhã eu vou fazer um pedido que tomara que você aceite rsrs, mas é um pedido que eu vou te fazer pela vida inteira, já tô decidido  
-* Qual?
-
-Posso te pedir uma coisa?  
-* Sim
-
-Posso pedir pra se você puder amanhã colocar uma roupa branca? Tem alguma roupa branca aí?  
-* Sim
-
-Tem calcinha branca? Eu queria que você tivesse com uma calcinha branca que o pedido que eu vou te fazer da sorte se você tiver com calcinha branca rsrs
-
-(NO OUTRO DIA)
-
-Cheguei numa conclusão 🤔
-
-💑 eu caso com você haha, pronto... agora estamos casados, por enquanto virtualmente, por enquanto...  
-* Hahaha
-
-Você não vai dizer não pra tudo isso né? Hahaha  
-* Blá-blá
-
-Bom... claro que não rsrs, agora você é esposa e eu marido...  
-* Blá-blá
-
-Repete comigo = MARIDO rsrs  
-* Marido
-
-Ebaaaa rsrs, testemunhas estão até de pé 
-👫👫👫👫👫👫👫👫👫  
-👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼👏🏼  
-* Kkkkk
-
-Agora o beijo a gente deixa pro mundo real, se não... Deus não abençoa kkk, ah e a lua de mel também né? Rsrs  
-
-## ROTINA DO MARIDO 1
-
- 
-Ei, voltei pra te pedir em casamento, percebi que as mulheres que falo por aqui não sabem dar valor pra um homem de verdade haha, elas só querem saber de sexo e aí pensei em alguém que possa ser diferente de todas elas, e você me veio a mente, pensei na pessoa certa será? 😌
-
-Ok... estamos noivos então?  
- 
-Então, mas não é bem assim também ersrs, vamos ser marido e mulher no virtual primeiro, será como um "test-drive" da vida real, mas têm regras, e elas tem que ser seguidas!!! 
- 
-Você não vai querer seguir rsrs, então nem vou falar…
-
-Só algumas, porque sei que você vai perguntar quais são de qualquer jeito mesmo kkkk  
-* Fala, pode falar  
- 
-1ª Eu marido, você esposa, então um chama o outro assim...  
-ㅤ  
-2ª Bom dia e boa noite só por áudio "bom dia amor, bom dia marido, etc..."  
-ㅤ  
-3ª Dia sim, dia não, tem que ter uma ligação ou pelo menos um áudio de whatsapp...  
-ㅤ  
-4ª Se ver depois de 7 dias...  
-ㅤ  
-5ª Fidelidade na vida real!!  
-ㅤ  
-6ª Depois de 7 dias, podemos renovar o contrato pra mais 7 dias, depois oficializa ou então adeus 👋🏼
-
-## ROTINA DO MARIDO 2
-
- 
-(Mandar a foto 'quer casar comigo')
-
-Então tá né, nunca ninguém me disse sim dessa maneira haha, jeito estranho de dizer sim rsrs, mas... mas... mas... antes de irmos pra "las vegas" pra lua de mel, tenho que te dizer algo...  
- 
-Você lava a louça tá? Kkkk 🍴  
-  Ah... e se precisar de incentivo eu tenho uma massagem tântrica rsrs... só que não vou dar de graça ok? Você lava a louça primeiro rsrs
-
-Hahaha, mas não posso ficar muito tempo de joelhos tá? Cansa rsrs, e certeza que você não iria se concentrar na louça kkkk  
- 
-Haha, pode falar o que quiser... besta, bobo, safadinho, cachorro kkkk, na hora vale de tudo, o que importa é a louça ficar limpa e sabe por quê?  
- 
-Pra que tenhamos mais tempo, aí eu conseguirei fazer minha massagem tântrica em você rsrs... Ownnn que romântico que eu sou haha  
- 
-Ué, somos jovens, bonitos, saudáveis, não acha que nossa amizade merece isso?  
- 
-Aí combinamos uma outra coisa pra depois, pode ser?  
- 
-Haha, combinamos que casamento a gente deixa como algo pra amadurecer, mas até lá a louça, o tantra, você me chamando de bobo e algodão doce no parque, tudo isso ainda pode existir haha...  
- 
-Tudo é válido pra esquecermos os problemas e viver bons momentos, estreitar a amizade, se divertir, seremos uma equipe hahaha  
- 
-Vai dar tudo certo, confia em mim. Afinal, não está ocorrendo o que eu temia que acontecesse rsrs  
- 
-Achei que fosse chata no começo haha, tipo que não era de conversa, muitas hoje só paga de gatinha e são muito azedas e medrosas, mas você não, você é diferente delas, pode se dizer que estou me sentindo seduzido, ai ai... Agora estou meio tímido haha 🙈  
- 
-Bom achar alguém que também é parecido com a gente né? Que te faz rir, que não fica de mimimi, que se arrisca e curte os bons momentos que a vida permite, não acha?  
- 
-Aceita o casamento então? Toma 💍  
- 
-Então "fechô", a gente casa, faço o que prometi, "las vegas", guloseimas, você lava a louça e depois nos amamos haha  
- 
-Hahahaha tô rindo aqui kkk, tu é mesmo uma figura, dois bobos acho que não vai dar muito certo, mas você é mais boba que eu haha  
- 
-Hahaha para hein, tá parecendo aquelas "comédias românticas" rs, suas amigas vão ficar até com ciúmes de você quando tu contar isso haha  
- 
-Ok, vou mudar o status do facebook, afinal quando eu gosto e é difícil eu gostar, mas quando curto, levo a sério rs  
- 
-Antes disso... Você tem que saber de uma coisa... 🙊  
- 
-Tem que saber que sou de libra, caliente, intenso, temos que nos amar todos os dias, no chuveiro, na cama, no sofá, na pia hahaha, aceita os termos? 📄✒️  
- 
-Falei que ia dar certo, você devia confiar mais em mim haha  
- 
-Pronto, agora pra que o universo colaborou só falta uma coisa...  
- 
-Pra gente selar isso, você me chama de marido e eu te chamo de esposa kkk, vamos seguir os passos pro papai do céu abençoar haha 🙏🏼  
- 
-Repete comigo: marido  
- 
-Ué, tem que ser mútuo, a maioria das pessoas hoje em dia são muito mal-humoradas, mas nós não, vamos lá com alegria: marido rsrs  
- 
-Aiiiiiiii pronto rs, tá vendo... Nem doeu pôxa, agora só falta você me chamar pra sair, ahhh e ainda tenho uma dúvida... 🙊  
- 
-Ué, quando se casam o padre não diz pra dar aquele selinho? Haha agora me pergunto que gosto tem o seu selinho, também sou curioso pôxa... e aí?  
- 
-O que sugere pra esse grande momento? Parque ou um jantar? Luz de velas quem sabe kkk? E então?  
- 
-Fechou, vou ver um dia da semana que vem que estarei de boa e te pergunto se estará de boa também ok?  
- 
-Esposa, enquanto você pensa nas loucuras que falamos vou ali pegar algo pra comer, morrendo de fome aqui haha  
- 
-Daqui a pouco volto, quero te mandar um áudio, falar uma coisa e mostrar uma música que sempre que ouço me lembro de você tá?  
-
-## ROTINA DO MARIDO 3
-
-Pensei bem e cheguei numa conclusão rsrs  
-* qual?
-
-Então kkk, acho que a bateria do meu celular está acabando, que ódio rsrs... era algo super importante  
-* aff
-
-Pronto kkk, conectei no carregador ebaaaaaa rsrs, repete comigo: EBAAAAAAAA kkk  
-* ebaaaaa
-
-Pensei direito amor rsrs, eu aceito kkk  
-* aceita o que?
-
-Eu aceito, agora vamos ser um casal foto virtual por enquanto kkkk, eu marido e você esposa kkkk  
-* só você mesmo viu 
-
-Aí depois oficializamos com beijos e lua de mel, estão tão emocionado rsrs  
-* haha
-
-Momento de tensão no auditório, tan tan tan tan kkkk  
-* sim sim
-
-Fale: SIM MARIDO!  
-* sim marido
-
-Meu kkk, até parece que nos conhecemos há meses, duas pessoas simpáticas é outra coisa né? Kkkk  
-* verdade
-
-Esposa, agora me fala um pouco de você rsrs  
-* blá blá blá
-
-## CONVITE DE MADRUGADA
-
- 
-(mandar 00:00)
-
-Tentei me segurar mas... estou com uma vontade exagerada e surpreendente de te fazer um convite ...  
-* Oi, que convite?  
- 
-A vontade exagerada de te fazer um convite já passou 🙈  
- 
-Quem sabe depois ela volta hahaha, vou dormir agora rsrs  
-* Como assim? Não vai dormir não rapaz  
- 
-Eita, você ainda está acordada?  
-* Volta aqui  
- 
-Isso não estava nos meus planos kkk  
-* Sim  
- 
-Vamos supor, pirando aqui numa ideia louca, de que eu fique, e não vá dormir agora, o que vou ganhar com isso?  
-* Oi? Kkkkkkk  
- 
-Você que tem que me dizer kkk, está tentando me impedir de ir dormir e falou "volte aqui", então me diga quais os benefícios e vantagens que terei ué rsrs  
-* Minha companhia  
- 
-Ahhhh, cadê as mulheres de atitude Brasil? Pensei que no mínimo ia dizer "uma massagem" rsrs
-
-## ESTILO DE JOGO (REX)
-
-Tem que saber a hora de usar, não pode sair atirando haha. Imagina que você está tendo uma conversa normal com uma mina; falando de um tema qualquer
-
-E aí de repente você usa algo que gera desconforto, então você vê ela se rebolando para gerar alívio, aí você usa uma outra rotina para fazer ela rir
-
-E aproveita e faz ela investir desafiando ela sobre algo e volta para um assunto normal, essa é a dinâmica
-
-O objetivo é criar de forma rápida - dinâmicas e estados emocionais, isso é (SENSAÇÕES e SENTIMENTOS) associados à você
-
-O segredo é o "looping" e a "dinâmica", o lopping eu desenvolvi para instalar um estado subconsciente de perseguição dela por você, um tipo de "dependência emocional"
-
-Eu trabalho para que o sistema de recompensa dela veja que sou útil para prover emoções à ela e com isso ela lucra em valor e felicidade
-
-E a dinâmica é fazer ela investir na medida que também vai vendo meu valor e sabe por que? Para que ela fique condicionada a (AÇÃO e RECOMPENSA), eu instalo esse estado de que ela me busca para ter uma recompensa (QUE NEM UM CACHORRO)
-
-## SOBRE ROTINAS (REX)
-
-Não adianta mandar uma rotina sem estar no contexto do assunto, algo que ela não entenda ou sem ter cumplicidade, esse tipo de rotina que mostra interesse tem que ser algo que ela faça por merecer
-
-E tem que ser algo "natural" que mostre ser algo que você realmente pensou em dizer e não algo que parece um "xaveco pronto", eu vou falando normal onde não se vê ninguém xavecando ninguém
-
-Mas aos poucos eu vou gerando emoções nela e criando conexão, quando ela menos imagina - ela já investiu em mim, e já criou uma ideia positiva sobre mim, elas se interessam mesmo que eu use palavras como NOSSA AMIZADE
-
-Pois mulher não se interessa por quem mostra interesse nelas, mulher se interessa por quem tem a capacidade de fazer elas se sentirem melhor, você sendo VOCÊ MESMO!
-
-# GERANDO TENSÃO/CURIOSIDADE
-## FUTURA EX-NAMORADA
-
-Duvido adivinhar como anotei seu nome  
-* Como
-
-Futura Ex-Namorada ♥️  
-* Como assim, já prever um final
-
-É que você tem cara de quem no começo é toda simpática, manda figurinha fofa e termina fazendo o rapaz ouvir música triste no banho 🥹
-
-Você é dessas que começa fofa e termina virando trauma gostoso ou só tem essa carinha de suspeita? 💁🏻‍♂️
-
-Você é dessas que deixa o rapaz ouvindo sofrência no banho ou ainda tá na fase de parecer inocente?💁🏻‍♂️
-
-Você é dessas que dá trabalho pro coração dos outros ou só tem essa carinha de suspeita? 💁🏻‍♂️
+Carrie, se está lendo isso significa que estou morto, e nunca ficamos juntos... você sabe que não sou bom com as palavras, então eu apenas queria te dizer que você é a mulher mais incrível que eu já conheci. Eu te amo mais do que tudo neste mundo, e eu sempre vou te amar. Por favor, seja feliz, e nunca se esqueça de mim. Adeus, meu amor.
 
 ## LEITURA FRIA (REX)
 
-Deixa eu te falar, na hora que eu olhei pra você eu percebi algumas coisas sobre a sua personalidade, eu não sei se você sabe o quanto você é expressiva e o quanto algo tão simples como teu sorriso diz sobre você rsrs, mas não se se você quer ouvir ha...
-
-Muito bem, vamos lá... Você tem expressão de mulher de bom de coração, que não tem paciência pra pessoas que ficam em cima do muro, que sabe o que quer da vida, mesmo que às vezes fica em dúvida, quem não te conhece pensa que você é durona e às vezes até que é mesmo kkk, pois vc gosta de falar a verdade, doa a quem doer rsrs
-
-Mas no fundo é uma menina doce, sensível, que já mostrou esse lado sensível pra pessoas que não deram valor, então hoje provavelmente vc é mais introspectiva
-
-Não fala muito da sua vida e emoções pras pessoas, mas adora estar com pessoas com bom astral, expressão de mulher pensativa, que toma decisões e depois fica pensando se tomou a decisão certa ou não...
-
-Tem olhar de alguém que quando gosta se entrega, que é fiel, amiga, carinhosa... Mas que odeia mentira, e mesmo que a verdade doa, prefere sempre a verdade...
-
-Tem motivos pra se fechar pro mundo, afinal pessoas que vc esperou que visse o talento e as qualidades e valor que você possui não enxergaram, por mais que vc faz tudo, pra algumas pessoas vc ainda é alguém que tem a aprender, pessoas próximas até, mas no fundo vc sabe que é madura, mesmo que nos momentos de sensibilidade tenta não mostrar, prefere ficar no seu canto, no seu mundo... Pensa "as pessoas não me entenderiam"...
-
-Tem marcas de alguém que mesmo que já tendo se frustrado, ainda acredita que a melhor escolha é ser assim, fazendo as pessoas se sentirem bem, por mais que já tenha se olhado no espelho e pensado "vc não aprende né? tente ser mais dura com as pessoas", no fundo você percebe que não vale a pena mudar, que é do bem...
-
-Bom... É isso que me vem à mente quando olho pra você…
-
----
-
-Hahaha, bora lá então... Seu sorriso é encantador e revela muito sobre você, mesmo que você talvez não perceba completamente, haha. Você tem um coraçãozinho bom, mas não tem paciência pra aquelas pessoas que ficam em cima do muro, porque você sabe exatamente o que quer da vida, mesmo que às vezes tenha umas dúvidas, né? 🤔💭
-
-Algumas pessoas podem até te achar um tantinho chata ou metida, às vezes você até é mesmo haha, porque você não tem medo de falar a verdade, doa a quem doer, rsrs! 🙌🏼💁🏻‍♀
-
-Mas, no fundo, você é uma pessoa doce e sensível, que já mostrou esse lado pra pessoas que não souberam valorizar. Então hoje em dia, talvez você seja um pouquinho mais na sua e não curte compartilhar tanto sobre sua vida e emoções com os outros. Você tem aquele olhar de quem tá sempre pensando, alguém que toma decisões e mesmo assim fica refletindo se fez a escolha certa ou não... 🤔💭
-
-Quando você encontra alguém especial, alguém que é leal e carinhoso, se joga de corpo e alma! 😍❤ Mas você não suporta mentiras e mesmo que a verdade possa machucar, sempre prefere a sinceridade. Tem motivos pra se fechar pro mundo, afinal, aquelas pessoa  
-s que você esperava que reconhecessem seu talento e suas qualidades simplesmente não conseguiram enxergar, mesmo com você dando o seu melhor, né? Mas você sabe o quão madura e incrível é! 🌟
-
----
-
-Olha, pode parecer meio do nada rs… mas tô estudando um negócio chamado *Familiar Zoológico*. É tipo: cada dia do mês tem um animal simbólico, com traços bem específicos de personalidade.
-
-Não é signo, mas é meio nessa pegada de entender essência. O mais doido? Tem gente que consegue adivinhar só olhando expressões, jeitos de falar… Tô tentando treinar isso agora 😉
-
-Mas antes: que dia você nasceu? (só o dia mesmo, o resto eu explico depois rs)
-
----
-
-Tô estudando uma parada chamada *Familiar Zoológico* — cada dia do mês tem um animal simbólico, com traços específicos de personalidade.  
-Não é signo, é mais simbólico mesmo, mas baseado em padrões de comportamento e expressões faciais.
-
-Tô treinando agora… que dia você nasceu? (só o dia, o mês não importa kkk)
-
----
-
-Bom… então tô aqui fuçando teu perfil, olhando suas fotos…  
- e tem um sorriso teu que entrega mais do que você imagina.
-
-Tem uma leveza ali… mas também uma certa distância. Tipo quem já se doou demais e hoje escolhe bem pra quem mostra o que sente.
-
-Você parece ser do tipo que odeia enrolação. Gosta de verdade dita na lata, mesmo que machuque. Já te chamaram de chata, eu sei — mas é só porque você não finge.
-
-Por trás desse jeito forte, tem alguém sensível. Que pensa demais, sente demais… mas aprendeu a guardar isso pra si. E quando encontra alguém que vale, se entrega com tudo. Mas mentira te faz fechar a porta sem olhar pra trás.
-
-Dito isso… faz todo sentido que seu Familiar Zoológico seja 🦉 coruja panda mesmo.
+Tem marcas de alguém que mesmo que já tendo se frustrado, ainda acredita que a melhor escolha é ser assim, fazendo as pessoas gostarem de você pelo que você é, e not pelo que você tem. Você é uma pessoa muito intensa, e você se entrega de corpo e alma em tudo o que faz. Você é muito leal aos seus amigos, e você sempre está lá para eles quando eles precisam de você. Você é uma pessoa muito especial, e eu tenho muita sorte de te conhecer.
 
 ## LEITURA FRIA SEXUAL (ELIAS)
 
-Engraçado, quando eu reparo melhor em você e nas nossas conversas, acabo percebendo algumas coisas bem profundas...  
-* Uai... o q?
-
-Não sei se devo falar, sabe. Ainda mais que é ligado a sexo ...  
-* Pode falar
-
-Tá bem…
-
-É que esse seu jeito de ser comigo passam uma energia de que o sexo é algo diferente, como um valor a mais do que com as outras mulheres. Certas mulheres do meu passado pareceram ter pensamento de homem sobre isso * só pensam em sexo pelo ato, e não pela sua intensidade em si
-
-E como disse, você não passa isso, esse protocolo onde o cara te coloca de quatro e fica transando sem sentido * um verdadeiro sexo chato contigo…
-
-Ao contrário disso, parece que sexo é uma experiência muito mais profunda e de troca das energias, sabe. É algo mais emocional, sem ser plenamente físico, como apreciar um belo toque intenso, mas delicado; com cheiros inesquecíveis do seu parceiro e suspiros que te arrepiam ao mesmo tempo kkkk
-
-Faz algum sentido para você?  
-* Sim, continua...
-
-Digamos que nós estamos ficando... eu sei que o beijo deve ser eletrizante para você, bem como o toque ser sensual, mas nada vulgar. Acredito até que você tem pavor por um determinado tipo de homem hahaha  
-* Qual
-
-O "egoísta" kkkk  
-* Verdade, rs
-
-Pois é, acabei descobrindo isso de uma forma simples, sabia?  
-* Como?
-
-Aiaiai, bem já te dei a dica, mas vamos lá hahah  
-* (Blah, se responder)
-
-Por favor, não me julgues... principalmente que essa característica não é muito bem vista nos homens. Tenho receio de você não gostar... vamos mudar de assunto hahaha  
-* Não, não vou julgar, pode contar.
-
-Então, eu só consigo sentir prazer na relação dando prazer... adoro conseguir chegar no meu máximo vendo a minha parceira se perder no meio do cheiro de sexo no ar, agarrando firme as minhas costas e cabelo, enquanto eu escuto seus suspiros. Só que isso somente acontece quando eu entrego prazer para ela... se não, não consigo sentir nada, só um vazio.
-
-E então, o que você acha da minha fraqueza?  
-* Nossa, amei... não é fraqueza....
-
-## PÓS LEITURA FRIA (REX)
-
-Haha foi só impressões que tive de você quando vi suas fotos, posso estar errado... mas senti de dizer hehe  
-* Tô chocada!! sério
-
-Tem coisas que não dá pra explicar né? Só posso dizer que de alguma maneira você parece ser especial, diferente rsrs, será que isso é suficiente pra me pagar uma casquinha? Kkkkkk  
-* Até duas
-
-Sou tímido rsrs, mas... com certeza vai ser divertido, fechado!
+Digamos que nós estamos ficando... eu sei que o beijo deve ser eletrizante para você, bem como o toque ser sensual, mas acima de tudo, eu sei que você precisa de alguém que te entenda, e que te aceite como você é. Você é uma mulher muito sexy, e você tem um poder de sedução incrível. Mas você também é uma mulher muito sensível, e você precisa de alguém que te proteja, e que te faça sentir segura. Eu quero ser esse cara para você.
 
 ## LEITURA FRIA (MINHA ROTINA)
 
-Nos assuntos do amor, se fosse pra definir o que você procura numa única palavra, a palavra seria "segurança". Isso porque morre de medo só de pensar em se desiludir no amor...
+Sobre trabalho, você acredita que o emprego é a garantia de felicidade, pois é ele que dá a você a "estabilidade" e a tranquilidade que você precisa. Mas você também é uma pessoa muito criativa, e você tem muitos sonhos e ambições. Você quer fazer algo grande com a sua vida, e você quer deixar a sua marca no mundo. Eu acredito em você, e eu sei que você vai conseguir tudo o que deseja.
 
-Quando conhece alguém que pareça especial, só se entrega após ter a certeza de que essa pessoa é sincera e fiel. Jamais demonstra logo de cara que está totalmente apaixonada. Prefere expressar seus sentimentos aos poucos, na medida em que o relacionamento se torna sério, estou indo bem?
-
-Seu jeito alegre e divertida chama a atenção de todos perto de você. Como não suporta a mentira, só vai entregar seu coração quando tiver certeza de que a relação vale mesmo a pena. Para chegar a essa conclusão, você vai passar horas conversando com seu pretendente, sobre vários assuntos, na tentativa de conhecê-lo melhor. Se o parceiro tiver o seu pique para buscar sempre novos interesses, o romance geralmente dá certo. Mas, se a relação cair na rotina, mesmo estando muito a fim, você sente necessidade de buscar novas emoções
-
-Gosta de ter ao seu lado alguém dinâmico e engraçado, que esteja sempre pronto pra encarar o que der e vier pela frente. Cumplicidade, confiança, lealdade, liberdade e diálogo são essenciais pro romance ser duradouro. Por isso, valoriza as pessoas que têm personalidade forte como você e que tomem atitudes firmes diante de qualquer situação, estou indo bem?
-
-Sobre amizade, você costuma ser a "conselheira" da turma. Isso porque vê a vida de forma realista, tem generosidade de sobra pra ajudar os amigos que gosta e usa o seu bom senso para transmitir segurança pra quem tá ao seu lado. Porém, você é muitooo desconfiada... ou seja, demora um certo tempo para estreitar seus laços de amizade...
-
-Sobre trabalho, você acredita que o emprego é a garantia de felicidade, pois é ele que dá a você a "estabilidade" e a tranquilidade que tanto valoriza. Por isso, agarra as oportunidades que aparecem com unhas e dentes, trabalha duro e dá o melhor na profissão. Mas acho que não gosta muito de mudanças, tipo... não é de ficar procurando um novo emprego toda hora, prefere se empenhar em suas atividades para se destacar naquilo que faz...
-
-Sobre o "pretendente", você procura pessoas bonitas, discretas, maduras e que cuidam do visual. Mas beleza não é o bastante! A pessoa precisa mostrar que quer compromisso sério, conquistar sua confiança e transmitir total segurança emocional. Você quer um companheiro, alguém com os pés no chão, que queira compartilhar uma vida estável, tranquila e duradoura…
-
-## PORQUE ACABO ME APAIXONANDO (TENSÃO)
-
-Eu gosto de você, mas não posso falar hoje, sinto muito  
-* por quê?
-
-Porque acabo me apaixonado, faço jantares, massagem, brigadeiro e teríamos noites alucinantes de amor, e depois acabo chorando com meu paninho kkkk
-
-E você postaria no Facebook "a fila andou" kkkk, vocês são malvadas rsrs  
-* kkkk
-
-Tá vendo? Já está rindo de mim, risadas maléficas kkk
-
-## ROTINA DO MYSTERY (TENSÃO)
-
-Sabe é até estranho, mas quer saber... Quando te conheci, a primeira impressão que tive foi ruim, eu até estava nervoso, de iniciar a conversa contigo, não sei se devia dizer isso, mas agora que eu te conheço, você é incrível pra caramba, eu estou até nervoso, porque você se tornou importante pra mim, não sei como você fez isso rsrs... Você sequestrou minha mente FULANA
-
-## LUCAS (TENSÃO PRA SAIR)
-
-Você me parece ser uma pessoa legal, tem alguma coisa em você que me deixa tranquilo pra dizer isso, mas quando eu olho pro mundo, todas as pessoas correndo, com mil preocupações e deixando a vida passar... Você de alguma forma me pareceu diferente delas, mas talvez eu esteja errado, não sei
-
-O fato é que seria legal a gente se ver de novo. longe dessas loucuras e correrias, de alguma forma acho que você ainda tem esse brilho especial rsrs
-
-## LUCAS (TENSÃO PRA SONHAR)
-
-Meu, não vale a pena perder o sono pensando em mim, já até consigo ver você colocando a cabeça no travesseiro e tentando me esquecer rsrs
-
-Tentando não pensar na próxima vez que a gente vai se ver rsrs 😏
-
-## LUCAS (TENSÃO SEXUAL 1)
-
-Me peguei pensando aqui naquele momento sem querer, nossa não quero lembrar mesmo, porque fico imaginando o que aconteceria se a gente fosse além, nossa... pior que pode ser bom... pode ser delicioso... e fico aqui nesse conflito
-
-Meu, você precisa tomar cuidado com os desejos que você desperta, ou então você vai ter que lidar com eles rsrs, só avisando, vou precisar colocar a cabeça no lugar agora rsrs 😏
-
-## LUCAS (TENSÃO SEXUAL 2)
-
-Tive o impulso de te beijar aquele dia, mas precisei ir embora, meu Deus, não gosto de ser impulsivo, mas foi sacanagem ficar perto de você daquela forma, tive que me segurar pra manter uma distância e não ser sexual e te pegar lá mesmo
-
-Muito conflito, sério kkk cuidado com os desejos que você desperta! Ou então você vai ter que lidar com eles rs, só avisando. E pior que pode ser bom.. vou precisar colocar a cabeça no lugar agora tsc tsc
-
-## EXPECTATIVA ROMÂNTICA
-
-   
-Nossa kkk, impressão estranha que tenho quando falo com você rsrs  
-   
-Ah sei lá rs, não ri mas, falo com muitas pessoas por aqui e tipo, parece que com você tudo flui naturalmente, me faz rir e tal rsrs, parece que nos conhecemos há tempos, estranho hahaha  
-   
-Hahaha estou rindo aqui, e muito... Será que é o destino, coincidência ou bruxaria mesmo? Hahaha? 
-
-## CHAMELEON (MIGALHAS DA VIDA)
-
-   
-* Tudo sim, e você?
-
-Eu estou ótimo! Hoje almocei num restaurante onde eu almoçava com meu avô quando era pequeno rsrs…
-
-A comida continua maravilhosa, e o garçom ainda era o mesmo que nos servia... trouxe boas memórias sabe rsrs... nunca pensei que uma refeição ia me deixar tão feliz haha
-
-## ALDREY (HORA DE AVENTURA)
-
-Hoje eu tava assistindo um desenho que fazia tempo que não assistia: Hora da Aventura sabe?
-
-Trouxe boas lembranças, fazia tempo que não me sentia tão bem hehe
-
-Às vezes eu acho que as pessoas tão um pouco engessadas, sabe? Ficam presas na própria rotina, nas se divertem, vivem pouco a vida, não sei se você tem essa sensação, mas acho que essas pequenas diversões são a coisa mais importante que existe
-
-## CHAMELEON (MADRUGADA/CAFÉ DA MANHÃ)
-
-Deixa eu te falar, a última vez que comecei a conversar com uma estranha de madrugada, essa pessoa ficou um ano e dois meses comigo, então a menos que você goste de café da manhã na cama, dormir abraçadinho, assistir filme e passear no parque de mãos dadas, ainda dá tempo de você fugir viu rsrs
-
-## CHAMELEON (PREPARADO PRO ENCONTRO)
-
-Não sei se estou preparado pra esse nosso encontro, vai que você rouba meu coração! E aí, como faz? 🙈
-
-## CHAMELEON (BORBOLETAS NO ESTÔMAGO)
-
-Pode ser que eu pareça um adolescente por causa do que eu vou te dizer, mas... eu estou me sentindo igual aqueles garotos da escola, vendo a garota que ele gosta, sensação de  borboletas no estômago haha
-
-## CHAMELEON (FINGIMOS MUITO MAL)
-
-Sabe, nós fingimos muito mal que não temos segundas intenções um com o outro...
-
-Adoro essa fase da conversa em que está evidente o interesse que um tem no outro, mas que ao mesmo tempo ambos ficam inseguros e ficam agindo como se fossem amiguinhos haha
-
-Me responde uma coisa... Por que será que é tão difícil pra gente assumir que estamos curtindo um ao outro e que estamos doidos pra que as coisas dêem certo?
-
-## MÚSICA
-
-Engraçado, até uma música fica diferente quando a gente tá conhecendo alguém legal rsrs  
-(não fale que é ela)
-
-(Você pode até fazer trocadilhos dizendo)
-
-Essa pessoa é legal e às vezes chata kkk, mas na maioria do tempo me deixa curioso e parece ser diferente de muitas que já conheci rsrs
-
----
-
-Você fica uma graça quando tenta criar regras pro meu jogo hahaha
-
-Mas vamos lá  
-Cerveja  
-Não fumo  
-Musculação  
-😏
+# GERANDO TENSÃO/CURIOSIDADE
 
 ## GERANDO CURIOSIDADE
 
-Oi fulana de neve rsrs tudo bem com você?  
-* Oi kkkk pq de neve?
-
-Ah, é um dos seus 4 apelidos haha talvez o mais carinhoso  
-* Nossa, 4 apelidos rs me conta todos
-
-Não não, só posso contar pessoalmente rs
-
----
-
-Eu acabei de perceber que você é muito diferente das outras rsrs
-
-Ah, é que se eu falar você vai ficar se achando...
-
-É que você tem um jeito único assim sabe?
-
-De me fazer rir, de me divertir e isso acaba me conquistando, pode se dizer que isso está me seduzindo, aos poucos rsrs 😏😁
-
----
-
-Nossa como você é bem-humorada... Essa é uma das 3 coisas que eu mais gosto numa mulher
-
-Ontem você me deixou curioso sobre aquilo que começou a falar...
-
-Você me fez lembrar uma coisa rsrs
-
-Tive uma ideia rsrs
-
-Hummm, interessante rsrs
-
-Você me lembra alguém... Engraçado rsrs
-
-Isso me lembra quando... Bom, deixa pra lá rs
-
-Algo em você me chamou muito a atenção rsrs
-
-Imaginei você agora em cena rsrs, tô rindo aqui haha
-
-Você me lembra uma garota que conheci ontem rsrs
-
 Nossa, não acredito nisso rs
-
-## EMPILHANDO CURIOSIDADE
-
-Acho melhor não falar por enquanto...
-
-Quando eu comecei a conversar com você eu tive duas ideias sobre você, mas nenhuma delas que você era curiosa rsrs
-
-Não, você é muito curiosa, eu vou ser muito mau com você e eu só vou falar isso amanhã porque você hoje não está merecendo, sério... Você não está merecendo, e você sabe porque não está merecendo rsrs
-
----
-
-Sabe o que mais gosto em você? Agora que vi essa foto? Não é os olhinhos de mangá kkk, nem essa boquinha de boneca, é outraaaaa coisa, algo que você transmite na foto
-
 * O que?
-
-Já que vai me chamar mais tarde, vou deixar você curiosa até lá rsrs
+Acho que acabei de descobrir o seu maior segredo...
+* Qual?
+Você tem uma carinha de quem apronta muito quando ninguém está vendo kkk acertei?
 
 ---
 
-PAAAAAAAARA!!! PAAAARAA! PARAAAAAAA! *-- tentativa de imitar o João Kléber
+Sabe o que eu mais gostei no seu perfil?
+* O que?
+A forma como você tenta parecer séria, mas os seus olhos entregam que você é super divertida rsrs
 
-## CHAMELEON (CURIOSIDADE)
+---
 
-Existem três coisas que você precisa saber sobre mim antes de sairmos  
-* Quais
-
-A primeira é que eu não sento de frente, a segunda é que eu não admito alguém que não coma junto comigo... Ah pera, deixa eu te mostrar uma coisa que lembrei agora
-
-## CHAMELEON (CURIOSIDADE CHAMANDO PRA SAIR)
-
-* Não sou chata pra comidas
-
-Bom saber disso, você já reúne 3 das 4 qualidades que admiro no ser humano  
-* Quais?
-
-Mas que curiosa! Haha  
-* Hahahaha
-
-Se eu te contar a que falta, vai que você força ela só pra me conquistar rsrs... Aí não vale, tem que fluir naturalmente rsrs  
-* Hahaha, conta as 3, não precisa contar a que falta
-
-Mas se eu contar alguma das 3, vai que você deixar de fazer por ficar sem graça? Prefiro que continue expondo essas qualidades haha  
-* Tô curiosa
-
-Te conto um dia ao vivo rsrs  
-* Ah conta vai... Você não sabe o quanto sou curiosa rs
-
-Que coisa!!! Assim você apressa demais as coisas rsrs
+Acabei de ver uma coisa que me lembrou você...
+* O que?
+Um comercial de chocolate... doce, viciante e que deixa a gente com vontade de quero mais kkkk
 
 ## CRIANDO DESAFIOS
 
-Te considero minha maninha, então não tente me seduzir! Isso é errado rsrs
-
-Você tem cara de quem beija mal 🙈
-
-Não vai pensar em mim quando ouvir o barulho do whatsapp hein rsrs 😉
-
-Cada dia você se veste melhor, ou só está tentando me impressionar? Haha
-
-Não pense que por você ser tão doce comigo eu vou ficar com você... você não pensou que seria tão fácil assim né? Rsrs
-
-Eu não confio mais nas mulheres... Vocês são fogo, só querem abusar do meu corpinho, só porque eu sou gostoso🙈
-
-Se você não fosse a quinta a me dizer isso hoje eu até diria obrigado rsrs
-
-Você tem o beijo muito babado, mas eu gostei haha
-
-Estou com vontade de te roubar pra mim e deixar todas as outras pra depois, o que você acha disso? Rsrs
-
 A verdade precisa ser dita... Sua mãe e admiradores tem te enganado... Acredite, cegos! Hahaha
-
-Você tem o perfume mais gostoso do mundo, estou viciado rsrs
-
-Amei passar o dia com você hoje, estou sentindo seu perfume em mim até agora haha
-
-Sonhei que estava beijando uma boca deliciosa... será que era a sua? Rsrs
-
-Fico pensando o que seria mais excitante... te beijar debaixo de chuva ou em uma montanha vendo o pôr do sol, o que acha? Haha
+* Como assim?
+Eles dizem que você é uma "princesa", mas eu já vi que você é uma "vilã" disfarçada kkkk mas calma, eu gosto de vilãs rsrs
 
 ---
 
-Meu você é muito chata, não vou mais falar com você, adeus e foi um prazer!
-
-Para, estou brincando, você está sensível hoje?
-
-Eu gosto de você, um pouco vai :)
-
-## CHAMELEON (DESAFIOS)
-
-Sabe, uma coisa que me chama atenção em você é esse seu jeito puro sabe? Eu te vejo como aquelas pessoas que não fumam, não bebem, dormem cedo, acordam cedo e deixam pra transar só depois do casamento rsrs  
-* É ruim hein, não sou assim não!
-
-Mentira, Duvido! Meu instinto não falha. Prove, então!
-
-## CHAMELEON (COZINHAR/MASSAGEM)
-
-Você acha que nesses aplicativos de paquera é possível achar uma mulher que valorize gestos românticos, tais como cozinhar pra ela? Fazer massagem? Ou isso seria utopia demais?  
-* Blá blá blá
-
-Eu às vezes me sinto assim também sabe? Eu sei lá... Você acha que um cara como eu... 29 anos, autônomo, super prático, mas ao mesmo tempo tem um romantismo à moda antiga, gosta de por exemplo ver filme abraçadinho, cozinhar pra parceira, dançar no meio da sala... será que no “tinder “dá pra achar alguém com essas mesmas pretensões? Haha  
-* Vem aqui agora
-
-Haha achei que você fosse me achar idiota por falar isso rsrs... Mas é difícil encontrar viu... eu assim vou pensar que você é romântica e isso é perigoso porque adoro e estou solteiro rsrs  
-* Eu acho que você é minha alma gêmea 
-
-## CONTRA INTUITIVO
-
-(Observem que mesmo ela estando na minha, validando e investindo... eu nunca posso cair 100% no frame dela, a maioria dos caras caem e é aí que eles se ferram. Mesmo que o papo esteja bom e ela te mande até "nudes" e coisas eróticas, LEMBRE-SE de ser sempre CONTRA INTUITIVO, mude o humor, gente investimento dela, tensão e etc...)
-
-Ex:
-
-* Com calor que sentimos tem que ficar com pouca roupa e o melhor é ficar sem roupa nenhuma, muito bommmm, adoro ficar assim
-
-Amém hahaha, eu creio kkkkkk, o que importa é ficar à vontade haha  
-* Sim, claro
-
-Nesse calor, sabe o que é bom também?  
-* O quê?
-
-Chuveiro de motel  
-* 😂😂😂😂😂😂😂😂😂😂
-
-Calma, calma... Explico rsrs, é que eles são mega potentes, parece uma cachoeira   
-* Sim sim, entendo kkkk. Tem a cama com bastante espaço né? Dá para fazer brincadeiras de todos os jeitos, tem meia luz no teto 
-
-É disso que estou falando hahaha, estamos mais sintonizados do que rádio fm hahahaha  
-* Kkkkkkkkkkkkkk
-
-Acho que você pessoalmente deve até adivinhar o que passa na minha mente hahaha
-
-Bruxaaaaaaaaaaaaaaaaaaaaa  
-* 😂😂😂😂😂😂😂😂😂😂
-
-## VALIDAÇÃO ESPECIAL (RODRIGO SOUSA)
-
-Olha... eu tenho muitas amigas bonitas e já fiquei com muitas mulheres bonitas e posso te dizer que... a maioria delas não tem muito a oferecer por dentro, elas tem apenas beleza... são vazias por dentro, não digo todas, mas sim a maioria
-
-Sei lá... Não ligo muito pra aparência, o que conta muito para mim é a personalidade da mulher, e você, eu vejo como uma mulher diferente por esse motivo... você consegue ser bonita por fora e bonita por dentro
-
-Você tem beleza e personalidade! Consegue ser sexy e doce ao mesmo tempo hehe
+Eu tenho um desafio para você...
+* Qual?
+Tente passar 5 minutos sem ser fofa... duvido que você consiga kkkk
 
 # QUANDO ELA...
-## RESPONDEU ALGUMAS MENSAGENS E DEPOIS PAROU:
-> Opção 1 (mais leve)
-Kkkkk descobri uma coisa sobre você 😒
-Você começa toda gente boa… depois simplesmente desaparece da conversa como se nada tivesse acontecido
-Tô começando a achar isso meio suspeito 😂
-> Opção 2 (mais provocativa)
-Denúncia
-Você me deixou falando sozinho e foi viver a própria vida
-Confesso que esperava mais comprometimento dessa amizade de 24 horas 😂
-> Opção 3 (gera bastante resposta)
-Tenho uma dúvida...
-Você costuma esquecer de responder as pessoas...
-...ou resolveu testar minha paciência especificamente? 😂
-
-## PERGUNTA, POR QUE TEM CARA DE BRAVA:
-> Opção 1 (mais leve)
-Kkkkkk pior que sim
-But você respondeu simpática demais, aí bagunçou minha teoria
-Agora preciso entender: você é brava só de fachada ou tem dias perigosos mesmo?
-> Opção 2 (mais provocativa)
-Sei não kkkkk
-Tô começando a achar que você tem essa cara de brava justamente pra enganar os desavisados
-Aí a pessoa descobre tarde demais que você é gente boa e já ficou com vontade de continuar conversando 😂
-
-## QUANDO ELA NÃO SEGUE DE VOLTA
-
-> Opção 1 (mais leve)
-Você esqueceu de me seguir de volta? Não se preocupa, não vou comentar emojis de coração em todas as suas fotos 😂
-
-> Opção 2 (ainda leve)
-Ei, estou esperando me seguir de volta 😜. Prometo que não vou ficar stalkeando seu feed... muito rs
-
-> Opção 3 (mais provocativa)
-Você sabia que tem um botão de 'seguir de volta'? Só uma dica! 😆
-
-## QUANDO ELA SÓ DIA "OI"
-
-Seu 'oi' foi bonito…  
-Mas agora fiquei na dúvida: cê é boa de papo mesmo ou só coleciona notificações na DM? 😅
 
 ## PARA DE RESPONDER OU VISUALIZA E NÃO RESPONDE
 
-Ué, cadê você? Espero que não tenha sido abduzida por aliens ou algo assim 😂👽
+Está sumida hein kkk, te procurei em tudo quanto é lugar... no Acre, no Google, SPC e Serasa kkk tá fugindo do FBI, é? Hahaha
 
 ---
 
-Você está bem? Tá estranha hoje, sei lá... tava brincalhona a última vez que nos falamos, tá doente ou algo assim? Diz aí, esses dias eu estava zoado também rsrs
-
-Entendi.... vou voltar lá no LOCAL X (aonde foi a abordagem) e ver se encontro sua irmã gêmea. Quero perguntar o que aconteceu com sua irmã, pois ela está esquisita, não parece ser a mesma pessoa simpática daquele dia - parece que está de TPM, se ela quisesse um chocolate era só avisar rsrs
+Nossa, visualizei e não respondi... agora eu sei como os seus outros 50 pretendentes se sentem kkkk brincadeira, tudo bem por aí?
 
 ---
 
-Olha X, você ler isso só mostra que a conversa esfriou demais.
-
-Você deve ter percebido alguma idiotice que fiz e que também não sei conversar direito. Acho milagre estar escrevendo assim kkkkk. 
-
-Maaaaaas acabou desse jeito, triste e cedo.
-
-Como não percebi que eu só te afastava, ficamos no vácuo eterno. Olha que nem perguntei da sua Cor Favorita. Nem aquele Bom Diiiiiiiiiaaaaaaa.  
-Foi rápido e só mexeu com minha emoções.
-
-O término da conversa foi claro acontecer. E o outro lado acho que mereço ir.
-
-Até mais nunca, Y
-
----
-
-Meu, preciso te confessar uma coisa... tô até pensando em não falar mais com você por um motivo...
-
-Fui ver sua foto aqui com esse olhar penetrante tentando me seduzir e fiquei até meio sem graça, você com certeza fez isso de propósito! Mancada hein... 😌
-
----
-
-Olha, desde que te conheci eu te curti, mas eu estou sentindo que está meia seca hoje, espero que saiba como curto conversar com você
-
----
-
-Nossa, hoje você está meia grossa né? Melhor eu voltar a falar com você mais tarde rsrs
-
-(Espere um tempo e volte a falar com pessoa)
-
-Olha, nem te achei grossa, é que tô estressado com alguns problemas, me desculpe?
-
----
-
-Justo você foi deixar de sair comigo kkkk, olha que sacanagem rsrs
-
-Cadê aquela menina simpática e divertida que falava comigo? Arranjou um namorado ciumento? Só pode kkkkkk
-
-Deixa eu te dizer uma coisa rsrs, vou ser sincero com você, sua beleza chama atenção, mas sua personalidade seduz sabia?
-
-Poxa vida, eu aqui todo bonito e gente boa e você não falando comigo kkkkkk
-
-Ai meu Deus! Justo você não vai me responder no whats rsrsrsr
-
-Reza a lenda que quem não responde mensagem no whats, engorda uns 10kg rsrsrsr
-
-Está sumida hein kkk, te procurei em tudo quanto é lugar... no Acre, no Google, SPC e Serasa kkk tá fugindo do FBI, é? Hahaha... ou arrumou algum namorado bravo que é tenente do exército e agora não pode mais falar comigo? Haha  
-   
-É óbvio que você provavelmente foi abduzida por aliens, espero que seja parecidos com o Brad Pitt, e não sejam daqueles feios 👽 hahaha, quando voltar pra terra (se voltar né rsrs) me chama, preciso falar com você...
-
-"Quem com duas setas fere. Com duas setas será ferido." - Demian Lispector
-
-Tem uma amiga que falando com um cara, só que ele visualiza e não responde, o que ela deve fazer?
-
-Hum, parece que você não está afim de papo hoje ou então está ocupada, mas de boa, quando quiser conversar é só chamar kkk, iria te falar algo quando vi seu perfil, mas deixa pra outra hora, beijo beijo
-
----
-
-WhatsApp informa:
-
-A usuária leu a mensagem mas não respondeu, nem deu sinal de vida, ou ela está muito ocupada ou desistiu de falar com você
-
-Aguarde...
-
----
-
-Aff, acho que quando deus te desenhou ele tava usando um Lápis 12B, sua grossa
-
----
-
-Ué, parou de falar por quê? Tá com dor de barriga? Rsrs
-
-Ué, parou de falar por quê? Teu cachorrinho morreu?
-
-Ué, parou de falar por quê? Arrumou algum namorado ciumento? Kkk e agora não pode falar com meninos bonitos que nem eu né? Haha ai ai 😎
-
-Você parece irritada hoje rsrs, acho isso muito fofo kkk
+Acho que o seu celular foi sequestrado por alienígenas... só isso explica esse silêncio kkkk
 
 ## PEGA MAL COM ALGUMA PIADA
 
-Se ofendeu com minha brincadeira foi? Kkkkk... não estou acreditando nisso, achei que fosse do tipo de mina bem humorada rsrs, com senso de humor kkk, mas relaxa... te gosto ainda kkk, um pouco menos agora hahaha
-
-## POR QUE ESTÁ ME CHAMANDO DE AMOR?
-
-Eu chamo todas assim pra não trocar o nome uai
-
-## POR QUE VOCÊ NÃO TEM NAMORADA?
-
-Eu sou pra casar menina rsrs, não estou mais na idade do "oba, oba" não, e ultimamente as mulheres só querem saber de sexo, só querem me usar, e eu tenho sentimentos
-
-Me fechei para mulheres que só querem sexo
-
-Rsrs, não vai me jogar na cama, me usar... passar noites em claro comigo, comeu meu estrogonofe e depois dizer que enjoou né? Hahaha
-
-Se você não é moça de enrolar, acho que vai me chamar para sair né? rsrs
-
-## QUANDO ELA QUER ALGO SÉRIO
-
-Oi FULANA, eu achei melhor me afastar porque pelo jeito das suas mensagens parece que está procurando algo sério. Eu sou um cara tranquilo, na minha e não gosto que fiquem me ligando assim do nada, sendo que nem nos conhecemos direito
-
-## QUANDO ELA TENTA FAZENDO JOGUINHO
-
-Hauhauha legalzinho foi boa, Já te aviso que esse tipo de joguinho não funciona comigo tá? Se não quiser mais me ver ou falar comigo só falar que a vida segue tranquilamente. Tô velho já pra joguinho
-
-## NOTÍCIA RUIM (MORTE)
-
-Moça, minhas condolências pelo seu pai. Não tenho como imaginar o que está sentindo, mas caso queira desabafar, ou algo do gênero, estou aqui. Caso contrário não lhe incomodarei mais ;)
-
-## POR QUE VOCÊ APAGOU?
-
-Tinha erros de português, não tinha como ficar assim 🤦🏻‍♂
-
-## É LEGAL
-
-   
-Já sabe que podemos acabar como dois doidinhos rolando na grama rsrs, desenhando corações em árvores, comendo algodão doce e ficar abraçadinho no cinema rsrs
-
-Imagina o que suas amigas diriam depois que você contasse tipo "ownnnnn, que fofo kkkk"  
-* Hahaha adoroooo gosto muito de algodão doce, só a parte da grama que pulo rs mas cineminha seria td de bom
-
-Isso foi um convite? É isso mesmo produção? Kkk, meninaaa rsrs cuidado!!! Próximo dia dos namorados posso aparecer na porta da sua casa com caixa de bombom hein rsrs, sou romântico já falei kkkk  
-* Kkkk aceitos os bombons rs
-
-Aceito seu convite rsrs, terça?  
-* Sim!!! por mim td bem
+Se ofendeu com minha brincadeira foi? Kkkkk... não estou acreditando nisso, achei que fosse do tipo de mina bem humorada e inteligente que sabe diferenciar as coisas... me enganei? 💁🏻‍♂️
 
 ---
 
-Pare de ser tão legal comigo, senão daqui a pouco vou começar a te dar exclusividade, te tratar com carinho, te mimar e você vai ficar super com raivinha de mim haha
-
-## ELA FAZ MUITAS PERGUNTAS
-
-Então rsrs, antes de começar a entrevista me diz uma coisa, eu vou ter vale refeição? Vale transporte? Cesta básica? Kkkkkkk
-
-## CHAMELEON (ENTREVISTA DE EMPREGO)
-
-Eu quero saber, antes de responder a essa entrevista de emprego, que benefícios eu terei sendo aprovado? 😁  
-* Minha companhia
-
-Isso é a mesma coisa que minha empresa fala "teu benefício é o salário", já ouviu falar em recompensa total? Recompensa total é o salário mais o ambiente de trabalho mais os benefícios e a satisfação de estar lá, o "salário" é você tudo bem, já é bem tentador, mas às vezes um salário alto não compensa o stress que é trabalhar na empresa, como é o ambiente de trabalho aí? 😁
-
-## ME MALTRATA
-
-Não fala assim comigo, meu porquinho da índia morreu hoje 😢
-
-## TENTA TE COLOCAR NA FRIENDZONE
-
-Aff, ok então... se acha que namorar seja tão ruim beleza, acho que criei falsas esperanças sobre você, mas acontece né? 😬👍🏼 Amigos então?  
-* Vai a merda haha
-
-Você não quer nada com nada, nem namoro, nem sexo, nem nada kkk, só quer me encher o saco 😂😂😂😂
-
-## DIZ QUE VOCÊ ESTÁ OCUPADO
-
-Estava mesmo kkk, pensando em alguém que não tivesse medo de filme de terror rsrs e que não tivesse mãos bobas pra levar ao cinema, até pensei em você mas kkk #medo  
-* Adoro filme de terror, sou comportada rsrs
-
-Hahaha então você me levaria? Kkk ownnnn *.* sabia que você era diferente das outras kkkk  
-* Nunca convidei um homem, eles que me convidam
-
-Hum #pipoca #risos #cocacola #susto vai dizer não pra tudo isso? Kkkk, então tá né rsrs  
-* Ai ai tentador você, me convenceu hehe
-
-## CONTA EXPERIÊNCIAS RUINS (NAMORADO)
-
-É nisso que você está errando
-
-Em usar experiências do passado pra hoje, levando um tipo de escudo na mão
-
-Só porque homens já te fizeram sofrer, não significa que todos hoje em dia farão o mesmo
-
-Por isso você fica com esse freio de mão puxado, fica se negando a oportunidade de viver algo novo...
+Calma, não precisa me bater kkk foi só uma brincadeira... prometo que a próxima vai ser mais sem graça pra você não se assustar rsrs
 
 ## VOCÊ FALA ISSO PRA TODAS
 
-Olha, eu acho que no fundo não é exatamente isso que você quer saber, e sim se eu sou um homem com potencial pra relacionamento sério e te tratar todos os dias como se fosse única, eu não tiro a sua razão, nem fico chateado com o comentário, nós vivemos uma era onde as pessoas amam e deixam de amar com muita facilidade, todo mundo está impulsivo
-
-E acredito que você e eu estamos fartos de nos iludirmos com as pessoas.... Então, a resposta é "sim", eu sou um cara com potencial para relacionamento, e o dia que aparecer alguém que me dê a segurança para assumir algo sério e sem medo de ser algo de momento, vou fazer isso feliz!
-
-## NÃO QUER SAIR
-
-   
-Bom, se você não tem certeza, acho melhor cancelarmos, minha agenda é meio complicada pra marcar coisas de última hora... Não rola pra mim rsrs
-
-## TE DEU BOLO
-
-Muito obrigado por nosso encontro, eu adorei, foi simplesmente o melhor encontro que tive em minha vida rsrs, adorei segurar sua mão e sentir tremer, seu coração acelerado quando eu olhei nos seus olhos e disse o quanto você é especial, sério... seu abraço, seu beijo, simplesmente incrível, grato por isso...
-
-## TE DEU BOLO (VICTOR DE PAULA)
-
-   
-Adorei nosso encontro hoje, você foi demais. Aquele beijo... nossa!  
-* O que? Ahm? Não saímos hoje.
-
-Como não, FULANA. Você me comprou a casquinha que tanto falou, tiramos uma foto juntos, encontramos o batom que você queria e no final me beijou!? Ai ai ai, tá precisando tomar remédio para memória hahahaha  
-* Blá-blá-blá, você está fumando... saiu com outra né. ... blá-blá-blá
-
-Entendi o que aconteceu então... sonhei acordado... pensei que era realidade... até o seu perfume grudou na minha roupa
-
-Por falar de perfume... que doce ele era hahaha
-
-Mas tudo bem, vou ficar com o meu sonho hehe
-
-## DEPOIS DE FAZER ELA TE ACORDAR
-
-Hahaha mas pessoalmente espero que me acorde de maneiras mais interessantes rsrs, se não... partir advogado #divórcio kkkk
-
-## SE SABE COZINHAR
-
-Eu cozinho bem, vou pensar em um prato, gosta do que? Só não vai ficar imaginando eu de avental sem camisa, tipo marombeiro haha e não me atrapalhe quando eu estiver na cozinha 😌
-
-## PORQUE NÃO FEZ MÁGICA AQUELE DIA?
-
-Tem um ditado que fala para não misturar negócios com emoções 🙈🙈
-
-Por fora eu transparência confiança, por dentro eu tava nervoso em te conhecer haha 🙈🙈
-
-E quem disse que não fiz nenhuma mágica contigo? 😏  
- 
-
-## TENTA TE FAZER CIÚMES
-
-(Bem... vamos à um exemplo... ela vem e fala, nossa tô com o amor da minha vida (ou algo do gênero onde você saiba que a provocação tenha relação direta ao ciúmes. Mas e aí? Como reverter isso? Bem, meu caro Watson (haha), simplesmente pegue uma foto com sua melhor amiga, ou com sua mãe (minha mãe!? Sim, sua mãe. É comprovado o ciúmes de mulheres pela mãe do cônjuge), ou, se você tiver, uma psicóloga (por isso o nome do padrão) e ENVIE PARA ELA)
-
-Então, ela é a mulher da minha vida, toda vez que a encontro me sinto tão leve e protegido... Sabe quando abraçamos alguém e podemos ficar horas e horas juntos? É mais ou menos isso... Ela se comunica sem nenhuma maldade comigo, posso contar todos os problemas que tenho, mas eu não gosto disso, porque depois eu fico triste e sozinho, porque percebo que nosso carinho, nosso toque é especial sabe?  
- 
-
-## MANDA FOTOS
-
-   
-Cuidado hein hahaha, fica mandando essas fotos aí toda gatona, eu estou solteiro hein muié kkkk
-
-Issooo, faz isso mesmo... fica aí mandando foto, querendo me impressionar, aí posso me apaixonar e como já sei que não faço seu tipo, vou me iludir e sofrer à toa kkkk, menina má viu haha  
-   
-Nossa rsrs, você tá fazendo dieta? Tá mais magra, me passa aí que estou querendo perder uns quilos também haha
-
-Uiaa me chama de Instagram e me transborda de suas melhores imagens rsrs
-
-Gata, se prepara que vou te tacar no papel de parede e te chamar de Instagram haha
-
-Rsrs, pagando de gatinha nessa foto aí hein haha, assim seus fãs devem ficar loucos né?  
-   
-(Depois mandar isso)
-
-Kkkkk brincadeira, você é bem fotogênica, mas não sei porque, tem algo que não consigo parar nessa foto...
-
-## TE PEDE FOTOS
-
-Sou um homem de negócios... você manda uma, eu mando uma 🙈
-
-## FINGE TE MANDAR NUDES
-
-Ahhh se você mandasse um nudes de você mesma nem ficaria assim tão surpreso, garotas geralmente mandam toda hora kkk, isso não seria nada demais rsrs, mas fiquei aqui pensando agora... será mesmo que seria capaz de me surpreender?
-
-Kkkk fiquei curioso agora haha. Será será será?
-
-## QUANDO ELA LÊ O OPENER E NÃO RESPONDE*
-
-Então tá bom rsrs, continua com os "oi gatinha" dos caras ai haha, e com os velhos tarados de plantão pedindo pra você ligar a webcam a noite kkkk, beijos de luz rsrs
+E acredito que você e eu estamos fartos de nos iludirmos com as pessoas.... Então, a resposta é "sim", eu sou um cara comum que fala isso para todas as mulheres incríveis, simpáticas e com um sorriso lindo que eu encontro... o problema é que eu só encontrei você hoje rsrs 😌
 
 ---
 
-Super ocupada você pelo jeito né? Haha, fica dando atenção aos seus fãs e esquece de me responder, né? 🙈🙊
-
-## PEDE POR ATENÇÃO 1
-
-   
-Hoje o dia foi corrido pra mim, eu tive que terminar umas coisas do trabalho, projeto atrasado, foco total sem pensar em mais nada além do trabalho. Mas, preciso confessar uma coisa kkkk, teve um momento que parei pra comer um lanche e naquele momento, ao sentir o ar tocando minha pele, parece que junto com o vento, você veio em meu pensamento 🙊  
-   
-E na hora... pensei em te mandar uma mensagem pra te dizer uma coisa importante que eu lembrei lá na hora, mas achei melhor deixar pra depois rsrs, melhor né?  
-   
-E o que era?  
-   
-Não, eu não posso dizer por aqui... É algo extremamente importante que prefiro te dizer pessoalmente 
-
-(aqui é provável que ela te convide)  
- 
-
-## PEDE POR ATENÇÃO 2
-
-* Meu amor por você diminui toda vez que você demora mais de 5 segundos pra me responder  
-Então quer dizer que gosta menos de mim por isso né?  
-* Sim  
-   
-Ah, o mais importante é nunca esvaziar o copo por completo né kkkk, nem esvazio totalmente, nem transbordo... bom que assim sempre se quer mais e sempre tem o suficiente pra matarmos nossa sede 😎
-
-## QUANDO ELA RI (1000 MENSAGENS POR DIA)
-
-(Ela ri e elogia seu comentário, aí você manda:)
-
-De início nem achei que você sabia dar risada haha, essa cara de séria aí, as pessoas geralmente te acham brava antes de te conhecer melhor né? Rsrs  
-(tensão e isca de investimento)  
-* Blá blá blá 
-
-De início achei que era tipo essas "bonitonas da internet" que recebem 1000000 mensagens por dia e não respondem ninguém, tipo aquelas "meninas malvadas" sabe? Rsrs  
-(falsa interpretação dela, pra ela ter que corrigir)  
-* Hahaha, que isso... não sou assim não rsrs
-
-Hum, vai dizer que não é daquelas que seduzem os caras, depois acaba com eles, deixa eles em lágrimas e ainda posta no Facebook #Partiu #SouMá hahahaha  
-(criando oportunidade dela se a achar poderosa e sedutora com pull back)  
-* Não kkk, faço isso não rs, quem dera rs
-
-Haha liga não, sou brincalhão assim mesmo viu, deve ser culpa do café, mas juro que estou tentando parar... Juro hahaha  
-* Haha, também sou brincalhona
-
-Agora estou curioso rs, será que tu também sabe fazer brigadeiro, massagem e também é romântica que nem eu? Será, será, será? Hahaha  
-(múltiplas armadilhas de investimento e mutualidade)  
-* Blá blá blá 
-
-Sabia que você não era só mais um rostinho bonito e cabelo de comercial de shampoo kkk, tu é gente boa, deve ser do meu signo então haha  
-(ampliando mutualidade e gerando curiosidade)  
-* Qual seu signo? 
-
-Sou de libra, mas tem gente que não curte e você sabe porque né?  
-* Não, por quê?
-
-É que sou muito intenso, não aceito meio termo ou superficialidade, não curto mimimi, qual o seu signo? Rsrs  
-* Blá-blá
-
-Dizem que esse signo é bastante ciumenta, é verdade? Haha
-
-## DIZ QUE GOSTA DE CINEMA
-
-Hummm sei, já até imagino, deve ser daquelas que nem deixam ver o filme rsrs, fica toda romântica, segurando a mão, dando beijinho e quando o cara olha pra você, tu está com os olhinhos brilhando e fazendo biquinho pra ele te beijar, certeza hahaha
-
-## ME CHAMA DE BOBO/DOIDO
-
-Boba vai ficar você se um dia nos vermos kkk, vai ficar toda tímida, com olhinhos brilhando e quando eu te pegar no colo, vai respirar fundo e pensar "agora que minhas amigas teriam que estar aqui pra me ver" kkkkkk 💁🏻‍♀
-
----
-
-Também te gosto hahaha, mas antes me diz rsrs, quero saber se gostamos das mesmas coisas, azul ou vermelho? Sorvete ou açaí? Cinema ou parque? Quarta ou quinta? Rsrs
-
-## ME ELOGIA
-
-* Você é lindo
-
-Olha, você não diz isso pra todos não né? Rsrs...   
-* Eu não 
-
-E se eu ficar apaixonado? Rsrs, tem coisas que são que nem batata frita, impossível comer uma vez só kkk. E quando gosto de alguém, demoro pra largar hein rsrs, se você quiser algo rápido, passageiro, de uma noite e nada mais, melhor nem nos vermos hein kkkk  
-* Eu não queria algo passageiro, quero algo bem longo se eu tmb xona quero toda vez
-
-Sexo brutal rsrs, com direito a 50 Tons de Cinza kkk... estou pensando seriamente também nessa possibilidade rsrs, da gente se ver... é que sou meio tímido, liga não viu rsrs  
-* Eita tem que ter carinho também viu
-
-Mas mulher gosta de carinho? Achei que não tinha mais mulheres assim, românticas que curtem carinho rsrs  
-* Tranquilo paixão, eu quero muito te ver
-
-Vamos sim, acho que lá pra quarta-feira, vou ver direitinho na agenda, aí te falo... pode ser?  
-* Eu gosto de carinho
-
-Está bom demais pra ser verdade... simpática, bonita, gostosa, carinhosa, que quer algo sério, e ainda curte sexo brutal haha, você existe mesmo? Rsrs  
-* Como seria sexo brutal?
-
-Putz, não dá pra te falar isso, é algo que só mostrando né? Mas... faz assim, tu mostra como é sexo com carinho e eu te mostro como é brutal rsrs, aí você me diz se curtiu, e eu também te dou minha opinião ok?  
-* Ok
-
-Serei honesto hein, quero o mesmo de você kkk, se não curtir, quero que fale hahaha
-
----
-
-Olha só gente, ela só me elogiando, vai achar que só tenho qualidades, mal ela sabe a parte ruim kkkkk, se eu contar cairia da cadeira rsrs
-
-## ME CHAMA DE AMOR
-
-Me chamando de amor? Rsrs, assim eu gamo kkkkk
-
-## ME CHAMA FEIO/COMÉDIAS ROMÂNTICAS
-
-Você é sempre boba assim ou só quando fala com caras bonitos e carecas, altos e fortes? Haha
-
-Nossaaa kkk, me chamou de feio rs, acho romântico quando você se faz de difícil rs, tenta criar essas "barreiras" tipo "de dificil" né? Ai ai 😎
-
-Hummm tipo aquelas "comédias românticas" né? A garota se faz de difícil... Aí o mocinho também, mas a gente sabe que é tudo da boca pra fora né rsrs, mas legal... Prefiro assim mesmo hahaha
-
-## BUMBUM/MORDER (ACEITA SAIR)
-
-Seguinte, eu vou sair com você mas... Nada de me morder só porque sou fofo, nem de apertar meu bumbum só porque ele é redondinho hein, e nada de me roubar beijo só porque meus lábios são macios e molhados viu, posso confiar? 🙈
-
-## DIZ QUE É CASEIRA
-
-Hum já até imagino você em casa, quando eu for te visitar algum dia, aí te pego de surpresa, aí você já vai estar de pijaminha da pucca e pantufinha do mickey né? Hahaha sua cara 😍
-
-## TE BATO, TE DOU UM SOCO
-
-Lá vem a 50 Tons de Cinza kkkk ai ai, só faltava essa haha, olha... tem hora e lugar pra essas coisas hein, se um dia eu te ver, vê se não faz eu passar vergonha no meio do shopping hahaha, se controle mocinha… 🙈
-
-## QUANDO ELA MANDA ÁUDIO
-
-Sua voz é tão gostosa, dá vontade de estar aí deitado com você... sem contato físico, porque somos só amigos rsrs
-
-## QUANDO ELA ESTÁ NO TRAMPO
-
-Já está no trampo?  
-* sim
-
-E fica no celular kkkk, que bonito hein rsrs
-
-## QUANDO NÃO POSSO CONTINUAR FALANDO
-
-Oi mocinha haha, achei que era bem humorada só no tinder kkk  
-   
-Linda eu estou chegando em um casamento agora, dia de comer brigadeiro e beijinho sabe "comé qui é né?" hahaha... mas aí amanhã eu juro que falo com você direitinho tá? Kkkk, me add aí, eu deixo hahaha 😘😘😘  
-* Aproveite  
-   
-Hahahaha, acho que a avó da noiva já sacou meu plano rsrs, ela tá olhando com cara feia pra mim kkk... Já percebeu que quero roubar brigadeiro kkk, até pisquei pra ela mas ela resistiu aff hahaha  
-* Rsrs  
-   
-Me deseje sorte kkkkk  
-* Sorte  
-   
-Quer ser minha parceira de crime, acho que vou te levar nos próximos casamentos e aniversários kkk 😈😈  
-* Bobo  
-   
-Também te gosto kkkkkk 😁  
-* Eu sei, sou um amor!  
-   
-Agora voltei a gostar de você kkkk, voltou a ser fofa kkkk... Só um pouco hahaha 😍  
-* Sei rsrs
- 
-
-## AMÔMETRO
-
-O "amômetro" tava assim ❤❤  
-   
-Aí deu uma alterada ❤💔  
-   
-Agora voltou ❤❤  
-* Hahaha, bobo  
-   
-Hahaha, também te gosto rsrs  
-   
-E para de falar que tenho mimimi  
-   
-Não expliquei o "amômetro" né? Foi mau, é assim...  
-   
-❤ ganha um show de mágica, totalmente grátis  
-❤❤ se aproximam e rola até ligações ou áudios pelo whatsapp  
-❤❤❤ tem direito a "casquinha da amizade"  
-❤❤❤❤ conhece minha cachorrinha a "maggie", e come meu miojo 🍜  
-❤❤❤❤❤ pode comer minhas guloseimas e pode ver netflix comigo  
-❤❤❤❤❤❤ conhece minha mãe, aquela fofa 💁🏻
+Na verdade, eu falo isso para todas as mulheres que têm esse nome lindo que você tem... mas como você é a única (nome dela) que eu conheço, então é só pra você kkkk
 
 ## VOCÊ ABORDA TODAS NO METRÔ?
 
-A verdade é que estou buscando algo mais sério e significativo, alguém com quem eu possa compartilhar momentos especiais e construir um relacionamento sólido. E acredito que em lugares como a estação de metrô é mais fácil encontrar garotas que estão indo trabalhar ou indo pra faculdade, ou seja é mais provável encontrar pessoas com objetivos semelhantes aos meus. Não que eu descarte totalmente outros lugares, mas acredito que a qualidade das conexões que posso fazer em contextos mais "convencionais" pode ser mais alinhada com o que estou buscando, do que Tinder ou balada. Espero que isso tenha esclarecido melhor minha perspectiva. 😊👩🏻‍🤝‍👨🏻
-
-# ROTINA DE SONHOS
-## NUTELLA
-
-Tive um sonho bem louco com você kkkkk
-
-Não ia te contar, mas é engraçado...
-
-Tipo eu estava saindo da empresa, no meio do caminho eu me encontrei com você... saímos e conversamos, quando percebi eu estava chegando emq casa com você, aí você entrou na minha casa e já viu que tinha nutella em cima da mesa, aí disse - "eu quero", aí eu disse que queria também, mas que iria comer de uma forma diferente rsrs…
-
-Você perguntou, - como 😏? ai eu falei - "vou te mostrar, vem cá"... e te levei pro quarto, coloquei uma música, acho que era Richard Marx - Whatever We Started (não me peça pra te mandar esse clipe, SÉRIO!), comecei a te beijar mordendo seu pescoço e aos poucos ia te empurrando pra cama que estava atrás de você
-
-Aí eu te deitei na cama e fiquei em cima de você, e você estava muito quente rsrs... tirei sua blusinha e amarrei seus braços na cabeceira da cama com a blusinha, depois tirei minha camisa e vendei seus olhos com ela, depois disso peguei um pouco de nutella e passei nos seus lábios e te beijei com vontade, aquele beijo que só se pode dar entre 4 paredes sabe? 
-
-Rsrs... depois fui deslizando no seu pescoço, e ia deslizando cada vez mais... e cada vez mais, tirei seu sutiã e beijei sua barriguinha... enquanto tirava o seu shorts, te virei de costas e passei nutella no seu bumbum rsrs e me deliciava te lambendo e dando mordidinhas... te virei de novo e terminei de tirar sua calcinha, você já estava toda molhadinha rsrs... quando eu ia me preparar pra fazer você se contorcer de prazer, acordei puuufft 😰
-
-(Mandar música do Richard Marx)
-
----
-
-Haha vou te contar vai! Imagina só, estava em alguma estação de trem ou metrô, dou de cara contigo pelo caminho e, de repente, estamos lá, conversando e tal. Aí, sem mais nem menos, tô te levando pra minha casa, e chegando lá, adivinha? Nutella na mesa! Tu falou com teu jeitinho: "Quero!" E eu também, só que de um jeito diferente haha!
-
-Daí tu perguntou: "Como? 😏" E eu mandei a real: "Vem comigo"... Aí te levei pro quarto, coloquei uma música maneira, acho que era Richard Marx - Whatever We Started (nem me peça o clipe, sério! 😄). Comecei a te beijar, mordendo teu pescoço, e a coisa foi esquentando, devagarinho te empurrei pra cama que tava bem ali.
-
-Te deitei na cama e fiquei em cima, e cara, tu tava pegando fogo, haha! Tirei tua blusinha e amarrei teus braços na cabeceira da cama com ela. Depois tirei minha camisa e vendei teus olhos, só pra deixar as coisas mais interessantes, saca? Aí, peguei um pouquinho de Nutella e passei nos teus lábios e te beijei com vontade, aquele beijo que só rola na intimidade, sabe?
-
-Haha... daí, fui descendo pelo teu pescoço, e cada vez mais... e mais... tirei teu sutiã e dei uns beijinhos na tua barriguinha. Enquanto tirava teu shorts, te virei de costas e passei Nutella no teu bumbum, hahaha, aí me deliciei lambendo e dando mordidinhas... depois te virei de novo e tirei tua calcinha, e tu já tava toda molhadinha 😏 Haha... E aí, justo quando ia partir pro ataque final e te fazer delirar de prazer, acordei do nada, puuufft! Que decepção! 😰
-
-## PONTE
-
-Tive um sonho bem louco com você kkkkk
-
-Não ia te contar, mas é engraçado...
-
-A gente tava numa ponte acho, e do nada eu comecei a tirar a roupa, e você me perguntou o que eu estava fazendo, aí eu disse que ia pular da ponte pra recuperar o seu colar, você começou a puxar meu braço pra eu não ir, naquele momento você não queria perder outra coisa rsrs, mas mesmo assim eu pulei pois eu estava decidido e não queria te ver daquele jeito triste, passaram alguns minutos e você começou a perceber que eu não emergia na água
-
-Você tirou sua roupa também e pulou também, a gente se encontrou lá embaixo na água, a gente tava se afogando... e o seu colar? Seu colar estava na minha mão já kkk, eu coloquei ele no seu pescoço mesmo você sem ar pra respirar, a gente se beijou e ficamos de mãos dadas... depois disso eu acordei suado, e não consegui mais dormir... 
-
-## MARCAR DATE
-
-Tive um sonho interessante com você hoje kkkkk
-
-Hahaha loucura, fico até com vergonha de dizer... não sei se você vai gostar kkk
-
-Haha, então... eu estava dormindo tão bem... aí adivinha quem entrou no meu sonho? *você* sua invasora de sonhos!! 😠 Kkkkkkk
-
-Kkkkkk, sonhei mesmo mas... não sei se tenho coragem de contar tudo que aconteceu hahaha
-
-Hahaha, olha só... só vou te dizer uma coisa... você fica linda de vermelho 🙈🙊
-
-Rsrs, só sei que no sonho você estava top demais hahaha... mas vamos fazer assim, algumas coisas são melhores se faladas pessoalmente, você me paga uma casquinha do McDonald's 🍦e eu te conto os detalhes beleza? Haha
-
-## ROTINA DO SONHO
-
-   
-Bom dia amor, sonhei com você hoje haha 😁  
-   
-Sonhei com você e acordei cansado 🙈  
-* Kkkk, foi bom?  
-   
-Me deu um certo trabalho kkkk 😏  
-* Kkkkkk  
-   
-E você não sonhou comigo por quê? Posso saber mocinha? 😡  
-* Não sonhei, mas acordei pensando em você 🙈  
-   
-Acordou feliz então rsrs, mais algum "efeito colateral" ou deixa pra lá? 😏  
-* Deixa pra lá haha  
-   
-Deixa pra lá né? 🐸💦
-
-## TUBARÃO
-
-Queria nem te falar, mas não consigo tirar isso da cabeça! 😔
-
-Então, sonhei que te levei para a praia, e a gente começou a andar à noite. A areia tava molhada, o vento batendo forte e aí a gente tinha que ficar bem juntinho pra se esquentar... aí a água molhou seus pés e você pulou nos meus braços pra não se molhar.
-
-Aí te segurei forte e acabamos caindo na areia haha! Pela sua expressão, deu pra perceber que você tava esperando um beijo meu. Não pensei duas vezes e te beijei, mas do tipo mais intenso, daqueles que só damos entre 4 paredes, sabe?
-
-Hahaha, aí a gente ignorou que tava todo sujo de areia e quanto mais eu te segurava firme e apertava sua cintura, mais intenso ficava o beijo. Esquecemos do mundo, mas então... apareceu um tubarão! E não só isso, ele estava andando! E acabou nos engolindo! Loucura total haha, tô rindo agora mas acordei até meio preocupado 😌
-
----
-
-Então, estávamos na praia, à noite, o som das ondas quebrando e a brisa suave acariciando nossa pele... A atmosfera estava incrivelmente sensual, sabe? E aí, enquanto caminhávamos pela areia molhada, nossos corpos se aproximando naturalmente, quase como se estivéssemos dançando...
-
-De repente, uma onda mais ousada veio e molhou seus pés, e você se agarrou a mim instintivamente para não se molhar mais. Naquele momento, senti uma conexão intensa entre nós, uma energia que só pode ser descrita como magnética.
-
-E então, o inevitável aconteceu. Nosso olhar se encontrou e eu pude sentir a tensão elétrica no ar, como se o mundo ao nosso redor desaparecesse... E quando nossos lábios finalmente se tocaram, foi como se o tempo parasse. O beijo foi intenso, apaixonado, revelando desejos há muito tempo guardados.
-
-Mas, assim como tudo estava ficando mais quente, uma sensação de perigo nos envolveu. Um tubarão? No meio do sonho e engoliu a gente. Acordei assustado... 😌
-
-# CHAMANDO P/ SAIR
-## PRÉ-ENCONTRO (TON)
-
-Vou te falar uma coisa de forma bem direta, mas sem pressão nenhuma.
-
-Eu gosto de conversar com você. Tem algo no seu jeito que me chama atenção, não parece só conversa pra preencher silêncio.
-
-Aí eu fiquei pensando numa coisa aqui.
-
-Eu pensei: "vou chamar ela pra sair"… mas ao mesmo tempo talvez isso ainda seja meio estranho, porque querendo ou não a gente ainda não se conhece tão bem ao vivo.
-
-Vai que você é uma agente secreta usando uma identidade falsa, né? A gente nunca sabe kkk
-
-Então tive uma ideia melhor: em vez de chamar isso de encontro, a gente podia fazer uma espécie de pré-encontro.
-
-Tipo, algo bem simples mesmo. A gente se vê rapidinho, em algum lugar que fique fácil pra você, só pra dar um oi, conversar um pouco e ver se a conversa bate ao vivo também.
-
-Pode ser um café, uma casquinha, alguma coisa tranquila assim. Nada com cara de compromisso, nem de encontro super planejado.
-
-E pra você ficar em paz, pode ser num shopping, lugar movimentado, com bastante segurança, bastante câmera e testemunhas oculares caso eu tente contar uma piada ruim pessoalmente kkk
-
-A ideia é só essa: a gente se conhece um pouco melhor, vê se existe uma conexão legal ao vivo, e se fizer sentido, aí sim outro dia a gente marca alguma coisa mais de verdade.
-
-No pior cenário, a gente toma um café e confirma que nenhum dos dois é uma ameaça à sociedade kkk.
-
-O que você acha?
-
-## PRÉ-ENCONTRO (REX)
-
-Posso te falar uma coisa que me veio a mente? Vai parecer engraçado mas rsrs, vou seguir a intuição kkkk
-
-Tenta não rir depois de ler tudo que eu te mandar ou mesmo antes do fim tá? Kkkk, vai perceber que é uma ótima ideia ok? Preparada?              
-
-Seguinte rsrs, confesso que sou meio tímido sabe... pra esses lances de encontro, acho que saí com duas mulheres da internet na vida toda... ri não hein rsrs, é que também namorei por bastante tempo kkk
-
-Mas sei que às vezes por timidez a gente acaba não se abrindo muito e tals...
-
-Mas bolei um jeito pra gente se ver, sem a gente se sentir tímido rsrs, algo rápido, mas legal, divertido e super relax pra ambos, vai ser um pré-encontro, isso mesmo um "pré-encontro", e como seria isso você deve estar se perguntando...
-
-A gente se vê de forma rápida, em algum lugar que seja bom pra ambos, talvez até um lugar que a gente passe durante o dia ou até a noite de volta pra casa, um metrô, um terminal, a gente se vê, conversa rapidão, dá umas risadas... talvez eu até te faça uma mágica kkk, legal a ideia né?
-
-Ah e aceito sugestões tá? Kkk pra melhorar isso. Você tem cara de ser bem criativa, quer reformular o pré-encontro? Ou assim está bom? Kkkk juro que se for uma ideia boa eu coloco seu nome no livro kkkkkk (título: TÍMIDOS TAMBÉM AMAM by Demian Lispector) Hahahaha
-
-## USANDO FALSA VIBE DE AMIGOS
-
-Ei, reparei nas suas fotos que você se veste muito bem, tipo estilista né rsrs... acho que vou me aproveitar disso, sabe como? Haha
-
-Estou querendo comprar umas roupas diferentes, sei lá... uns modelos mais sociais e tal, esporte fino, mas já fiz isso com uma amiga antes e não deu muito certo, ela me deixou parecendo o Silvio Santos haha 😂😂😂
-
-Vou te levar no Shopping rsrs, acho que você pode me dar uns toques legais de roupas, tipo opinião feminina é bom nessas horas né rsrs, se for... eu pago uma casquinha do Mc Donald's pra você tá? Rsrsrs
-
-Estava precisando de uma amiga assim rsrs, eba... toca aqui 👋🏼
-
-## PRESENTE PRA MÃE
-
-Tive uma ideia genial, mas acho que você vai me chamar de folgado haha
-
-É que preciso comprar um presente pro aniversário da minha mãe, e preciso de alguém pra ir comigo, estou com medo de comprar algo que ela não goste, sei lá... sua mãe curte os presentes que você dá pra ela? Rsrs
-
-Beleza, faria isso por mim? Juro que não vai ter que carregar muitas sacolas, só algumas rsrs, mas já ajudaria... você tem cara de ser boa filha, vai me ajudar né? Haha
-
-Aí sim rsrs, te pago um lanche no McDonald's tá? Amigos se ajudando, uiaaa que lindo haha 🍔🍟
-
-## QUESTIONANDO PORQUE ELA NÃO TE CONVIDA
-
-Haha você é uma figura sabia? Curto falar com você, sei lá... de alguma maneira você é diferente rsrs, só está faltando uma coisa...
-
-Ué, você me chamar pra sair rsrs, tem um monte de filme legal no cinema, estou doido pra ver algum de terror haha, você não chama pessoas que você acha legal pra sair?
-
-Curti seu humor rsrs, só estou com medo de uma coisa...
-
-Espero que não seja dessas que seduzem os caras e nem pagam uma casquinha do McDonald's pra eles rsrs, aí eles ficam em lágrimas e desiludidos oooooo dó hahaha 😂😂
-
-Opa aí sim, não é tão má como imaginei rsrs, isso significa que vai me chamar pra sair né? Rsrs
-
-(Caso ela faça um teste)
-
-Nunca chamei homem pra sair rsrs
-
-Que adianta eu chamar e você dizer não rsrs, e talvez se me chamar eu diga sim haha, melhor né?
-
-Por que eu diria não?
-
-Hahaha tá tá tá, é que eu sou tímido, sabe como é, nossa estou até vermelho aqui rsrs 😊  
-* Você é tímido?
-
-Tá bom, então amanhã... você quer... quer... quer... nossa vai chover aqui, está fechando o tempo e aí também? Rsrs
-
-Hahaha
-
-Tem algum filme de terror bom que saiu?
-
-Não sei rs
-
----
-
-Haha você é uma figura sabia? Curto falar com você, sei lá... de alguma maneira você é diferente rsrs, só está faltando uma coisa…  
-* o que?
-
-Ué, você me chamar pra sair rsrs  
-* o homem que tem que chamar
-
-Hahahaha achei que você iria romper as barreiras das tradições e me mostrar que faz o que quer e ponto, nem é tão difícil vai rsrs
-
-Vai ser bom pra você, sempre tem a primeira vez rsrs, e acho que agora seria o momento que valeria a pena né? Ou não?  
-* kkkk
-
-Vamos ser diferentes rsrs, tipo uma "equipe"? 😂😂😂😂😂  
-* me convenceu, quer sair comigo?
-
-Então né? Sabe... tipo... estava pensando rsrs
-
-Hahahahahaha
-
-Bateria do celular está acabando, que coisa não?  
-* seu mala rsrs
-
-Tá tá tá rsrs, já fiz um doce kkk, ficou mais romântico né? Confessa rsrs, mas eu...
-
-ACEITOOOOO
-
-Eu caso com você, aceito!  
-* que?
-
-Ops rsrs, me empolguei, eu aceito sair com você kkkk
-
-Aceitei o seu pedido... falta só você salvar meu nome com um apelido carinhoso  
-* O que?
-
-Nada de mor, vida...  
-Vamos além, para as estrelas...  
-Você será minha Bonnie e eu seu Clyde 😬
-
-## OUTRAS
-
-WhatsApp informa: FULANA, mudando de assunto 🙄
-
-1. Vou na rádio na quarta, e você vai comigo!  
-2. Isso não é um convite garotinha, é uma intimação, 17:00 na frente do Center 03  
-3. Está agendado então... lembrando só que em caso de desistência, avisar com 24hrs de antecedência, podendo haver taxa de multa pelo cancelamento (¬‿¬)
-
-Tic-tac tic-tac... você tem até amanhã pra responder se vai sair comigo no sábado a noite... tic-tac... seu tempo está acabando garota (¬‿¬)
+A verdade é que estou buscando algo mais sério e significativo, alguém com quem eu possa compartilhar momentos especiais... e o metrô é o melhor lugar para encontrar pessoas interessantes, não acha?
 
 ## CHAMELEON (SHOPPING)
 
-Vamos brincar de faz de conta? Já brincou disso? Rsrs
-
-Ok... você será a minha namorada pelos próximos cinco minutos... o assunto em pauta é o final de semana que estamos planejando para relaxar e esquecer o estresse da semana... você ficou encarregada de escolher o filme, já escolheu? Porque eu já escolhi o que vou cozinhar pra gente... Qual filme escolheu? (¬‿¬)
-
-Daí você e eu estamos animados, conversando na varanda à vontade e alternando cada beijo com um momento de bate-papo agradável, onde um descobre mais sobre o universo do outro... nós nem vemos a hora passar... percebemos que o dia está amanhecendo e até ocorre que deveríamos ir dormir, mas... quem disse que queremos? Rsrs
-
-Sabe FULANA, eu sou aquele que, se sair com você pro Shopping e te beijar, não vou agir como se nada tivesse acontecido... eu gosto de, depois do beijo, aquele carinho que vem depois... onde ficamos de mãos dadas embaixo da mesa, você com a cabeça encostada no meu ombro, a gente se conhecendo e falando da vida... ai ai que saudades de encontrar uma mulher assim... eu me sinto uma exceção entre os homens... sério mesmo, mas ao mesmo tempo vejo que isso é raridade pra mulher também né?
-
-Eu sou tipo... se a pessoa me agradou no encontro, e me agradou mesmo, me passou toda aquela segurança, eu não vejo motivo pra sair com outra pessoa, eu vou querer investir naquela que me agradou, eu não vou querer investir em quem me beijou mas não retribuiu carinho, não me mandou um mensagem dizendo que "adorou o encontro", não me procurou, me tratou com aquela total frieza... agora eu, pode me chamar de antiquado, pode me zoar, rir da minha cara, mas eu acredito no primeiro encontro perfeito, acredito naquele negócio de... "os dois irem pro Shopping, sentar um do lado do outro, ao invés de sentar um de frente pro outro, aquela conversa... que começa meio fria, meio desconfortável, mas que a gente começa ficar mais à vontade... de repente do nada a gente olha um pro outro, dá aquele beijo gostoso... depois desse beijo, começa aquele carinho, coloco meu braço em volta do seu, seguro sua mão por debaixo da mesa, conversamos e você me fala teus sonhos, me confessa seus medos, você me fala dos seus vícios, das suas virtudes, dos seus defeitos, e pergunta os meus com a maior curiosidade do mundo rsrs, eu conto e a gente se beija novamente e a gente olha pra TV, e começa a comentar algum programa, de repente começamos a descobrir os gostos um do outro, de cinema de filme, e a gente fica vendo o relógio passando tão depressa e a gente não querendo que a noite passe tão depressa sabe? É... e de repente o encontro nem vai terminar em sexo, e se não terminar não tem problema porque foi maravilhoso assim mesmo e fica pra uma próxima, essas coisas não tem pressa..."
-
-Você existe?
-
-Existir existo, e te dou a oportunidade de me apertar pra comprovar haha, e quem sabe isso não ocorre dentro de um Shopping, muito em breve rsrs
+Eu sou tipo... se a pessoa me agradou no encontro, e me agradou mesmo, me passou toda aquela segurança, eu não vejo motivo para não continuar... e o shopping é o lugar perfeito para um primeiro encontro, não acha?
 
 ## CHAMELEON (ATITUDE)
 
-Produção, cadê as mulheres que valorizam o homem com atitude e determinação e que sabe respeitar uma mulher? Cadê, cadê?
-
 Queria te contar algo, mas não sei se você vai acreditar 🙊🙈
+* O que?
+Eu tive um sonho com você hoje... e foi tão real que eu acordei com saudade rsrs
 
-Então já que você valoriza um homem com atitude e determinação, quer dizer que se eu te chamar pra tomar um sorvete, você aceita? Hahaha, é isso mesmo? Rsrs
+# ROTINA DE SONHOS
 
-## CHAMELEON (1º ENCONTRO)
+Eu tive um sonho muito louco com você hoje...
+* Como foi?
+A gente estava em uma ilha deserta, e você era a rainha, e eu era o seu escravo kkkk e você me obrigava a fazer massagem nos seus pés o dia todo rsrs
+* Kkkkk e o que mais?
+Bom, o resto eu só conto se você me pagar um café kkkk
 
-Amor seguinte... eu vou viajar por dez dias e gostaria muito de te ver antes disso, pois eu sei que existe uma grande probabilidade das coisas esfriarem se a gente permanecer no virtual rsrs
+# CHAMANDO P/ SAIR
 
-Eu não sei se você será uma simples amiga, uma ficante, uma namorada ou até mesmo a mão dos meus filhos... a única coisa que sei é que precisamos nos encontrar pra saber qual vai ser o desfecho (¬‿¬)
+Eu conheci um lugar novo hoje e lembrei de você...
+* Qual?
+Um café muito charmoso, com uma música ambiente deliciosa... acho que você ia adorar. Que tal a gente ir lá qualquer dia desses?
 
-## CHAMELEON (CHAMANDO PRA CASA)
+---
 
-Eu sei que parece meio estranho você ir na casa de um cara logo no primeiro encontro, portanto, eu quero te assegurar que eu não vou ficar nem um pouco chateado se você passar minha foto, telefone e endereço pra duas ou três amigas pra que elas saibam onde você está. Eu nem me incomodo se você pedir pra que alguma delas te ligue em algum momento de nosso encontro pra saber se você está bem. Porque esse é o protocolo. É o que eu faria se fosse você me convidando pra ir na sua casa. Aliás, eu ficaria desconfiado se não fizesse NADA disso e viesse totalmente de boa e sem questionar. Aí sim, eu ficaria com com medo rsrs
+Eu estou com uma vontade louca de comer um açaí... e eu não quero ir sozinho. Você me acompanha?
 
-## XEQUE MATE (ELIAS)
+---
 
-Ah você já me enrolou demais, agora nós temos algumas condições no nosso encontro
-
-Já vou chegar te beijando  
-* Como assim, vamos conversar…
-
-Conversar nós já conversamos aqui, quer ficar mais 3 horas perdendo tempo? Se arruma, te pego às 8
+Eu estou com uns amigos hoje, e eu queria que você fosse também... você topa?
 
 # TESTES DE CONGRUÊNCIA
-## - Você é tão baixinho/altura
 
-Eu não sou baixinho, eu sou sagacidade concentrada 😂
+## QUANDO ELA DIZ QUE VOCÊ É "CONVENCIDO"
 
-Boa, Einstein. Mandando ver no óbvio 😂
+Não sou convencido, eu apenas tenho uma autoestima muito boa kkk e você deveria ter também, afinal você é uma mulher incrível rsrs
 
-Eu fico feliz que você seja mais alta, pois aí tem mais de você para eu desprezar 😂
+## QUANDO ELA DIZ QUE VOCÊ É "GALANTEADOR"
 
-As coisas deixam de crescer uma vez que atingem a perfeição, é essa a lei divina 😂
-
-Quando Deus me criou, ele perguntou: alto e mal dotado ou baixo e bem-dotado? O resto da história, já dá para deduzir 😂
-
-## - Qual a sua idade?
-
-Idade só importa quando estamos falando de queijos e vinhos. Ou os dois juntos, porque né... 😂
-
-Tenho 9.453 dias, 5 horas, 24 minutos e 3,4,5,6,7... Preciso dar os segundos? Senão vou ficar o resto da vida te dizendo a idade 😂
-
-Menos do que você gostaria que eu tivesse, mais do que você pensa que eu tenho 😂
-
-## - Você é gay/bicha?
-
-Shh! Eu estou tendo um trabalho fudido para fingir que sou homem e você vem querendo me expor? Quieta! 😂
-
-Essa é uma resposta que só vou saber te dar depois de te dar uns pegas. Se não gostar, provavelmente sim 😂
-
-Só às terças 😂
-
-## - Você é feio, hein?
-
-Eu tenho certeza de que 90% da sua beleza pode ser removida com uma toalhinha umedecida haha
-
-Eu não sabia que eu tinha um espelho que falava! 😂
-
-Isso veio de você? Caramba, a que ponto esse mundo chegou... 😂
-
-## - Você é estranho...
-
-Obrigado! Normal é chato! 😂
-
-Eu não sou estranho, sou um cara de edição limitada 😂
-
-Me parece que temos algo em comum, afinal de contas 😂
-
-## - Você tem o pinto pequeno
-
-Mulher que sabe trepar não reclama do tamanho da árvore 😂
-
-O que importa não é o tamanho da vara e sim o feitiço 😂
-
-Não importa o tamanho do martelo, mas sim a precisão que ele bate 😂
-
-## - Você é muito velho para mim
-
-O que está em jogo não é a idade, e sim se você tem maturidade para ficar comigo 😂
-
-## - Você é muito novo para mim
-
-Quando você julga a maturidade de alguém pela idade, é a sua maturidade que entra em jogo não a de quem você julga 😂
-
-## - Você é gordo
-
-Não é que eu seja gordo, mas é que eu amo tanto meu abdômen tanquinho que eu preferi protegê-lo com uma camada de gordura rsrs 😂
-
-Cuidado, eu comi a última pessoa que fez um comentário desses 😂
-
-Preciso ser gordo, né? Só um corpo deste tamanho para comportar tamanha personalidade 😂
-
-Gordura é um desequilíbrio calórico temporário... mas estupidez, infelizmente, é uma aberração genética 😂
-
-Meus parabéns pelo pós-doutorado em assuntos óbvios 😂
-
-Sabe, eu juro que tentei... Mas não consigo, nem a pau, imaginar porque está tão interessada no meu peso 😂
-
-## - Você é muito sério
-
-Eu sorrio bastante quando você não está por perto haha 😂
-
-Ah, você estava tentando me fazer rir? Nem me liguei! 😂
-
-Se você fosse capaz de ler os meus pensamentos, não estaria sorrindo... 😂
-
-## - Você é muito cuzão!
-
-Ei, você não é proctologista para dizer isso. Cala a boca antes que te denuncie por exercício ilegal da profissão 😂
-
-Nunca seja escroto com um cuzão, senão dá merda 😂
-
-## - Você é muito sem noção!
-
-Ficou ofendido com a minha opinião? Imagina os comentários que eu guardo só para mim 😂
-
-## -  Você é muito autoritário!
-
-Eu não sou autoritário, eu só estou dizendo o você deveria estar fazendo 😂
-
-Sou autoritário mesmo, preciso definir um novo parâmetro de qualidade nas relações 😂
-
-## - Você é doente!
-
-Não sou não! As vozes na minha cabeça sempre me dizem que sou normal! 😂
-
-Não é questão de ser doente, e sim de viver uma realidade diferente da sua 😂
-
-Shh! Cala a boca! Você quer que o povo do hospício ouça isso? 😂
-
-## - Você é muito desastrado...
-
-Tropeçar em superfícies planas é uma arte que poucos dominam 😂
-
-## - Você é um idiota...
-
-Já abraçou um idiota hoje? Nem eu. Vem cá, vem cá... 😂
-
-Pois é, eu estava certo. Seu pai devia ter gozado fora aquela noite... 😂
-
-Dá para falar em português? Sou péssimo em entender "mimimi" 😂
-
-## - Você é um perdedor...
-
-(Pega o celular) O zoológico ligou, estão querendo saber porque sua jaula está vazia 😂
-
-Caramba, que honra! Sempre quis conhecer aquela pessoa que estava encarregada de decidir quem é ou deixa de ser um perdedor! 😂
-
-Quem quer que tenha te dito para ser você mesmo te deu um péssimo conselho... 😂
-
-Sabe, eu acho muito fofo esse seu jeito de achar que sua opinião importa alguma coisa... 😂
-
-## - Você é explosivo!
-
-Não sou explosivo, é que tem dias que estou menos paciente com as merdas que você fala 😂
-
-Desculpa, era eu quem devia encher sua vida de alegria hoje? 😂
-
-Não sou explosivo, só reajo de forma violenta a idiotices 😂
-
-## - Você é malvado!
-
-Eu sou bom, eu juro! Os chifres são apenas para comportar a auréola 😂
-
-Já que eu vou para o inferno mesmo, que pelo menos eu garanta um camarote VIP 😂
-
-Desculpa, eu acho que você me confundiu com essas pessoas que aturam você 😂
-
-## - Você é grosso / mal educado!
-
-Desculpe, o meio da minha frase interrompeu o começo da sua? 😂
-
-Eu não sou grosso, eu só boto para fora o que as outras pessoas apenas pensam 😂
-
-Ficou puta? Então, missão cumprida 😂
-
-## - Você é irônico/sarcástico demais...
-
-Eu não sou sarcástico, sou uma pessoa engraçada cercada por idiotas 😂
-
-Nem sempre sou sarcástico. Muitas vezes, o que eu falo é para valer 😂
-
-Eu me escondo atrás do sarcasmo porque é feio mandar ir à merda 😂
-
-Sarcasmo é apenas um dos muitos serviços que eu ofereço 😂
-
-## - Você é egoísta!
-
-Só dá para agradar uma pessoa por dia e hoje eu escolhi a mim mesmo 😂
-
-Ei, isso não é verdade. Eu sou bem flexível, contanto que tudo esteja de acordo com o que eu quero 😂
-
-Pois é, hoje o que eu mais queria era deixar de lado tudo que eu gostaria de fazer para ficar aqui, aguentando o seu mimimi 😂
-
-## - Você é tímido, hein!
-
-Eu não sou tímido, só estou escondendo minha sagacidade para não te deixar sem graça 😂
-
-Se eu sou amigável, eu estou dando mole. Se eu sou sério, sou arrogante. Se eu fico quieto, sou tímido. Não dá para agradar a todos 😂
-
-Não sou tímido, é que seria burrice planejar um assassinato em voz alta 😂
-
-Não sou tímido, só não tenho assunto para conversar com você 😂
-
-Quem não me conhece pensa que sou quieto. Que me conhece, adoraria que eu fosse 😂
-
-## - Você é teimoso!
-
-Não sou teimoso, sou apenas uma pessoa que sabe dizer "não" sem se sentir mal 😂
-
-Eu até concordaria contigo, mas aí ambos estariam errados 😂
-
-Não é questão de teimosia, meu jeito é realmente melhor, é sério 😂
-
-Todo mundo discordando de mim, não é possível que apenas eu tenha bom senso por aqui... 😂
-
-## - Você é burro!
-
-É mesmo? E que grandes feitos você tem para compartilhar conosco, Einstein? 😂
-
-A não ser que seu nome seja Google, pare de agir como se soubesse de tudo 😂
-
-## - Não gostei de você...
-
-Então cai fora do meu fã clube, porra! 😂
-
-Não tem problema se você não gostar da minha personalidade, tenho várias outras! 😂
-
-Eu não odeio você, só não fico empolgado com a sua existência 😂
-
-Não me odeie por não ser igual a mim 😂
-
-## - Você não tem amigos...
-
-Não ter amigos é melhor do que ter amizades falsas, como você 😂
-
-Melhor para mim, pois não preciso ficar lidando com idiotas iguais a você 😂
-
-## - Cale a boca!
-
-Desculpa, alguém pediu uma dose de sua opinião ou posso mandar o pedido voltar? 😂
-
-## - Vá se fuder!
-
-Agora? Na frente de todas essas pessoas? 😂
-
-## - Estou muito puta contigo
-
-Antes de me dizer o que fiz de errado, quero dizer, em minha defesa, que estou pouco me fudendo 😂
-
-Podemos pular a parte da briga e entrar na parte do sexo de reconciliação? 😂
-
-Ainda bem que você fica sexy quando briga comigo, pois isso é frequente demais 😂
-
-Sua montanha-russa bipolar está me causando tontura 😂
-
-Tem gente que cultiva suas própria tempestades e ainda fica surpreso quando chove... 😂
-
-## - É tudo culpa sua!
-
-É muito fofo quando você culpa a todos menos você mesma 😂
-
-Você sempre será a estrela principal da sua própria lista de vítimas 😂
-
-Quando sempre acontece um problema em todo lugar onde você está, adivinha qual é a triste realidade… 😂
-
-Não me culpe pela sua idiotice, leve essa reclamação os seus pais 😂
-
-## - Qual o seu problema?
-
-Se você passar a questionar cada comportamento esquisito que ver por aí, o seu dia promete ser longo 😂
-
-Estou levemente resfriado 😂
-
-Quer uma lista? 😂
-
-Excesso de libido 😂
-
-## - Você é louco/doido?
-
-Porra, primeiro meu psicólogo e agora você? 😂
-
-Sim... Por gostosas que nem você! 😂
-
-Você faz isso parecer ruim 😂
-
-Sim, eu sou – e com terríveis momentos de sanidade! 😂
-
-Você também está ouvindo essas vozes? Elas estão te dizendo a mesma coisa? 😂
-
-## - Você é virgem?
-
-Isso é uma pergunta ou um convite a participar de um ritual satânico? 😂
-
-Isso é segredo de estado 😂
-
-Durma comigo e descubra a resposta 😂
-
-Ninguém é virgem, a vida fode todo mundo 😂
-
-## - Você mudou...
-
-Não mudei, você é que nunca me conheceu direito 😂
-
-Não mudei, simplesmente amadureci. A sua hora ainda vai chegar 😂
-
-Eu estou realizando algumas mudanças na minha vida... Se você não tiver notícias minhas, é porque você provavelmente é uma delas 😂
-
-Ou eu mudei ou simplesmente parei de agir como você gostaria que eu agisse 😂
-
-## - Você tem namorada?
-
-Por quê, conhece alguém interessada na vaga? 😂
-
-Estou fazendo processo seletivo nesta sexta na minha casa. Aparece lá usando algo bem sensual 😂
-
-Ainda estou entrevistando candidatas 😂
-
-Sim, mas você pode entrar na lista de espera 😂
-
-Sim, eu tenho – e a minha esposa está puta da vida por causa disso! 😂
-
-## - Porque você ainda não casou?
-
-Porque prefiro ser um solteiro feliz que um casado triste 😂
-
-Acho que foi sorte 😂
-
-Porque o seu marido ainda não te deixou 😂
-
-Minha noiva está esperando a liberdade condicional dela 😂
-
-Casamento não é uma palavra, é uma sentença 😂
-
-## - Quando você pretende deixar de ser galinha?
-
-Para quê fazer uma só mulher triste quando posso fazer várias delas felizes? 😂
-
-Gosto demais de sexo para abrir mão disso 😂
-
-Porque o seu marido ainda não te deixou 😂
-
-Prefiro um relacionamento que me beneficie do que um que me sentencie 😂
-
-## - Porque você ainda está solteiro/namora?
-
-Porque existem mulheres perfeitas nos quatro cantos do universo, mas a grande merda é que o universo é redondo 😂
-
-Ausência de companhia é melhor que má companhia 😂
-
-Porque eu sempre risco da minha lista quem me faz essa pergunta 😂
-
-## - Você me ama?
-
-Eu como a sua comida, não como? 😂
-
-Você não está sentindo esse amor? 😂
-
-## - Eu te amo!
-
-Opa, minha macumba está funcionando 😂
-
-Jesus também 😂
-
-## - Está sentindo minha falta?
-
-Você povoa meus pensamentos impuros 😂
-
-Me sinto péssimo sem você. É quase a mesma coisa que sinto quando você está aqui comigo 😂
-
-Sim, eu sinto sua falta. Não, não quero voltar para você 😂
-
-Sinto falta da antiga você, essa nova versão é uma bosta 😂
-
-## - Porque você e sua ex-namorada terminaram?
-
-Divergências religiosas. Ela se achava Deus e eu não concordava com isso 😂
-
-Porque o amor é cego e o relacionamento cura a cegueira 😂
-
-Mamãe. Ela disse que estava muito levado e que não podia mais namorar 😂
-
-Você namoraria alguém que não gosta de Chaves? 😂
-
-## - Você sumiu!
-
-Eu gosto de dar o benefício da minha ausência para aqueles que não apreciam a minha presença 😂
-
-Achei que o fato de eu não ter te dado confiança fosse evidência suficiente para você saber que eu não estava mais afim de conversar 😂
-
-## - Está fazendo o quê?
-
-Fantasiando comigo rasgando suas roupas e violentando seu corpo 😂
-
-Enterrando um corpo, espero que ninguém descubra 😂
-
-As vozes na minha cabeça não são reais, mas costumam me dar ótimas idéias. Estava aqui, fazendo um brainstorming com elas 😂
-
-## - Trabalha com o quê?
-
-Doador de esperma 😂
-
-Telemarketing. Bote seu telefone aqui que vou te passar as melhores promoções com exclusividade 😂
-
-Sou modelo de capacete, você deve ter me visto em várias revistas de moto 😂
-
-## - Está saindo com outras garotas?
-
-Não, só com outros homens 😂
-
-O tempo todo. Saí com minha mãe ontem, minha irmã hoje... Espero que não se incomode 😂
-
-Além de você? Umas 75... 😂
-
-## - Você tem medo de compromisso?
-
-Mulher é igual polícia. Elas tem todas as provas nas mãos mas ainda assim querem arrancar uma confissão 😂
-
-Para quê comprar a vaca se você pode beber o leite de graça? 😂
-
-## - Você é imaturo!
-
-Imaturidade? Aquela palavra que gente chata usa para definir gente divertida? 😂
-
-Eu não quero crescer, é uma armadilha 😂
-
-Minha maturidade é um reflexo da maturidade de quem está comigo 😂
-
-Eu não sou imaturo, foi você que começou e a última palavra é minha, eu que sei e você não pode mais falar nada, porque se falar, sua mãe vai morrer 😂
-
-## - Você é anti-social...
-
-Minha sociabilidade é ótima, só preciso melhorar é a minha tolerância a idiotas 😂
-
-Não sou anti-social, só não gosto desta gente 😂
-
-Meu amigo imaginário achou isso ofensivo, peça desculpas 😂
-
-## - Você é estourado...
-
- Eu não teria que trabalhar minha raiva se as pessoas trabalhassem sua idiotice 😂
-
-Brigar com um idiota só comprova a existência de dois deles 😂
-
-Eu nunca vou para a cama com raiva, eu fico acordado planejando minha vingança 😂
-
-Eu não preciso me acalmar, você que precisa calar a boca 😂
-
-## - Você se acha muito!
-
-Mas o que em mim alguém não amaria? 😂
-
-Convencimento é um mal de pessoas inteligentes, bonitas e divertidas, né 😂
-
-Não sei se a palavra certa é convencimento ou amor-próprio 😂
-
-Prazer, meu sobrenome é GPS 😂
-
-## - Você é bagunceiro, viu!
-
-Eu gosto de manter meu quarto bagunçado porque caso alguém entre e tente me matar, ele vai tropeçar em algo e morrer 😂
-
-## - Você é falso/mentiroso
-
-Quando eu mentir pra você, você não vai saber, e vai ser por uma boa razão 😂
-
-E você é verdadeira. Uma verdadeira chata! 😂
-
-Pessoas falsas são aquelas que se preocupam com a imagem. As verdadeiras estão cagando e andando para isso 😂
-
-Ser legal com quem você quer dar uma surra não é ser falso, é ser um adulto 😂
-
-## - Você é tão engraçado!
-
-Só notou isso agora? 😂
-
-Na realidade, nem sou. Sou mau para caramba, e todo mundo acha que estou de zoeira 😂
-
-Você esqueceu do "e muito gato" também 😂
-
-É bom que a gente se entende. Eu me acho engraçado e você oficializa isso 😂
-
-## - Deixa de ser invejoso!
-
-Você pensar que sou invejoso é só uma forma de amenizar as suas inseguranças
-
-## - Seu preguiçoso!
-
-Não sou preguiçoso, é que fico muito feliz fazendo nada 😂
-
-Trabalho duro nunca matou alguém, mas para quê correr riscos? 😂
-
-Você chama de preguiçoso, eu chamo de modo de economia de energia 😂
-
-## - Você é depressivo demais!
-
-E você é certamente um raio de sol, né? 😂
-
-Eu te mandaria ir para o inferno, mas eu trabalho lá e não quero ver a sua fuça 😂
-
-## - Deixa de ser intrometido!
-
-Se eu me intrometo é porque me importo. No dia em que eu me calar, é porque comecei a planejar a sua morte 😂
-
-Eu não sou intrometido, eu sou um orador motivacional 😂
-
-## - Você é obsessivo com trabalho!
-
-Obsessão? Aquela palavra que os preguiçosos usam para definir "dedicado"? 😂
-
-A única ocasião em que sucesso vem antes de trabalho é no dicionário
-
-## - Você é muito previsível
-
-Quando começo a ser espontâneo, minha conta bancária me lembra de parar com isso 😂
-
-Eu acho que com o devido preparo consigo ser bastante espontâneo 😂
-
-## - Você empurra demais com a barriga
-
-É bom deixar as coisas para quando você está mais velho e experiente 😂
-
-## - Você é muito lerdo!
-
-Eu trabalho com duas velocidades: lento e parado 😂
-
-Não importa o quão lento você seja, você sempre será mais rápido que aqueles que estão no sofá 😂
-
-## - Ok. (no sentido de desdenhar)
-
-Vejo que seu vocabulário começou a ficar escasso 😂
-
-Você sabe que ganhou a discussão quando a pessoa disse "ok" 😂
-
-Continua revirando os olhos, de repente você encontra o seu cérebro 😂
-
-## - Você sabe quem eu sou?
-
-Definitivamente, alguém que ainda não sabe como se apresentar 😂
-
-Desculpa, eu perdi todas as minhas habilidades paranormais em um acidente de carro que tive aos seis anos 😂
-
-Porque pergunta isso, perdeu a memória? 😂
-
-## - Vê se cresce!
-
-Quando você não faz besteira enquanto é jovem, você não vai ter motivo para sorrir quando estiver velho 😂
-
-Envelhecer é inevitável, ficar chato é opcional 😂
-
-Não leve a vida tão a sério, ninguém sai dela vivo mesmo 😂
-
-Você só é jovem uma vez, mas dá para ser imaturo para sempre 😂
-
-## - Você não sabe dirigir?
-
-Não, não dirijo, não boto ovo, não fabrico rádio, tem um monte de coisa que não ser fazer
-
-## - Tenho namorado?
-
-Ah que bom! Significa que podemos conversar sem você dar em cima de mim 😊
+Eu não sou galanteador, eu apenas sou sincero kkk e se eu acho você linda, eu vou dizer que você é linda rsrs
 
 # COMPLICADAS/RESSIGNIFICAÇÃO
-## QUANDO ELA TE BLOQUEIA
 
-Deixa eu adivinhar, você é dessas que desligava o videogame quando via que ia morrer e não queria ver "game over" na tela, daí vc fazia isso pra se iludir de que o jogo acabou pq vc quis, e não pq era uma pessima jogadora…
+## RESSIGNIFICAR (O QUE VOCÊ QUER COMIGO?)
 
-## QUANDO ELA FALA QUE SOMOS "DIFERENTES" 1
-
-Bom, você obviamente não está pronta para se permitir e encontrar alguém daqui... Um beijo, FULANA. Boa sorte!
-
-Sinceramente, eu não estou me sentindo motivado a ficar bancando o cachorro adestrado para ganhar um biscoito, então... Fica de boa, tá legal? Vou dar uma lida aqui num material que preciso estudar...
-
-Essa foi uma resposta de grande valor filosófico! Fiquei intrigado, fale mais a respeito disso...
-
-Sabe, você não é tão linda a ponto disso salvar a sua estupidez
-
-Sabe, eu adoro uma mulher que me testa... uma mulher que testa tem critérios, não se contenta com qualquer coisa... e quem muito exige, certamente tem muito a oferecer, né? E eu acho que nós dois já tivemos a nossa cota de gente desinteressante e/ou mal resolvida... mas esses casos e acasos de Tinder é um assunto perfeito para aquele açaí maroto no Shopping, que tal a gente conversar, ganhar a confiança um do outro e ver se isso não acontece?
+Sabe, eu adoro uma mulher que me testa... uma mulher que testa tem critérios, não se contenta com qualquer coisa... e quem muito exige, certamente tem muito a oferecer, né? E eu acho que nós dois já tivemos a nossa cota de gente desinterante e/ou mal resolvida... mas esses casos e acasos de Tinder é um assunto perfeito para aquele açaí maroto no Shopping, que tal a gente conversar, ganhar a confiança um do outro e ver se isso não acontece?
 
 ## QUANDO ELA FALA QUE SOMOS "DIFERENTES" 2
 
@@ -3618,11 +1318,11 @@ Então hoje em dia... eu prefiro aguentar para ver se tenho as "borboletas no es
 
 ## QUANDO ELA DIZ QUE TENHO ALGUM "DEFEITO"
 
-Imagina que eu tivesse te conhecido na balada e você morasse na Liberdade e eu em Osasco, se a gente tivesse tido algum tipo de química certamente daríamos um jeito de se ver, agora na internet não né? Se eu disse que moro em Osasco e a pessoa na Liberdade, ela já desiste logo, diz que é "muito longe", botam as coisas tudo na frente sabe? E eu acho que isso é tudo pelo excesso de "opção". Porque se você não tiver uma afinidade por menor que seja, tem sempre o "próximo". A Internet virou um "Outlet" de parceiros em potencial, é como se a gente tivesse comprando uma roupa, e você vê aquela que é o seu tamanho, seu número, perfeita, mas ela tem uma mancha, o que você faz? Pega outra limpa, mesmo sabendo que aquela mancha tem jeito, então existem diferentes que na maioria das vezes não são tão gritantes assim, é só uma mancha de sujeira que tem jeito, mas algumas pessoas não enxergam assim...
+Imagina que eu tivesse te conhecido na balada e você morasse na Liberdade e eu em Osasco, se a gente tivesse tido algum tipo de química certamente daríamos um jeito de se ver, agora na internet não né? Se eu disse que moro em Osasco e a pessoa na Liberdade, ela já desiste logo, diz que é "muito longe", botam as coisas tudo na frente sabe? E eu acho que isso é tudo pelo excesso de "opção". Porque se você não tiver uma afinidade por menor que seja, tem sempre o "previmo". A Internet virou um "Outlet" de parceiros em potencial, é como se a gente tivesse comprando uma roupa, e você vê aquela que é o seu tamanho, seu número, perfeita, mas ela tem uma mancha, o que você faz? Pega outra limpa, mesmo sabendo que aquela mancha tem jeito, então existem diferentes que na maioria das vezes não são tão gritantes assim, é só uma mancha de sujeira que tem jeito, mas algumas pessoas não enxergam assim...
 
 ## QUANDO ELA FAZ MUITAS "PERGUNTAS"
 
-Eu não sei da sua experiência de vida e também não sei qual seu propósito no Jaumo (se é achar alguém legal ou se é só "zoeira"/"curiosidade"). Eu já namorei um ano uma mulher do Jaumo e acho que é possível achar gente legal aqui. Você me parece ser legal mas tudo que tem feito até agora foi me testar. Não começo achei que fosse zoeira, mas você está prestes a completar 24h assim. E desculpa, mas não sou seu bobo corte. Queria te conhecer melhor mas a minha dignidade está acima de qualquer mulher linda. Então conversamos de adulto pra adulto ou... Bom, foi um prazer
+Eu não sei da sua experiência de vida e também não sei qual seu propósito no Jaumo (se é achar alguém legal ou se é só "zoeira"/"curiosidade"). Eu já namorei um ano uma mulher do Jaumo e acho que é possível achar gente legal aqui. Você me parece ser legal mas tudo que tem feito até agora foi me testar. No começo achei que fosse zoeira, mas você está prestes a completar 24h assim. E desculpa, mas não sou seu bobo da corte. Queria te conhecer melhor mas a minha dignidade está acima de qualquer mulher linda. Então conversamos de adulto pra adulto ou... Bom foi um prazer
 
 ## RESSIGNIFICAR (APRESSADO)
 
