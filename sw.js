@@ -50,7 +50,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
   // Para index.html e a raiz: SEMPRE tentar a rede primeiro
-  if (url.pathname.endsWith('index.html') || url.pathname === '/') {
+  if (url.pathname.endsWith('index.html') || url.pathname === '/' || url.pathname.endsWith('data.txt')) {
     event.respondWith(
       fetch(event.request, { cache: 'no-store' })
         .then(networkResponse => {
