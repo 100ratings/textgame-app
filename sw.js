@@ -1,4 +1,4 @@
-const CACHE_NAME = 'painel-mestre-v2';
+const CACHE_NAME = 'painel-mestre-v3';
 const assets = [
   './',
   './index.html',
@@ -10,20 +10,18 @@ const assets = [
   './android-chrome-512x512.png'
 ];
 
-// ─── INSTALL: cacheia os arquivos ──────────────────────────────────
+// ─── INSTALL: cacheia apenas assets estáticos (ícones) ────────────────
 self.addEventListener('install', event => {
-  // Pular o estado "waiting" e ativar imediatamente
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      // Cache com network-fallback (se falhar um asset, não quebra tudo)
       return Promise.all(
         assets.map(asset =>
-          fetch(asset, { cache: 'no-store' })
+          fetch(asset, { cache: 'reload' })
             .then(response => {
               if (response.ok) cache.put(asset, response);
             })
-            .catch(() => {}) // se falhar, ignora sem quebrar
+            .catch(() => {})
         )
       );
     })
@@ -32,7 +30,6 @@ self.addEventListener('install', event => {
 
 // ─── ACTIVATE: limpa caches antigos ────────────────────────────────
 self.addEventListener('activate', event => {
-  // assumir controle de todas as páginas imediatamente
   self.clients.claim();
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -45,16 +42,16 @@ self.addEventListener('activate', event => {
   );
 });
 
-// ─── FETCH: network-first para index.html (sempre buscar versão nova) ─
+// ─── FETCH: Estratégia "Network-Only" para o conteúdo e index ───────
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // Para index.html e a raiz: SEMPRE tentar a rede primeiro
-  if (url.pathname.endsWith('index.html') || url.pathname === '/' || url.pathname.endsWith('data.txt')) {
+  // Se for o conteúdo (data.txt) ou o index, NUNCA usar cache se estiver online
+  // Isso garante que o commit novo apareça na hora
+  if (url.pathname.endsWith('data.txt') || url.pathname.endsWith('index.html') || url.pathname === '/') {
     event.respondWith(
       fetch(event.request, { cache: 'no-store' })
         .then(networkResponse => {
-          // Se veio da rede com sucesso, atualiza o cache
           if (networkResponse.ok) {
             const clone = networkResponse.clone();
             caches.open(CACHE_NAME).then(cache => {
@@ -64,27 +61,17 @@ self.addEventListener('fetch', event => {
           return networkResponse;
         })
         .catch(() => {
-          // Se offline, serve do cache
+          // Se falhar a rede (offline), aí sim usa o cache
           return caches.match(event.request);
         })
     );
     return;
   }
 
-  // Para os demais assets: cache-first (mais rápido)
+  // Para ícones e manifest: cache-first
   event.respondWith(
     caches.match(event.request).then(response => {
-      return response || fetch(event.request, { cache: 'no-store' })
-        .then(networkResponse => {
-          // Cacheia novos assets que não estavam no cache
-          if (networkResponse.ok) {
-            const clone = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, clone);
-            });
-          }
-          return networkResponse;
-        });
+      return response || fetch(event.request);
     })
   );
 });

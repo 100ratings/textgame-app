@@ -689,21 +689,45 @@
             });
         }
 
-        window.onload = () => {
-            fetch('data.txt?' + new Date().getTime()) // Evita cache do arquivo de texto
+        function carregarConteudo() {
+            // Adicionamos um timestamp único para forçar o navegador a ignorar qualquer cache
+            fetch('data.txt?t=' + Date.now())
                 .then(response => response.text())
                 .then(text => {
                     const rawElement = document.getElementById('raw-data');
                     if (rawElement) {
-                        rawElement.textContent = text;
-                        processar();
+                        // Só atualiza se o texto for diferente do que já está na tela
+                        if (rawElement.textContent !== text) {
+                            console.log('Nova versão detectada! Atualizando conteúdo...');
+                            rawElement.textContent = text;
+                            processar();
+                        }
                     }
                 })
                 .catch(err => {
                     console.error('Erro ao carregar o conteúdo:', err);
-                    document.getElementById('app').innerHTML = '<div class="msg" style="color: red; text-align: center;">Erro ao carregar o conteúdo do jogo. Verifique sua conexão ou se o arquivo data.txt existe.</div>';
                 });
+        }
+
+        window.onload = () => {
+            carregarConteudo();
+            
+            // Força o Service Worker a se atualizar sempre que abrir o app
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.ready.then(reg => reg.update());
+            }
         };
+
+        // Estratégia de atualização ultra-rápida:
+        // Sempre que você abrir o app ou voltar para a aba dele, ele checa o arquivo
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                carregarConteudo();
+            }
+        });
+
+        // Checagem periódica a cada 30 segundos enquanto estiver aberto
+        setInterval(carregarConteudo, 30000);
     </script>
 
 <pre id="raw-data" style="display: none;">
