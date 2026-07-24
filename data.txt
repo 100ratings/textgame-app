@@ -1631,7 +1631,7 @@ Então sua missão é escolher um assunto que faça você responder de forma cur
 Valendo… me surpreende 👀
 
 ## RESPOSTAS RÁPIDAS PARA CADA MONOSSÍLABO
-AFIRMAÇÕES
+> AFIRMAÇÕES
 
 * “Sim”
 “Esse ‘sim’ veio sem os anexos kkk. Sim por quê?”
@@ -1662,7 +1662,7 @@ AFIRMAÇÕES
 
 ---
 
-NEGAÇÕES
+> NEGAÇÕES
 
 * “Não”
 “Um ‘não’ tão decidido merece uma explicação. O que te fez descartar?”
@@ -1684,7 +1684,7 @@ NEGAÇÕES
 
 ---
 
-DÚVIDA E INDECISÃO
+> DÚVIDA E INDECISÃO
 
 * “Não sei”
 “Escolhe a hipótese mais provável e me explica como chegou nela.”
@@ -1712,7 +1712,7 @@ DÚVIDA E INDECISÃO
 
 ---
 
-RISADAS E REAÇÕES
+> RISADAS E REAÇÕES
 
 * “Kkk”
 “A risada foi aprovada. Agora traduz: o que exatamente te fez rir?”
@@ -1749,7 +1749,7 @@ RISADAS E REAÇÕES
 
 ---
 
-CONCORDÂNCIA PREGUIÇOSA
+> CONCORDÂNCIA PREGUIÇOSA
 
 * “Pois é”
 “‘Pois é’ é praticamente uma vírgula kkk. Termina o raciocínio.”
@@ -1777,7 +1777,7 @@ CONCORDÂNCIA PREGUIÇOSA
 
 ---
 
-INDIFERENÇA OU EVASÃO
+> INDIFERENÇA OU EVASÃO
 
 * “Nada”
 “Impossível não ter absolutamente nada aí kkk. Qual foi a parte menos entediante do seu dia?”
@@ -1805,7 +1805,7 @@ INDIFERENÇA OU EVASÃO
 
 ---
 
-RESPOSTAS SOBRE ESTADO EMOCIONAL
+> RESPOSTAS SOBRE ESTADO EMOCIONAL
 
 * “Bem”
 “Bem é o resumo. O que aconteceu hoje que merece entrar na versão completa?”
@@ -1836,7 +1836,7 @@ RESPOSTAS SOBRE ESTADO EMOCIONAL
 
 ---
 
-RESPOSTAS DE TEMPO
+> RESPOSTAS DE TEMPO
 
 * “Hoje”
 “Hoje em qual momento? Quero a cena completa.”
@@ -1864,7 +1864,7 @@ RESPOSTAS DE TEMPO
 
 ---
 
-RESPOSTAS DE LUGAR
+> RESPOSTAS DE LUGAR
 
 * “Aqui”
 “Aqui onde? Me dá pelo menos cenário e contexto kkk.”
@@ -1886,7 +1886,7 @@ RESPOSTAS DE LUGAR
 
 ---
 
-RESPOSTAS SOBRE PREFERÊNCIAS
+> RESPOSTAS SOBRE PREFERÊNCIAS
 
 * “Gosto”
 “O que exatamente faz você gostar disso?”
@@ -1911,7 +1911,7 @@ RESPOSTAS SOBRE PREFERÊNCIAS
 
 ---
 
-QUANDO ELA RESPONDE SÓ COM EMOJI
+> QUANDO ELA RESPONDE SÓ COM EMOJI
 
 * “😂”
 “Agora legenda esse emoji com a frase que você pensou.”
@@ -1945,7 +1945,7 @@ QUANDO ELA RESPONDE SÓ COM EMOJI
 
 ---
 
-QUANDO ELA SÓ REPETE SUA PALAVRA
+> QUANDO ELA SÓ REPETE SUA PALAVRA
 
 * “Sério?”
 “Sério. Mas quero saber por que isso pareceu tão improvável pra você.”
